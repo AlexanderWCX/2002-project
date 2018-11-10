@@ -16,6 +16,10 @@ public class CourseDB {
 public static final String SEPARATOR = "|";
 
 	public static ArrayList readCourse(String courseFile) throws IOException {
+		
+		ArrayList studentList = new ArrayList(); 
+		studentList = StudentDB.readStudents("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt"); 
+				
 		// Read String from Text File
 		ArrayList courseArray = new ArrayList();
 		
@@ -54,15 +58,35 @@ public static final String SEPARATOR = "|";
 				//Third Token 
 				String courseType = star.nextToken().trim();
 				//Fourth Token 
-				String courseCoordi = star.nextToken().trim(); 
+				String courseProfName = star.nextToken().trim(); 
 				//Fifth Token 
-				int courseVacancy = Integer.parseInt(star.nextToken().trim());
+				int courseFreeSlot = Integer.parseInt(star.nextToken().trim());
+				int courseTotalSlot = Integer.parseInt(star.nextToken().trim());
 								
 				//Create Course object from file data
-				Course course = new Course(courseID, courseName, courseType, courseCoordi, courseVacancy);
+				Course course = new Course (courseID, courseName, courseType, courseProfName, courseFreeSlot, courseTotalSlot); 
 				
 				//Add to Course list
 				alr.add(course);
+				
+				while(star.hasMoreTokens())
+				{
+					int studentID = Integer.parseInt(star.nextToken().trim()); 
+					
+					for(int j = 0; j<studentList.size(); j++)
+					{
+						Student student = (Student)studentList.get(j); 
+						int checkStudentID = student.getStudentID(); 
+						
+						if(checkStudentID == studentID)
+						{
+							Student studentToAdd = (Student)studentList.get(j); 
+							course.addStudents(studentToAdd);
+							break; 
+							
+						}
+					}
+				}
 				
 			}
 			return alr;
@@ -82,10 +106,21 @@ public static final String SEPARATOR = "|";
 					st.append(SEPARATOR);
 					st.append(course.getCourseType().trim());
 					st.append(SEPARATOR);
-					st.append(course.getCourseCoordi().trim());
+					st.append(course.getCourseProfName().trim());
 					st.append(SEPARATOR);
-					st.append(course.getcourseVacancy());
+					st.append(course.getCourseFreeSlot());
 					st.append(SEPARATOR);
+					st.append(course.getCourseTotalSlot());
+					st.append(SEPARATOR);
+					
+					for(int j=0; j<course.getStudentList(); j++)
+					{
+						if(course.getStudentID(j) !=0)
+						{
+							st.append(course.getStudentID(j)); 
+							st.append(SEPARATOR); 
+						}
+					}
 					
 					alw.add(st.toString());
 				}

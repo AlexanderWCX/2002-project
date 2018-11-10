@@ -11,25 +11,26 @@ import schoolsystem.Assessment;
 public class Course {
 	
 	int courseID; 
-	int freeSlot;
-	int totalSlot; 
+	int courseFreeSlot;
+	int courseTotalSlot; 
 	String courseName;
 	String courseType; 
 	String courseProfName; 
+	
 	
 	private ArrayList<Student> studentList = new ArrayList<Student>();
 	public ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
 	 
 	
 	
-	public Course (int courseID, String courseName, String courseType, String courseProfName, int freeSlot, int totalSlots)
+	public Course (int courseID, String courseName, String courseType, String courseProfName, int courseFreeSlot, int courseTotalSlot)
 	{
 		this.courseID = courseID; 
 		this.courseName = courseName; 
 		this.courseType = courseType; 
 		this.courseProfName = courseProfName; 
-		this.freeSlot = freeSlot;
-		this.totalSlot = totalSlot; 
+		this.courseFreeSlot = courseFreeSlot;
+		this.courseTotalSlot = courseTotalSlot; 
 	}
 	
 	//For Course ID 
@@ -69,36 +70,36 @@ public class Course {
 	
 	
 	//For Course Coordinator 
-	public String getcourseProfName()
+	public String getCourseProfName()
 	{
 		return courseProfName; 
 	}
 	
-	public void setcourseProfName(String courseProfName)
+	public void setCourseProfName(String courseProfName)
 	{
 		this.courseProfName = courseProfName; 
 	}
 	
 		 
-	public int getFreeSlot()
+	public int getCourseFreeSlot()
 	{
-		return freeSlot; 
+		return courseFreeSlot; 
 	}
 	
-	public void setFreeSlot(int freeSlot)
+	public void setCourseFreeSlot(int courseFreeSlot)
 	{
-		this.freeSlot = freeSlot; 
+		this.courseFreeSlot = courseFreeSlot; 
 	}
 	
 
-	public int getTotalSlot()
+	public int getCourseTotalSlot()
 	{
-		return freeSlot; 
+		return courseTotalSlot; 
 	}
 	
-	public void setTotalSlot(int totalSlot)
+	public void setCourseTotalSlot(int courseTotalSlot)
 	{
-		this.totalSlot = totalSlot; 
+		this.courseTotalSlot = courseTotalSlot; 
 	}
 	
 	
@@ -107,14 +108,14 @@ public class Course {
 		return studentList.size(); 
 	}
 	
-	public int getStudentID(int ID)
+	public int getStudentID(int index)
 	{		
-		return studentList.get(ID).getStudentID(); 
+		return studentList.get(index).getStudentID(); 
 	}
 	
-	public void getStudentCourses(Student student)
+	public void addStudents(Student student)
 	{
-		student.getStudentID(); 
+		studentList.add(student); 
 	}
 	
 	

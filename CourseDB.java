@@ -18,7 +18,7 @@ public static final String SEPARATOR = "|";
 	public static ArrayList readCourse(String courseFile) throws IOException {
 		
 		ArrayList studentList = new ArrayList(); 
-		studentList = StudentDB.readStudents("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt"); 
+		studentList = StudentDB.readStudentIDs("/Users/trifenacaroline/Downloads/student.txt"); 
 				
 		// Read String from Text File
 		ArrayList courseArray = new ArrayList();
@@ -61,10 +61,11 @@ public static final String SEPARATOR = "|";
 				String courseProfName = star.nextToken().trim(); 
 				//Fifth Token 
 				int courseFreeSlot = Integer.parseInt(star.nextToken().trim());
-				int courseTotalSlot = Integer.parseInt(star.nextToken().trim());
+				//int courseTotalSlot = Integer.parseInt(star.nextToken().trim());
 								
 				//Create Course object from file data
-				Course course = new Course (courseID, courseName, courseType, courseProfName, courseFreeSlot, courseTotalSlot); 
+				//Course course = new Course (courseID, courseName, courseType, courseProfName, courseFreeSlot, courseTotalSlot); 
+				Course course = new Course (courseID, courseName, courseType, courseProfName, courseFreeSlot);
 				
 				//Add to Course list
 				alr.add(course);
@@ -92,6 +93,8 @@ public static final String SEPARATOR = "|";
 			return alr;
 	}
 	
+
+
 	//To save a Course 
 	public static void saveCourse(String filename, List al) throws IOException {
 		//To store Course Data	

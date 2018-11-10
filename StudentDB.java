@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 public class StudentDB {
 	public static final String SEPARATOR = "|";
 
-	System.out.println("hello world");
+	
 	
     // an example of reading
 	public static ArrayList readStudents(String directory) throws IOException {
@@ -51,7 +51,9 @@ public class StudentDB {
 				String st = (String)stringArray.get(i);
 				// get individual 'fields' of the string separated by SEPARATOR
 				StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
-
+				if(!star.hasMoreTokens()) {
+					break;
+				}
 				int studentID = Integer.parseInt(star.nextToken().trim()); // first token
 				String studentName = star.nextToken().trim();	// second token
 
@@ -61,6 +63,7 @@ public class StudentDB {
 				while(star.hasMoreTokens()) {
 				int courseID = Integer.parseInt(star.nextToken().trim());
 				for (int j = 0; j < courseList.size(); j++) {
+					
 					Course courseToTest = (Course)courseList.get(j);
 					int courseToTestID = courseToTest.getCourseID();
 					if (courseToTestID == courseID) {
@@ -76,6 +79,44 @@ public class StudentDB {
 			return alr;
 	}
         
+public static ArrayList readStudentIDs(String directory) throws IOException {
+		
+		// read String from text file
+		ArrayList stringArray = new ArrayList();
+		ArrayList alr = new ArrayList() ;// to store Students data
+    	Scanner input;
+    	
+        try {
+            File file = new File(directory);
+            input = new Scanner(file);
+            int i = 0;
+
+            while (input.hasNextLine()) {
+                String line = input.nextLine();
+                stringArray.add(line);
+                
+            }
+            input.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0 ; i < stringArray.size() ; i++) {
+				String st = (String)stringArray.get(i);
+				// get individual 'fields' of the string separated by SEPARATOR
+				StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
+				if (!star.hasMoreTokens()) {
+					break;
+				}
+				int studentID = Integer.parseInt(star.nextToken().trim()); // first token
+				String studentName = star.nextToken().trim();	// second token
+				Student student = new Student(studentID, studentName); // create Student Object from file data
+				alr.add(student); //add to Student List
+        }
+			return alr;
+	}
+	
 	
 	// an example of saving
 	public static void saveStudents(String filename, List al) throws IOException {

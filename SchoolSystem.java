@@ -1,5 +1,6 @@
 package schoolsystem;
 
+
 import schoolsystem.Course;
 import schoolsystem.CourseDB;
 import schoolsystem.Assessment;
@@ -143,12 +144,57 @@ public class SchoolSystem {
 			
 		case 5:
 			
-			int choose = 0;
-			System.out.println("Enter 1 for printing by lecture. ");
-			System.out.println("Enter 2 for printing by tutorial. ");
-			System.out.println("Enter 1 for printing by laboratory session. ");
+			System.out.println("Please enter a course code:");
+    		int courseCode = sc.nextInt(); 
+    		
+    		try {
+    		String courseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
+    		String studentFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt";
+    		ArrayList arrayReadCourse = CourseDB.readCourse(courseFile);
+    		ArrayList arrayReadStudent = StudentDB.readStudents(studentFile); 
+       	
+    		for (int i = 0 ; i < arrayReadStudent.size() ; i++) {
+				Student student = (Student)arrayReadStudent.get(i); 
+    			//Course course = (Course)arrayReadCourse.get(i);
+							
+				if(student.getCourseID(i) == courseCode)
+				{
+					System.out.println("List of Student: " + student.getStudentName());
+				
+					//System.out.println("Course Coordinator: " + course.getCourseCoordi());
+					//System.out.println("Course Vacancy: " + course.getcourseVacancy());
+	
+				}
+				
+				else 
+					System.out.println("Course Code not found!"); 
+							break;
+													
+    		}
+    		
+    		} 
+    		catch (IOException e) {
+				System.out.println("IOException > " + e.getMessage());
+			}
+    	
+    		
+	
 			
-			choose = sc.nextInt();
+			//int case5Choice = 0;
+			//System.out.println("Please enter Course Code");
+			
+		//case5Choice = sc.nextInt(); 
+			
+		
+		/*
+		int choose = 0;
+		System.out.println("Enter 1 for printing by lecture. ");
+		System.out.println("Enter 2 for printing by tutorial. ");
+		System.out.println("Enter 1 for printing by laboratory session. ");
+		
+		choose = sc.nextInt();
+		*/
+			break; 
 			
 		case 6:
 			String assessmentName;

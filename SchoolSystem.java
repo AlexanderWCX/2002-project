@@ -197,19 +197,18 @@ public class SchoolSystem {
 			break; 
 			
 		case 6:
-			String assessmentName;
-			int weightage;
-			int courseworkInput;
-			boolean courseworkToPass;
-			int courseInput;
-			int targetCourseIndex = 0;
-			Course targetCourse;
-			boolean madebefore;
-			int assessmentIndex;
-			Assessment madeAssessment;
+			int case6courseID;
+			String case6assessmentName;
+			int case6targetCourseIndex = 999;
+			Course case6targetCourse;
+			boolean case6madeBefore = false;
+			int case6courseworkInput;
+			int case6weightage;
 			
 			System.out.println("Enter the courseID of course to add assessment to: ");
-			courseInput = sc.nextInt();
+			case6courseID = sc.nextInt();
+			
+			
 			try {
 			ArrayList courseList = new ArrayList(); // to store list of courses
 			courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
@@ -217,61 +216,63 @@ public class SchoolSystem {
 			for (int j = 0; j < courseList.size(); j++) {
 				Course courseToTest = (Course)courseList.get(j);
 				int courseToTestID = courseToTest.getCourseID();
-				if (courseToTestID == courseInput) {
-					targetCourseIndex = j;
+				if (courseToTestID == case6courseID) {
+					case6targetCourseIndex = j;
 					break;
 				}
 			}
 			
-			targetCourse = (Course)courseList.get(targetCourseIndex);
+			if (case6targetCourseIndex == 999 ) {
+				System.out.println("Course does not exist!");
+				break;
+			}
+			
+			case6targetCourse = (Course)courseList.get(case6targetCourseIndex);
 			
 			
 			System.out.println("Enter the name of the assessment: ");
-			assessmentName = sc.next();
 			
-			for (int i=0; i< targetCourse.assessmentList.size(); i++) {
-				Assessment assessmentToTest = (Assessment)targetCourse.assessmentList.get(i);
-				if (assessmentName == assessmentToTest.assessmentName) {
-					madebefore = true;
-					assessmentIndex = i;
+			case6assessmentName = sc.next();
+			
+			ArrayList assessmentList = new ArrayList(); // to store list of courses
+			assessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt");
+			
+			for (int i=0; i< assessmentList.size(); i++) {
+				Assessment assessmentToTest = (Assessment)assessmentList.get(i);
+				if (case6courseID == assessmentToTest.courseID) {
+					if (case6assessmentName == assessmentToTest.assessmentName) {
+					case6madeBefore = true;
 					break;
-				} 
+				    } 
+				}
 			}
+			
+			if(case6madeBefore == true) {
+				String case6assessmentinvalid;
+				case6assessmentinvalid = String.format("Assessment with the same assessment name has been made before for CourseID %d ", case6courseID);
+				System.out.println(case6assessmentinvalid);
+				break;
+			}
+			
 			
 			System.out.println("Is this assessment a Coursework sub-component? ");
 			System.out.println("Enter 1 for Yes");
 			System.out.println("Enter 0 for No");
-			courseworkInput = sc.nextInt();
-			
-			/*while(true) {
-			if (courseworkInput != 1 || courseworkInput != 0) {
-				System.out.println("Invalid input. Please enter either 1 or 0.");
-				System.out.println("Is this assessment a Coursework sub-component? ");
-				System.out.println("Enter 1 for Yes");
-				System.out.println("Enter 0 for No");
-				courseworkInput = sc.nextInt();
-			} else {
-				break;
-			}
-			}
-			*/
-			
-			if(courseworkInput == 1) {
-				courseworkToPass = true;
-			} else {
-				courseworkToPass = false;
-			}
+			case6courseworkInput = sc.nextInt();
 			
 			System.out.println("Enter the weightage of the assessment(out of 100): ");
-			weightage = sc.nextInt();
+			case6weightage = sc.nextInt();
 			
-			targetCourse.addAssessment(weightage, assessmentName, courseworkToPass);
+			Assessment case6newAssessment = new Assessment(case6courseID, case6assessmentName, case6weightage, case6courseworkInput);
+			assessmentList.add(case6newAssessment);
+			AssessmentDB.saveAssessments("/Users/trifenacaroline/Downloads/Assessment.txt", assessmentList);
+			
 			System.out.println("Assessment succesfully added!");
+			
 			} catch (Exception e) {
 	            e.printStackTrace();
 	        }
-			break;
-			
+			break;			
 		case 7:
 			
 			System.out.println("Enter the Students ID: ");

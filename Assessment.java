@@ -3,13 +3,15 @@ package schoolsystem;
 import java.util.ArrayList;
 
 public class Assessment {
+	public int courseID;
 	public int weightage;
 	public String assessmentName;
-	private boolean coursework;
+	public int coursework;
 	private ArrayList<Score> scoreList = new ArrayList<Score>();
 	
 	
-	public Assessment (int weightage, String assessmentName, boolean coursework) {
+	public Assessment (int courseID, String assessmentName, int weightage, int coursework) {
+		this.courseID = courseID;
 		this.weightage = weightage;
 		this.assessmentName = assessmentName;
 		this.coursework = coursework;

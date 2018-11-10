@@ -119,13 +119,6 @@ public class Course {
 	}
 	
 	
-	public void addAssessment (int weightage, String name, boolean coursework)
-	{
-
-		Assessment assessment = new Assessment(weightage, name, coursework); 
-	}
-	
-	
 }
 
 

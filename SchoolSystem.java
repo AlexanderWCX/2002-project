@@ -1,6 +1,5 @@
 package schoolsystem;
 
-
 import schoolsystem.Course;
 import schoolsystem.CourseDB;
 import schoolsystem.Assessment;
@@ -35,27 +34,41 @@ public class SchoolSystem {
 		
 		case 1: 
 			StudentDB txtDB = new StudentDB();
-	    	String filenamecase1 = "/Users/trifenacaroline/Downloads/student.txt";
-			int AddIDNum;
-			String studName;
+	    	String case1studentFile = "/Users/trifenacaroline/Downloads/student.txt";
+			int case1studentID;
+			String case1studName;
+			boolean case1studentIDExists = false;
 	    	
 			try {
 				
-				ArrayList allStudents1 = StudentDB.readStudents(filenamecase1) ;
+				ArrayList case1studentList = StudentDB.readStudents(case1studentFile) ;
 				
 				System.out.println("Enter New Student ID:");
-				AddIDNum = sc.nextInt();
+				case1studentID = sc.nextInt();
+				
+				for (int i = 0 ; i < case1studentList.size() ; i++) {
+					Student case1studentToCheck = (Student)case1studentList.get(i);
+					if (case1studentID == case1studentToCheck.getStudentID())
+						case1studentIDExists = true;
+				}
+				
+				//prompt if studentID does not exist
+				if(case1studentIDExists == true) {
+					System.out.println("Student ID already exists!");
+					break;
+				}
+				
 				System.out.println("Enter New Student Name:");
-				studName = sc.next();
-				Student student = new Student(AddIDNum, studName);
+				case1studName = sc.next();
+				Student student = new Student(case1studentID, case1studName);
 				
 				//add student obj into list of all students
-				allStudents1.add(student);
+				case1studentList.add(student);
 				//write student record(s) to file
-				StudentDB.saveStudents(filenamecase1, allStudents1);
+				StudentDB.saveStudents(case1studentFile, case1studentList);
 				
-				for (int i = 0 ; i < allStudents1.size() ; i++) {
-						Student studenttoprint = (Student)allStudents1.get(i);
+				for (int i = 0 ; i < case1studentList.size() ; i++) {
+						Student studenttoprint = (Student)case1studentList.get(i);
 						System.out.println("Student ID: " + studenttoprint.getStudentID());
 						System.out.println("Student Name: " + studenttoprint.getStudentName() );
 						System.out.println("---------------------------------");
@@ -74,50 +87,76 @@ public class SchoolSystem {
 			
 		case 3:
 			
-			int studID;
-			int courseIDToAdd;
-			int targetindex = 0;
+			int case3studID;
+			int case3courseIDToAdd = 999;
+			int case3targetIndex = 999;
+			boolean case3studentIDExists = false;
+			boolean case3courseAdded = false;
 			
 			try {
-				String filenamecase2 = "/Users/trifenacaroline/Downloads/student.txt";
-				ArrayList allStudents2 = StudentDB.readStudents(filenamecase2) ;
+				String case3studentFile = "/Users/trifenacaroline/Downloads/student.txt";
+				ArrayList case3studentList = StudentDB.readStudents(case3studentFile); 
 				
 				System.out.println("Enter Student ID:");
-				studID = sc.nextInt();
-				System.out.println("Enter Course to Register:");
-				courseIDToAdd = sc.nextInt();
+				case3studID = sc.nextInt();
 				
-				for (int j = 0; j<allStudents2.size(); j++) {
-					Student studenttocheckID = (Student)allStudents2.get(j);
-					if (studID == studenttocheckID.getStudentID()) {
-						targetindex = j;
+				//checking if student ID exists
+				for (int i = 0 ; i < case3studentList.size() ; i++) {
+					Student case1studentToCheck = (Student)case3studentList.get(i);
+					if (case3studID == case1studentToCheck.getStudentID())
+						case3studentIDExists = true;
+				}
+				
+				//prompt if student ID does not exist
+				if(case3studentIDExists == false ) {
+					System.out.println("Student ID does not exist!");
+					break;
+				}
+				
+				//get student ID's index in studentList
+				for (int j = 0; j<case3studentList.size(); j++) {
+					Student studenttocheckID = (Student)case3studentList.get(j);
+					if (case3studID == studenttocheckID.getStudentID()) {
+						case3targetIndex = j;
 						break;
 					}
 				}
 				
-				Student studenttoRegisterCourse = (Student)allStudents2.get(targetindex);
+				//create student object for target student
+				Student studenttoRegisterCourse = (Student)case3studentList.get(case3targetIndex);
+				
+				
+				System.out.println("Enter Course to Register:");
+				case3courseIDToAdd = sc.nextInt();
+				
+				
 				//import list of courses into an arraylist
 				ArrayList courseList = new ArrayList(); // to store list of courses
 				courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
+				
+				//checking if courseID exists in courseList
 				for (int j = 0; j < courseList.size(); j++) {
 					Course courseToTest = (Course)courseList.get(j);
 					int courseToTestID = courseToTest.getCourseID();
-					if (courseToTestID == courseIDToAdd) {
-						Course courseToAdd = (Course)courseList.get(j);
-						studenttoRegisterCourse.addCourse(courseToAdd);
+					if (courseToTestID == case3courseIDToAdd) {
+						studenttoRegisterCourse.addCourse(courseToTest);
+						case3courseAdded = true;
 						break;
-					}
+					} 
 				}
 				
 				
+				if(case3studentIDExists == false ) {
+					System.out.println("Course ID does not exist!");
+					break;
+				}
 				
-				//add student obj into list of all students
 				
 				//write student record(s) to file
-				StudentDB.saveStudents(filenamecase2, allStudents2);
+				StudentDB.saveStudents(case3studentFile, case3studentList); 
 				
-				for (int i = 0 ; i < allStudents2.size() ; i++) {
-						Student studenttoprint = (Student)allStudents2.get(i);
+				for (int i = 0 ; i < case3studentList.size() ; i++) {
+						Student studenttoprint = (Student)case3studentList.get(i);
 						System.out.println("Student ID: " + studenttoprint.getStudentID());
 						System.out.println("Student Name: " + studenttoprint.getStudentName() );
 						System.out.println("Courses Registered are: ");
@@ -144,34 +183,34 @@ public class SchoolSystem {
 			
 		case 5:
 			
-			System.out.println("Please enter a course code:");
+			System.out.println("Please enter a course ID:");
     		int courseCode = sc.nextInt(); 
     		
     		try {
-    		String courseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
-    		String studentFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt";
+    		String courseFile = "/Users/trifenacaroline/Downloads/Course.txt";
+    		String studentFile = "/Users/trifenacaroline/Downloads/student.txt";
+    		
     		ArrayList arrayReadCourse = CourseDB.readCourse(courseFile);
+    		
     		ArrayList arrayReadStudent = StudentDB.readStudents(studentFile); 
-       	
+    		
+    		System.out.println("List of Students: ");
+    		
     		for (int i = 0 ; i < arrayReadStudent.size() ; i++) {
 				Student student = (Student)arrayReadStudent.get(i); 
     			//Course course = (Course)arrayReadCourse.get(i);
-							
-				if(student.getCourseID(i) == courseCode)
+				int sizeOfStudentCourseList = student.getCourseListSize();
+				for (int j = 0; j < sizeOfStudentCourseList; j++) {
+				if(student.getCourseID(j) == courseCode)
 				{
-					System.out.println("List of Student: " + student.getStudentName());
-				
-					//System.out.println("Course Coordinator: " + course.getCourseCoordi());
-					//System.out.println("Course Vacancy: " + course.getcourseVacancy());
-	
+					System.out.println(student.getStudentName());
 				}
-				
-				else 
+				/*else 
 					System.out.println("Course Code not found!"); 
 							break;
-													
+				*/									
     		}
-    		
+    		}
     		} 
     		catch (IOException e) {
 				System.out.println("IOException > " + e.getMessage());
@@ -272,7 +311,8 @@ public class SchoolSystem {
 			} catch (Exception e) {
 	            e.printStackTrace();
 	        }
-			break;			
+			break;
+			
 		case 7:
 			
 			System.out.println("Enter the Students ID: ");

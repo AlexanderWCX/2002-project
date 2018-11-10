@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 public class StudentDB {
 	public static final String SEPARATOR = "|";
 
-	
+	System.out.println("hello world");
 	
     // an example of reading
 	public static ArrayList readStudents(String directory) throws IOException {

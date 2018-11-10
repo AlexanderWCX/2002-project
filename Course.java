@@ -5,30 +5,31 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.List; 
 import java.util.StringTokenizer; 
+import schoolsystem.Student;
+import schoolsystem.Assessment;
 
 public class Course {
 	
 	int courseID; 
-	int courseVacancy; 
+	int freeSlot;
+	int totalSlot; 
 	String courseName;
 	String courseType; 
-	String courseCoordi; 
+	String courseProfName; 
+	
+	private ArrayList<Student> studentList = new ArrayList<Student>();
 	public ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
+	 
 	
-	public void addAssessment (int weightage, String name, boolean coursework) {
-		Assessment assessment = new Assessment(weightage, name, coursework);
-		
-	}
 	
-	//private ArrayList<Student> studentList = new ArrayList<Student>; 
-	
-	public Course (int courseID, String courseName, String courseType, String courseCoordi, int courseVacancy)
+	public Course (int courseID, String courseName, String courseType, String courseProfName, int freeSlot, int totalSlots)
 	{
 		this.courseID = courseID; 
 		this.courseName = courseName; 
 		this.courseType = courseType; 
-		this.courseCoordi = courseCoordi; 
-		this.courseVacancy = courseVacancy; 
+		this.courseProfName = courseProfName; 
+		this.freeSlot = freeSlot;
+		this.totalSlot = totalSlot; 
 	}
 	
 	//For Course ID 
@@ -68,43 +69,61 @@ public class Course {
 	
 	
 	//For Course Coordinator 
-	public String getCourseCoordi()
+	public String getcourseProfName()
 	{
-		return courseCoordi; 
+		return courseProfName; 
 	}
 	
-	public void setCourseCoordi(String courseCoordi)
+	public void setcourseProfName(String courseProfName)
 	{
-		this.courseCoordi = courseCoordi; 
+		this.courseProfName = courseProfName; 
 	}
 	
-	
-	//For Course Vacancy 
-	public int getcourseVacancy()
+		 
+	public int getFreeSlot()
 	{
-		return courseVacancy; 
+		return freeSlot; 
 	}
 	
-	public void setcourseVacancy(int courseVacancy)
+	public void setFreeSlot(int freeSlot)
 	{
-		this.courseVacancy = courseVacancy; 
-	}
-	
-	//For adding of Exam marks 
-	public double addExam()
-	{
-		return 0;
-		
-	}
-	
-	//For adding of Coursework marks 	
-	public double addCoursework()
-	{
-		return 0;
-		
+		this.freeSlot = freeSlot; 
 	}
 	
 
+	public int getTotalSlot()
+	{
+		return freeSlot; 
+	}
+	
+	public void setTotalSlot(int totalSlot)
+	{
+		this.totalSlot = totalSlot; 
+	}
+	
+	
+	public int getStudentList()
+	{
+		return studentList.size(); 
+	}
+	
+	public int getStudentID(int ID)
+	{		
+		return studentList.get(ID).getStudentID(); 
+	}
+	
+	public void getStudentCourses(Student student)
+	{
+		student.getStudentID(); 
+	}
+	
+	
+	public void addAssessment (int weightage, String name, boolean coursework)
+	{
+
+		Assessment assessment = new Assessment(weightage, name, coursework); 
+	}
+	
 	
 }
 

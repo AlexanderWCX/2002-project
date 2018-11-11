@@ -23,13 +23,14 @@ public class Course {
 	 
 	
 	
-	public Course (int courseID, String courseName, String courseType, String courseProfName, int courseFreeSlot)
+	public Course (int courseID, String courseName, String courseType, String courseProfName, int courseFreeSlot, int courseTotalSlot)
 	{
 		this.courseID = courseID; 
 		this.courseName = courseName; 
 		this.courseType = courseType; 
 		this.courseProfName = courseProfName; 
 		this.courseFreeSlot = courseFreeSlot;
+		this.courseFreeSlot = courseTotalSlot;
 		
 	}
 	

@@ -1,5 +1,6 @@
 package schoolsystem;
 
+
 import schoolsystem.Course;
 import schoolsystem.CourseDB;
 import schoolsystem.Assessment;
@@ -82,8 +83,74 @@ public class SchoolSystem {
 			
 			
 		case 2:
+						
+			ClassDB case2ClassDB = new ClassDB();
+	    	String case2ClassFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Class.txt";
+	    	String case2CourseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
 			
-			break;
+	    	int courseID;
+			String courseName;
+			String courseType;
+			String courseProfName;
+			int courseFreeSlot = 0;
+			int courseTotalSlot = 0; 
+			String classType;
+			String classCode;  
+			int numOfClass; 
+			char option = 'Y'; 
+			int classSlots; 
+	    	
+			try {
+				
+				ArrayList newCourse = CourseDB.readCourse(case2CourseFile);
+				ArrayList newClass = ClassDB.readClasses(case2ClassFile); 
+				
+				System.out.print("Please enter Course Code:"); 
+				courseID = sc.nextInt(); 
+				String empty = sc.nextLine(); 
+			    System.out.print("Please enter Course Name:");
+				courseName = sc.nextLine();
+				System.out.println("Please enter Course Professor Name:");
+				courseProfName = sc.nextLine(); 
+							
+			
+					
+				System.out.print("Please enter the Class Type:");
+				classType = sc.next(); 
+					
+				//Prompt user to enter the number of classes for that Class Type (E.g 4 Tut Classes for 2002)
+				System.out.print("Please enter number of classes for" + courseName + " of Class Type " + classType + ":");
+				
+				numOfClass = sc.nextInt(); 
+				
+				for(int i = 0; i<numOfClass; i++) //For each of the classes, enter the class codes and number of slots 
+				{
+					System.out.print("Please enter a Class Code for:" + courseName + "," + classType + ":");
+					classCode = sc.next(); 
+					System.out.print("Please enter the number of slots avaible for" + classType + ":");
+					classSlots = sc.nextInt(); 
+					
+					Class case2NewClass = new Class(courseID, classType, classCode); 
+					
+					newClass.add(case2NewClass); 
+					ClassDB.saveClasses(case2ClassFile, newClass);
+					
+					courseTotalSlot += classSlots; //Used to calculate the total slots for the course 
+					courseFreeSlot = courseTotalSlot; 
+					
+				}
+											
+					Course case2NewCCourse = new Course(courseID, courseName, classType, courseProfName, courseFreeSlot, courseTotalSlot); ; 
+					
+					newCourse.add(case2NewCCourse); 
+					CourseDB.saveCourse(case2CourseFile, newCourse); 
+					
+						
+			} catch (IOException e) {
+				System.out.println("IOException > " + e.getMessage());
+			}
+					
+		break;
 			
 		case 3:
 			
@@ -171,24 +238,26 @@ public class SchoolSystem {
 			break;
 			
 		case 4:
-			int chosen = 0;
+			int case4CourseCode;
+			int case4ClassCode; 
+						
+			System.out.println("Please enter Course Code:");
+			case4CourseCode = sc.nextInt();
+			System.out.println("Please enter Class Code for " + case4CourseCode);
+			case4ClassCode = sc.nextInt();
 			
-			System.out.println("Enter 1 for course.");
-			System.out.println("Enter 2 for classes ");
-			
-			chosen = sc.nextInt();
 			
 			
 			break;
 			
-		case 5:
+case 5:
 			
 			System.out.println("Please enter a course ID:");
     		int courseCode = sc.nextInt(); 
     		
     		try {
-    		String courseFile = "/Users/trifenacaroline/Downloads/Course.txt";
-    		String studentFile = "/Users/trifenacaroline/Downloads/student.txt";
+    		String courseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
+    		String studentFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt";
     		
     		ArrayList arrayReadCourse = CourseDB.readCourse(courseFile);
     		
@@ -311,7 +380,7 @@ public class SchoolSystem {
 			} catch (Exception e) {
 	            e.printStackTrace();
 	        }
-			break;
+			break;	
 			
 		case 7:
 			

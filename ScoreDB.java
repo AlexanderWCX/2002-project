@@ -22,10 +22,16 @@ public class ScoreDB {
 	public static ArrayList readScores(String directory) throws IOException {
 		
 		ArrayList studentList = new ArrayList(); // to store list of courses
-		studentList = StudentDB.readStudents("/Users/trifenacaroline/Downloads/Course.txt");
+		studentList = StudentDB.readStudents("/Users/trifenacaroline/Downloads/Student.txt");// Copying the student database into studentList
 		
-		// read String from text file
-		ArrayList stringArray = new ArrayList();
+		ArrayList courseList = new ArrayList(); // to store list of courses
+		courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");// Copying the course database into courseList
+		
+		ArrayList assessmentList = new ArrayList();
+		assessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt");// Copying the course database into assessmentList
+		
+		
+		ArrayList stringArray = new ArrayList();// read String from text file
 		ArrayList scores = new ArrayList();// to store Score data
     	Scanner input;
     	
@@ -55,18 +61,44 @@ public class ScoreDB {
 				int courseID = Integer.parseInt(star.nextToken().trim()); // first token
 				String assessmentName = star.nextToken().trim();	// second token
 				
-				Score score = new Score(courseID, assessmentName); // create Student Object from file data
+				Assessment assessmentToAdd;
+				Course courseToAdd;
+				
+				for (int j = 0; j < courseList.size(); j++) {
+					Course courseToTest = (Course)courseList.get(j);
+					int courseToTestID = courseToTest.getCourseID();
+					if (courseToTestID == courseID) {
+						courseToAdd = (Course)courseList.get(j);
+						break;
+					}
+				}
+				
+				for (int k = 0; k < assessmentList.size(); k++) {
+					Assessment assessmentToTest = (Assessment)assessmentList.get(k);
+					String assessmentToTestName = assessmentToTest.assessmentName;
+					if (assessmentToTestName == assessmentName) {
+						assessmentToAdd = (Assessment)assessmentList.get(k);
+						break;
+					}
+				}
+				
+				
+					
+				/* use the name and id to compare to the course and and assessment list, if there are such courses and assessments then 
+				 * pass those into the score constructor and add it into the score list
+				 */
+				Score score = new Score(courseToAdd, assessmentToAdd); // create Score Object from file data
 				scores.add(score); //add to score List
 				
 				
 				
 				while(star.hasMoreTokens()) {
 				int studentID = Integer.parseInt(star.nextToken().trim());
-				for (int j = 0; j < studentList.size(); j++) {
-					Student studentToTest = (Student)studentList.get(j);
+				for (int l = 0; l < studentList.size(); l++) {
+					Student studentToTest = (Student)studentList.get(l);
 					int studentToTestID = studentToTest.getStudentID();
 					if (studentToTestID == studentID) {
-						Student studentToAdd = (Student)studentList.get(j);
+						Student studentToAdd = (Student)studentList.get(l);
 						score.addStudent(studentToAdd);
 						break;
 					}
@@ -79,6 +111,7 @@ public class ScoreDB {
 			
         }
 			return scores;
+		
 	}
         
 	

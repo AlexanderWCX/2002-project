@@ -218,6 +218,22 @@ public class SchoolSystem {
 					break;
 				}
 				
+System.out.println("Enter Class Code to Register:");
+				System.out.println("List of available classes");
+				System.out.println("Class Code   | Available Slots");
+				for (int i = 0 ; i < case3courseToAdd.classList.size(); i++) {
+				System.out.println( case3courseToAdd.classList.get(i).classCode + "         | " + case3courseToAdd.classList.get(i).classSize);
+	
+				}
+				
+				String case3classCodeToAdd = sc.next();
+				
+				String case3targetClassCodeIndex;
+				for (int i = 0 ; i < case3courseToAdd.classList.size(); i++) {
+					if (case3classCodeToAdd == case3courseToAdd.classList.get(i) ) {
+						case3courseToAdd.classList.get(i).addStudent(studenttoRegisterCourse);
+					}
+				}
 				
 				//write student record(s) to file
 				StudentDB.saveStudents(case3studentFile, case3studentList); 
@@ -238,16 +254,38 @@ public class SchoolSystem {
 			break;
 			
 		case 4:
-			int case4CourseCode;
-			int case4ClassCode; 
-						
-			System.out.println("Please enter Course Code:");
-			case4CourseCode = sc.nextInt();
-			System.out.println("Please enter Class Code for " + case4CourseCode);
-			case4ClassCode = sc.nextInt();
+			int case4courseID;
+			int case4classCode; 
+			int case4targetCourseIndex = 999;
+			System.out.println("Please enter Course ID:");
+			case4courseID = sc.nextInt();
+			ArrayList courseList = new ArrayList(); // to store list of courses
+			courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
 			
 			
+			//checking needs to be done if courseID exists!!!
 			
+			for (int i=0;i<courseList.size(); i++) {
+				Course case4courseToTest = (Course)courseList.get(i);
+				if (case4courseID == case4courseToTest.getCourseID()) {
+					case4targetCourseIndex = i;
+				}
+			}
+			
+			Course case4targetCourse = (Course)courseList.get(case4targetCourseIndex);
+			//checking needs to be done if courseID exists
+			
+			System.out.println("Total Free Slots in %d : ", case4courseID );
+			
+			System.out.println( case4targetCourse.getCourseFreeSlot() );
+		
+			System.out.println("List of available classes");
+			System.out.println("Class Code   | Available Slots");
+			for (int i = 0 ; i < case4targetCourse.classList.size(); i++) {
+			System.out.println( case4targetCourse.classList.get(i).classCode + "         | " + case4targetCourse.classList.get(i).classSize);
+
+			}
+		
 			break;
 			
 case 5:

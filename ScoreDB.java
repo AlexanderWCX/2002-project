@@ -28,7 +28,7 @@ public class ScoreDB {
 		courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");// Copying the course database into courseList
 		
 		ArrayList assessmentList = new ArrayList();
-		assessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt");// Copying the course database into assessmentList
+		assessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt");// Copying the assessment database into assessmentList
 		
 		
 		ArrayList stringArray = new ArrayList();// read String from text file

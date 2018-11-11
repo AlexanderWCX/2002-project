@@ -21,8 +21,11 @@ import java.util.StringTokenizer;
 			
 			// read String from text file
 			ArrayList stringArray = new ArrayList();
-			ArrayList alr = new ArrayList() ;// to store Students data
+			ArrayList assessments = new ArrayList() ;// to store Assessments data
 	    	Scanner input;
+	    	
+	    	ArrayList courseList = new ArrayList(); // to store list of courses
+			courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");// Copying the course database into courseList
 	    	
 	        try {
 	            File file = new File(directory);
@@ -45,16 +48,28 @@ import java.util.StringTokenizer;
 					// get individual 'fields' of the string separated by SEPARATOR
 					StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
 					int courseID = Integer.parseInt(star.nextToken().trim());
+					
+					Course courseToAdd;
+					
+					for (int j = 0; j < courseList.size(); j++) {
+						Course courseToTest = (Course)courseList.get(j);
+						int courseToTestID = courseToTest.getCourseID();
+						if (courseToTestID == courseID) {
+							courseToAdd = (Course)courseList.get(j);
+							break;
+						}
+					}
+					
 					String assessmentName = star.nextToken().trim();
 					int weightage = Integer.parseInt(star.nextToken().trim());	
 					int coursework = Integer.parseInt(star.nextToken().trim());  
 			 		
-					Assessment assessment = new Assessment(courseID, assessmentName, weightage,coursework); // create Assessment Object from file data
-					alr.add(assessment); //add to Assessment
+					Assessment assessment = new Assessment(courseToAdd, assessmentName, weightage,coursework); // create Assessment Object from file data
+					assessments.add(assessment); //add to Assessment
 					
 				
 	        }
-				return alr;
+				return assessments;
 		}
 	        
 		
@@ -65,7 +80,7 @@ import java.util.StringTokenizer;
 		        for (int i = 0 ; i < al.size() ; i++) {
 						Assessment assessment = (Assessment)al.get(i);
 						StringBuilder st =  new StringBuilder();
-						st.append(assessment.courseID);
+						st.append(assessment.course.courseID);
 						st.append(SEPARATOR);
 						st.append(assessment.assessmentName.trim());
 						st.append(SEPARATOR);

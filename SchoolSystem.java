@@ -302,7 +302,7 @@ public class SchoolSystem {
 			System.out.println("Enter the weightage of the assessment(out of 100): ");
 			case6weightage = sc.nextInt();
 			
-			Assessment case6newAssessment = new Assessment(case6courseID, case6assessmentName, case6weightage, case6courseworkInput);
+			Assessment case6newAssessment = new Assessment(case6targetCourse, case6assessmentName, case6weightage, case6courseworkInput);
 			assessmentList.add(case6newAssessment);
 			AssessmentDB.saveAssessments("/Users/trifenacaroline/Downloads/Assessment.txt", assessmentList);
 			

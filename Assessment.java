@@ -4,32 +4,14 @@ import java.util.ArrayList;
 
 public class Assessment {
 	public Course course;
-	public int courseID;
 	public int weightage;
 	public String assessmentName;
 	public int coursework;
 	private ArrayList<Score> scoreList = new ArrayList<Score>();
 	
 	
-	public Assessment (int courseID, String assessmentName, int weightage, int coursework) {
-		boolean courseExist = false;
-		this.courseID = courseID;
-		try {
-		ArrayList courseList = new ArrayList(); // to store list of courses
-		courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
-		for(int i=0;i<courseList.size();i++) {
-			Course courseToCheck = (Course)courseList.get(i);
-			if(courseToCheck.getCourseID()==courseID) {
-				courseExist = true;
-				this.course = courseToCheck;
-				break;
-			}
-		}
-		
-		
-		} catch (Exception e) {
-            e.printStackTrace();
-        }
+	public Assessment (Course course, String assessmentName, int weightage, int coursework) {
+		this.course = course;
 		this.weightage = weightage;
 		this.assessmentName = assessmentName;
 		this.coursework = coursework;

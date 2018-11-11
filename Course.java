@@ -20,7 +20,7 @@ public class Course {
 	
 	private ArrayList<Student> studentList = new ArrayList<Student>();
 	public ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
-	 
+	public ArrayList<Class> classList = new ArrayList<Class>();
 	
 	
 	public Course (int courseID, String courseName, String courseType, String courseProfName, int courseFreeSlot, int courseTotalSlot)
@@ -114,6 +114,11 @@ public class Course {
 		return studentList.get(index).getStudentID(); 
 	}
 	
+	public void addClass (Class classToAdd) 
+	{
+		classList.add(classToAdd);
+	}
+
 	public void addStudents(Student student)
 	{
 		studentList.add(student); 

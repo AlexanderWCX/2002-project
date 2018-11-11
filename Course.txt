@@ -1,0 +1,6 @@
+2001|Introduction to Algorithms|TL|Prof Nicholas Ng|0|0|
+2002|Intro to OOP|TL|Prof Lim|0|0|
+2001|Introduction to Algorithms|TL|Prof Nicholas Ng|0|0|
+2002|Data|Tutorials|TAn|0|0|
+2008|Logic|Tutorial|Tan|0|0|
+2009|Logic|Toturial|Ho|10|0|

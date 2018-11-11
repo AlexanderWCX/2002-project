@@ -26,7 +26,7 @@ public class StudentDB {
 		
 		// read String from text file
 		ArrayList stringArray = new ArrayList();
-		ArrayList alr = new ArrayList() ;// to store Students data
+		ArrayList students = new ArrayList() ;// to store Students data
     	Scanner input;
     	
         try {
@@ -45,7 +45,7 @@ public class StudentDB {
             e.printStackTrace();
         }
 		//ArrayList stringArray = (ArrayList)read(filename);
-		//ArrayList alr = new ArrayList() ;// to store Professors data
+		//ArrayList students = new ArrayList() ;// to store Students data
 
         for (int i = 0 ; i < stringArray.size() ; i++) {
 				String st = (String)stringArray.get(i);
@@ -59,7 +59,7 @@ public class StudentDB {
 
 				
 				Student student = new Student(studentID, studentName); // create Student Object from file data
-				alr.add(student); //add to Student List
+				students.add(student); //add to Student List
 				while(star.hasMoreTokens()) {
 				int courseID = Integer.parseInt(star.nextToken().trim());
 				for (int j = 0; j < courseList.size(); j++) {
@@ -76,7 +76,7 @@ public class StudentDB {
 				}
 			
         }
-			return alr;
+			return students;
 	}
         
 public static ArrayList readStudentIDs(String directory) throws IOException {

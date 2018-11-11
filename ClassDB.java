@@ -84,6 +84,8 @@ public class ClassDB {
 					st.append(SEPARATOR);
 					st.append(class1.getClassCode().trim());
 					st.append(SEPARATOR);
+					st.append(class1.getClassSize());
+					st.append(SEPARATOR);
 					
 					//add third token append here
 					for (int j = 0; j < class1.getStudentListSize(); j++) {

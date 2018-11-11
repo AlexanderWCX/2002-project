@@ -119,6 +119,25 @@ public class Course {
 		studentList.add(student); 
 	}
 	
+	public void addAssessment(Assessment assessment) {
+		
+		try {
+		ArrayList importedAssessmentList = new ArrayList(); // to store list of courses
+		importedAssessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt");
+		
+		for (int i=0; i< importedAssessmentList.size(); i++) {
+			Assessment assessmentToTest = (Assessment)importedAssessmentList.get(i);
+			if (courseID == assessmentToTest.courseID) {
+				assessmentList.add(assessmentToTest);
+			}
+		}
+		
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+		
+	}
 	
 }
 

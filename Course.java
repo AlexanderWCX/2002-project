@@ -1,5 +1,7 @@
 package schoolsystem;
 
+
+
 import java.util.ArrayList; 
 import java.io.*; 
 import java.util.Scanner;
@@ -10,17 +12,18 @@ import schoolsystem.Assessment;
 
 public class Course {
 	
-	int courseID; 
-	int courseFreeSlot;
-	int courseTotalSlot; 
+	private int courseID; 
+	private int courseFreeSlot;
+	private int courseTotalSlot; 
 	String courseName;
 	String courseType; 
-	String courseProfName; 
+	String courseProfName;
 	
 	
+	public ArrayList<Class> classList = new ArrayList<Class>();
 	private ArrayList<Student> studentList = new ArrayList<Student>();
 	public ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
-	public ArrayList<Class> classList = new ArrayList<Class>();
+	 
 	
 	
 	public Course (int courseID, String courseName, String courseType, String courseProfName, int courseFreeSlot, int courseTotalSlot)
@@ -114,33 +117,19 @@ public class Course {
 		return studentList.get(index).getStudentID(); 
 	}
 	
-	public void addClass (Class classToAdd) 
+	public void addClass(Class classToAdd) 
 	{
 		classList.add(classToAdd);
 	}
-
+	
 	public void addStudents(Student student)
 	{
 		studentList.add(student); 
 	}
 	
-	public void addAssessment(Assessment assessment) {
-		
-		try {
-		ArrayList importedAssessmentList = new ArrayList(); // to store list of courses
-		importedAssessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt");
-		
-		for (int i=0; i< importedAssessmentList.size(); i++) {
-			Assessment assessmentToTest = (Assessment)importedAssessmentList.get(i);
-			if (courseID == assessmentToTest.courseID) {
-				assessmentList.add(assessmentToTest);
-			}
-		}
-		
-		} catch (Exception e) {
-            e.printStackTrace();
-        }
-		
+	public void addAssessment(Assessment assessment) 
+	{
+		assessmentList.add(assessment);
 		
 	}
 	

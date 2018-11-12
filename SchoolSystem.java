@@ -40,13 +40,7 @@ public class SchoolSystem {
 			
 			
 		case 2:
-						
-			int courseType; 
-				
-				System.out.print("Please enter Course Type: "); 
-				courseType = sc.nextInt();
-				
-				Course.addCourse(courseType);
+			Course.addCourse();
 				
 					
 		break;

@@ -34,78 +34,20 @@ public class SchoolSystem {
 		switch(choice) {
 		
 		case 1: 
-			Student.addStudent();
-			
+				Student.addStudent();
+						
 			break;
 			
 			
 		case 2:
 						
-			ClassDB case2ClassDB = new ClassDB();
-	    	String case2ClassFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Class.txt";
-	    	String case2CourseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
-			
-	    	int courseID;
-			String courseName;
-			String courseType;
-			String courseProfName;
-			int courseFreeSlot = 0;
-			int courseTotalSlot = 0; 
-			String classType;
-			String classCode;  
-			int numOfClass; 
-			char option = 'Y'; 
-			int classSlots; 
-	    	
-			try {
+			int courseType; 
 				
-				ArrayList newCourse = CourseDB.readCourse(case2CourseFile);
-				ArrayList newClass = ClassDB.readClasses(case2ClassFile); 
+				System.out.print("Please enter Course Type: "); 
+				courseType = sc.nextInt();
 				
-				System.out.print("Please enter Course Code:"); 
-				courseID = sc.nextInt(); 
-				String empty = sc.nextLine(); 
-			    System.out.print("Please enter Course Name:");
-				courseName = sc.nextLine();
-				System.out.println("Please enter Course Professor Name:");
-				courseProfName = sc.nextLine(); 
-							
-			
-					
-				System.out.print("Please enter the Class Type:");
-				classType = sc.next(); 
-					
-				//Prompt user to enter the number of classes for that Class Type (E.g 4 Tut Classes for 2002)
-				System.out.print("Please enter number of classes for" + courseName + " of Class Type " + classType + ":");
+				Course.addCourse(courseType);
 				
-				numOfClass = sc.nextInt(); 
-				
-				for(int i = 0; i<numOfClass; i++) //For each of the classes, enter the class codes and number of slots 
-				{
-					System.out.print("Please enter a Class Code for:" + courseName + "," + classType + ":");
-					classCode = sc.next(); 
-					System.out.print("Please enter the number of slots avaible for" + classType + ":");
-					classSlots = sc.nextInt(); 
-					
-					Class case2NewClass = new Class(courseID, classType, classCode); 
-					
-					newClass.add(case2NewClass); 
-					ClassDB.saveClasses(case2ClassFile, newClass);
-					
-					courseTotalSlot += classSlots; //Used to calculate the total slots for the course 
-					courseFreeSlot = courseTotalSlot; 
-					
-				}
-											
-					Course case2NewCCourse = new Course(courseID, courseName, classType, courseProfName, courseFreeSlot, courseTotalSlot); ; 
-					
-					newCourse.add(case2NewCCourse); 
-					CourseDB.saveCourse(case2CourseFile, newCourse); 
-					
-						
-			} catch (IOException e) {
-				System.out.println("IOException > " + e.getMessage());
-			}
 					
 		break;
 			
@@ -175,22 +117,6 @@ public class SchoolSystem {
 					break;
 				}
 				
-System.out.println("Enter Class Code to Register:");
-				System.out.println("List of available classes");
-				System.out.println("Class Code   | Available Slots");
-				for (int i = 0 ; i < case3courseToAdd.classList.size(); i++) {
-				System.out.println( case3courseToAdd.classList.get(i).classCode + "         | " + case3courseToAdd.classList.get(i).classSize);
-	
-				}
-				
-				String case3classCodeToAdd = sc.next();
-				
-				String case3targetClassCodeIndex;
-				for (int i = 0 ; i < case3courseToAdd.classList.size(); i++) {
-					if (case3classCodeToAdd == case3courseToAdd.classList.get(i) ) {
-						case3courseToAdd.classList.get(i).addStudent(studenttoRegisterCourse);
-					}
-				}
 				
 				//write student record(s) to file
 				StudentDB.saveStudents(case3studentFile, case3studentList); 
@@ -211,38 +137,16 @@ System.out.println("Enter Class Code to Register:");
 			break;
 			
 		case 4:
-			int case4courseID;
-			int case4classCode; 
-			int case4targetCourseIndex = 999;
-			System.out.println("Please enter Course ID:");
-			case4courseID = sc.nextInt();
-			ArrayList courseList = new ArrayList(); // to store list of courses
-			courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
+			int case4CourseCode;
+			int case4ClassCode; 
+						
+			System.out.println("Please enter Course Code:");
+			case4CourseCode = sc.nextInt();
+			System.out.println("Please enter Class Code for " + case4CourseCode);
+			case4ClassCode = sc.nextInt();
 			
 			
-			//checking needs to be done if courseID exists!!!
 			
-			for (int i=0;i<courseList.size(); i++) {
-				Course case4courseToTest = (Course)courseList.get(i);
-				if (case4courseID == case4courseToTest.getCourseID()) {
-					case4targetCourseIndex = i;
-				}
-			}
-			
-			Course case4targetCourse = (Course)courseList.get(case4targetCourseIndex);
-			//checking needs to be done if courseID exists
-			
-			System.out.println("Total Free Slots in %d : ", case4courseID );
-			
-			System.out.println( case4targetCourse.getCourseFreeSlot() );
-		
-			System.out.println("List of available classes");
-			System.out.println("Class Code   | Available Slots");
-			for (int i = 0 ; i < case4targetCourse.classList.size(); i++) {
-			System.out.println( case4targetCourse.classList.get(i).classCode + "         | " + case4targetCourse.classList.get(i).classSize);
-
-			}
-		
 			break;
 			
 case 5:
@@ -300,6 +204,7 @@ case 5:
 			break; 
 			
 		case 6:
+			
 			Assessment.addAssessment();
 			break;	
 			

@@ -56,7 +56,7 @@ public static final String SEPARATOR = "|";
 				//Second Token 
 				String courseName = star.nextToken().trim();
 				//Third Token 
-				String courseType = star.nextToken().trim();
+				int courseType = Integer.parseInt(star.nextToken().trim()); 
 				//Fourth Token 
 				String courseProfName = star.nextToken().trim(); 
 				//Fifth Token 
@@ -107,7 +107,7 @@ public static final String SEPARATOR = "|";
 					st.append(SEPARATOR);
 					st.append(course.getCourseName().trim());
 					st.append(SEPARATOR);
-					st.append(course.getCourseType().trim());
+					st.append(course.getCourseType());
 					st.append(SEPARATOR);
 					st.append(course.getCourseProfName().trim());
 					st.append(SEPARATOR);

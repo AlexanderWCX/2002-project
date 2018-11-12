@@ -34,51 +34,8 @@ public class SchoolSystem {
 		switch(choice) {
 		
 		case 1: 
-			StudentDB txtDB = new StudentDB();
-	    	String case1studentFile = "/Users/trifenacaroline/Downloads/student.txt";
-			int case1studentID;
-			String case1studName;
-			boolean case1studentIDExists = false;
-	    	
-			try {
-				
-				ArrayList case1studentList = StudentDB.readStudents(case1studentFile) ;
-				
-				System.out.println("Enter New Student ID:");
-				case1studentID = sc.nextInt();
-				
-				for (int i = 0 ; i < case1studentList.size() ; i++) {
-					Student case1studentToCheck = (Student)case1studentList.get(i);
-					if (case1studentID == case1studentToCheck.getStudentID())
-						case1studentIDExists = true;
-				}
-				
-				//prompt if studentID does not exist
-				if(case1studentIDExists == true) {
-					System.out.println("Student ID already exists!");
-					break;
-				}
-				
-				System.out.println("Enter New Student Name:");
-				case1studName = sc.next();
-				Student student = new Student(case1studentID, case1studName);
-				
-				//add student obj into list of all students
-				case1studentList.add(student);
-				//write student record(s) to file
-				StudentDB.saveStudents(case1studentFile, case1studentList);
-				
-				for (int i = 0 ; i < case1studentList.size() ; i++) {
-						Student studenttoprint = (Student)case1studentList.get(i);
-						System.out.println("Student ID: " + studenttoprint.getStudentID());
-						System.out.println("Student Name: " + studenttoprint.getStudentName() );
-						System.out.println("---------------------------------");
-						
-				}
-				
-			} catch (IOException e) {
-				System.out.println("IOException > " + e.getMessage());
-			}
+			Student.addStudent();
+			
 			break;
 			
 			

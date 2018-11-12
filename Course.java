@@ -1,7 +1,5 @@
 package schoolsystem;
 
-
-
 import java.util.ArrayList; 
 import java.io.*; 
 import java.util.Scanner;
@@ -15,18 +13,17 @@ public class Course {
 	private int courseID; 
 	private int courseFreeSlot;
 	private int courseTotalSlot; 
+	private int courseType; 
 	String courseName;
-	String courseType; 
-	String courseProfName;
+	String courseProfName; 
 	
-	
-	public ArrayList<Class> classList = new ArrayList<Class>();
+	public ArrayList<Class> classList = new ArrayList<Class>(); 
 	private ArrayList<Student> studentList = new ArrayList<Student>();
 	public ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
 	 
 	
 	
-	public Course (int courseID, String courseName, String courseType, String courseProfName, int courseFreeSlot, int courseTotalSlot)
+	public Course (int courseID, String courseName, int courseType, String courseProfName, int courseFreeSlot, int courseTotalSlot)
 	{
 		this.courseID = courseID; 
 		this.courseName = courseName; 
@@ -62,12 +59,12 @@ public class Course {
 	
 	
 	//For Course Type 
-	public String getCourseType()
+	public int getCourseType()
 	{
 		return courseType; 
 	}
 	
-	public void setCourseType(String courseType)
+	public void setCourseType(int courseType)
 	{
 		this.courseType = courseType; 
 	}
@@ -117,19 +114,15 @@ public class Course {
 		return studentList.get(index).getStudentID(); 
 	}
 	
-	public void addClass(Class classToAdd) 
-	{
-		classList.add(classToAdd);
-	}
-	
 	public void addStudents(Student student)
 	{
 		studentList.add(student); 
 	}
 	
-	public void addAssessment(Assessment assessment) 
-	{
-		assessmentList.add(assessment);
+	public void addAssessment(Assessment assessment) {
+		
+		assessmentList.add(assessment); 
+		
 		
 	}
 	

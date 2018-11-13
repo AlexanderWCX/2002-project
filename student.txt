@@ -1,5 +1,7 @@
-1|James|
-2|Astrid|
-3|Miko|
-4|Tiffany|
+1|James|2001|2001|2001|
+2|Astrid|2001|
+3|Miko|2001|
+4|Tiffany|2001|
 5|Andrew|
+6|Jeannie|
+7|Joan|2001|

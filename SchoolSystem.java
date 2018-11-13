@@ -667,59 +667,78 @@ public class SchoolSystem {
 		
 		public void printCourseStudentList(){
 			
+			boolean courseAdded = false;
+			int targetCourseIndex = 999;
+			int courseType;
+			
 			System.out.println("Please enter a course ID:");
-    		int courseCode = sc.nextInt(); 
+    		int courseID = sc.nextInt(); 
     		
     		try {
-    		String courseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
-    		String studentFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt";
+    		String courseFile = "/Users/trifenacaroline/Downloads/Course.txt";
+    		String studentFile = "/Users/trifenacaroline/Downloads/student.txt";
     		
-    		ArrayList arrayReadCourse = CourseDB.readCourses(courseFile);
+    		ArrayList<Course> courseList = new ArrayList<Course>();
+    		ArrayList<Student> studentList = new ArrayList<Student>();
     		
-    		ArrayList arrayReadStudent = StudentDB.readStudents(studentFile); 
+    		courseList = CourseDB.readCourses(courseFile);
+    		studentList = StudentDB.readStudents(studentFile); 
     		
-    		System.out.println("List of Students: ");
-    		
-    		for (int i = 0 ; i < arrayReadStudent.size() ; i++) {
-				Student student = (Student)arrayReadStudent.get(i); 
-    			//Course course = (Course)arrayReadCourse.get(i);
-				int sizeOfStudentCourseList = student.getCourseListSize();
-				for (int j = 0; j < sizeOfStudentCourseList; j++) {
-				if(student.getCourseID(j) == courseCode)
-				{
-					System.out.println(student.getStudentName());
+    		//checking if courseID exists in courseList
+			for (int j = 0; j < courseList.size(); j++) {
+				Course courseToTest = (Course)courseList.get(j);
+				int courseToTestID = courseToTest.getCourseID();
+				if (courseToTestID == courseID) {
+					courseAdded = true;
+					targetCourseIndex = j;
+					break;
+				} 
+			}
+			
+			while (courseAdded == false) {
+				System.out.println("Course ID does not exist!");
+				System.out.println("Enter Course to Register:");
+				courseID = sc.nextInt();
+				
+				for (int j = 0; j < courseList.size(); j++) {
+					Course courseToTest = (Course)courseList.get(j);
+					int courseToTestID = courseToTest.getCourseID();
+					if (courseToTestID == courseID) {
+						courseAdded = true;
+						targetCourseIndex = j;
+						break;
+					} 
 				}
-				/*else 
-					System.out.println("Course Code not found!"); 
-							break;
-				*/									
-    		}
-    		}
+				
+			}
+			
+			Course targetCourse = (Course)courseList.get(targetCourseIndex);
+			
+			
+			for (int i = 0 ; i < targetCourse.getClassListSize(); i++) {
+				Class targetClass = (Class)targetCourse.getClassObject(i);
+				String classType = targetClass.getClassType();
+				String classCode = targetClass.getClassCode();
+				
+				System.out.println("Class Type: " + classType + " | Class Code: " + classCode );
+				System.out.println("List of students:");
+				for (int j = 0; j < targetClass.getStudentListSize(); j++) {
+					Student studentToPrint = (Student)targetClass.getStudentObject(j);
+					int studentID = studentToPrint.getStudentID();
+					String studentName = studentToPrint.getStudentName();
+					
+					System.out.println(studentID + " " + studentName);
+				}
+				System.out.println("---------------------------------------");
+			}
+			
+			System.out.println("All student lists printed!");
+    		
     		} 
     		catch (IOException e) {
 				System.out.println("IOException > " + e.getMessage());
 			}
-    	
-    		
-	
-			
-			//int case5Choice = 0;
-			//System.out.println("Please enter Course Code");
-			
-		//case5Choice = sc.nextInt(); 
-			
-		
-		/*
-		int choose = 0;
-		System.out.println("Enter 1 for printing by lecture. ");
-		System.out.println("Enter 2 for printing by tutorial. ");
-		System.out.println("Enter 1 for printing by laboratory session. ");
-		
-		choose = sc.nextInt();
-		*/
-			 
-		}
-			
+		}			
 			
 		
 		

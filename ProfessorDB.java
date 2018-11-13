@@ -19,14 +19,14 @@ public class ProfessorDB {
 
 	
 	
-    // an example of reading
+    //For reading in list of professors from the textfile
 	public static ArrayList readProfessors(String directory) throws IOException {
 		
 		ArrayList courseList = new ArrayList(); // to store list of courses
 		courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
 		
-		// read String from text file
-		ArrayList stringArray = new ArrayList();
+		
+		ArrayList stringArray = new ArrayList();// read String from text file
 		ArrayList professors = new ArrayList() ;// to store Professors data
     	Scanner input;
     	
@@ -79,12 +79,14 @@ public class ProfessorDB {
         }
 			return professors;
 	}
-        
+     
+	
+	//To read the list of professors in the text file without the list of courses each professor has
 public static ArrayList readProffesorIDs(String directory) throws IOException {
 		
-		// read String from text file
-		ArrayList stringArray = new ArrayList();
-		ArrayList professors = new ArrayList() ;// to store Students data
+		
+		ArrayList stringArray = new ArrayList();// read String from text file
+		ArrayList professors = new ArrayList() ;// to store Professors data
     	Scanner input;
     	
         try {
@@ -112,14 +114,14 @@ public static ArrayList readProffesorIDs(String directory) throws IOException {
 				}
 				int staffID = Integer.parseInt(star.nextToken().trim()); // first token
 				String professorName = star.nextToken().trim();	// second token
-				Student professor = new Student(staffID, professorName); // create Student Object from file data
-				professors.add(professor); //add to Student List
+				Student professor = new Student(staffID, professorName); // create Professor Object from file data
+				professors.add(professor); //add to Professor List
         }
 			return professors;
 	}
 	
 	
-	// an example of saving
+	// For saving(writing) the list of professors to the text file
 	public static void saveProfessors(String filename, List inputList) throws IOException {
 			List professors = new ArrayList() ;// to store Professors data
 

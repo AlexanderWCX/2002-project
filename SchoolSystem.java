@@ -928,6 +928,57 @@ public class SchoolSystem {
 		
 		public void printStudentTranscript() {
 			
+			boolean studentIDExist = false; 
+			
+			String studentFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt";
+	    	String classFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Class.txt";
+	    	String courseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
+	    	String assessmentFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Assessment.txt";
+	    	
+			try {
+				
+				ArrayList courseList = CourseDB.readCourses(courseFile);
+				ArrayList classList = ClassDB.readClasses(classFile); 
+				ArrayList studentList = StudentDB.readStudents(studentFile) ;
+				
+				System.out.println("Please enter a Student ID: ");
+				int studentID = sc.nextInt(); 
+							
+				for (int i = 0 ; i < studentList.size() ; i++) {
+					Student studentToCheck = (Student)studentList.get(i);
+					if (studentID != studentToCheck.getStudentID()) {
+						studentIDExist = true;
+						break;
+					}
+				}
+								
+				while(studentIDExist == true) {
+					System.out.print("Student ID not found! Please enter student ID: ");
+					studentIDExist = false;
+					studentID = sc.nextInt();
+					
+					for (int i = 0 ; i < courseList.size() ; i++) {
+						Student studentToCheck = (Student)studentList.get(i);
+						if (studentID != studentToCheck.getStudentID()) {
+							studentIDExist = true;
+							break;
+						}
+					}
+				
+				}
+				
+				System.out.print("Student " + studentID + "'s Transcript: ");
+				
+				
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			
+		
 			
 		
 		

@@ -16,6 +16,7 @@ public class Assessment {
 		this.weightage = weightage;
 		this.assessmentName = assessmentName;
 		this.coursework = coursework;
+		this.score = new Score(courseID, assessmentName);
 	}
 	
 	static Scanner sc = new Scanner(System.in);
@@ -53,8 +54,8 @@ public class Assessment {
 		this.coursework = coursework;
 	}
 	
-	public void addScoretoAssessment (Score score) {
-		this.score = score;
+	public Score getScore() {
+		return score;
 	}
 	
 	

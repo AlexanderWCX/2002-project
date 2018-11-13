@@ -181,6 +181,12 @@ public class Course {
 	
 	}
 	
+	public Assessment getAssessmentObject(int index)
+	{
+		return assessmentList.get(index);
+	}
+	
+	
 	public int getClassListSize()
 	{
 		return classList.size(); 

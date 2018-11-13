@@ -70,5 +70,10 @@ public class Class {
 	public int getStudentID (int index) {
 		return studentList.get(index).getStudentID();
 	}
+
+	public int getFreeSlots () {
+		int usedSlots = studentList.size();
+		return classSize - usedSlots;
+	}
 	
 }

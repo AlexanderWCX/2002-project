@@ -12,24 +12,24 @@ import schoolsystem.Class;
 public class Course {
 	
 	private int courseID; 
+	private String courseName;
+	private int courseType; 
+	private String courseCoordinator; 
 	private int courseFreeSlot;
 	private int courseTotalSlot; 
-	private int courseType; 
-	String courseName;
-	String courseProfName; 
 	
-	public ArrayList<Class> classList = new ArrayList<Class>(); 
 	private ArrayList<Student> studentList = new ArrayList<Student>();
-	public ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
-	 
+	private ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
+	private ArrayList<Class> classList = new ArrayList<Class>(); 
+	
 	static Scanner sc = new Scanner(System.in);
 	
-	public Course (int courseID, String courseName, int courseType, String courseProfName, int courseFreeSlot, int courseTotalSlot)
+	public Course (int courseID, String courseName, int courseType, String professorName, int courseFreeSlot, int courseTotalSlot)
 	{
 		this.courseID = courseID; 
 		this.courseName = courseName; 
 		this.courseType = courseType; 
-		this.courseProfName = courseProfName; 
+		this.courseCoordinator = professorName; 
 		this.courseFreeSlot = courseFreeSlot;
 		this.courseFreeSlot = courseTotalSlot;
 		
@@ -72,14 +72,14 @@ public class Course {
 	
 	
 	//For Course Coordinator 
-	public String getCourseProfName()
+	public String getCourseCoordinator()
 	{
-		return courseProfName; 
+		return courseCoordinator; 
 	}
 	
-	public void setCourseProfName(String courseProfName)
+	public void setCourseCoodinator (String professorName)
 	{
-		this.courseProfName = courseProfName; 
+		this.courseCoordinator = professorName; 
 	}
 	
 		 
@@ -105,7 +105,7 @@ public class Course {
 	}
 	
 	
-	public int getStudentList()
+	public int getStudentListSize()
 	{
 		return studentList.size(); 
 	}
@@ -115,9 +115,19 @@ public class Course {
 		return studentList.get(index).getStudentID(); 
 	}
 	
-	public void addStudents(Student student)
+	public void addStudent(Student student)
 	{
 		studentList.add(student); 
+	}
+	
+	public int getAssessmentListSize()
+	{
+		return assessmentList.size(); 
+	}
+	
+	public String getAssessmentName(int index)
+	{		
+		return assessmentList.get(index).getAssessmentName(); 
 	}
 	
 	public void addAssessment(Assessment assessment) {
@@ -125,6 +135,24 @@ public class Course {
 		assessmentList.add(assessment); 
 	
 	}
+	
+	public int getClassListSize()
+	{
+		return classList.size(); 
+	}
+	
+	public String getClassCode(int index)
+	{		
+		return classList.get(index).getClassCode(); 
+	}
+	
+	public void addClass(Class newClass) {
+		
+		classList.add(newClass); 
+	
+	}
+	
+	
 	
 	public static void addCourse()
 	{
@@ -146,7 +174,7 @@ public class Course {
    	
 		try {
 			
-			ArrayList courseList = CourseDB.readCourse(courseFile);
+			ArrayList courseList = CourseDB.readCourses(courseFile);
 			ArrayList classList = ClassDB.readClasses(classFile); 
 				
 			System.out.print("Please enter Course Code: "); 

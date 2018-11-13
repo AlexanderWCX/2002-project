@@ -979,7 +979,7 @@ public class SchoolSystem {
 				int targetStudentIndex = 999;
 				
 				for (int j = 0; j<targetCourse.getAssessmentListSize(); j++) {
-				Assessment assessmentToCalc = (Assessment) targetCourse.getAssessmentObject(j);
+				Assessment assessmentToCalc = (Assessment) targetCourse.getAssessment(j);
 				Score score = assessmentToCalc.getScore();
 				
 				
@@ -1014,7 +1014,7 @@ public class SchoolSystem {
 				
 				for (int j = 0; j<targetCourse.getAssessmentListSize(); j++) {
 				
-				Assessment assessmentToCalc = (Assessment) targetCourse.getAssessmentObject(j);
+				Assessment assessmentToCalc = (Assessment) targetCourse.getAssessment(j);
 				int assessmentType = assessmentToCalc.getCoursework();
 				if (assessmentType == 0) {
 				Score score = assessmentToCalc.getScore();
@@ -1058,7 +1058,7 @@ public class SchoolSystem {
 				
 				for (int j = 0; j<targetCourse.getAssessmentListSize(); j++) {
 				
-				Assessment assessmentToCalc = (Assessment) targetCourse.getAssessmentObject(j);
+				Assessment assessmentToCalc = (Assessment) targetCourse.getAssessment(j);
 				int assessmentType = assessmentToCalc.getCoursework();
 				int weightage = assessmentToCalc.getWeightage();
 				if (assessmentType == 1) {

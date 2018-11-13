@@ -228,37 +228,35 @@ public class SchoolSystem {
 						System.out.print("Please enter Tutorial Class Code for: " + courseName + "(" + courseID + "): ");
 						classCode = sc.next(); 
 						
-						/*
-						for (int j = 0 ; j < classList.size() ; i++) {
-							Class classToCheck = (Class)classList.get(i);
-							if (classCode == classToCheck.getClassCode()) {
+						for (int j = 0 ; j < classList.size() ; j++) {
+							Class classToCheck = (Class)classList.get(j);
+							if (classCode.equals(classToCheck.getClassCode())) {
 								classCodeExists = true;
 								break;
 							}
 						}
-						
-						
+												
 						while(classCodeExists == true) {
 							System.out.print("Class Code already exist! Please enter a new Class Code: ");
 							classCodeExists = false;
 							classCode = sc.next();
 							
-							for (int k = 0 ; k < classList.size() ; i++) {
-								Class classToCheck = (Class)classList.get(i);
-								if (classCode == classToCheck.getClassCode()) {
+							for (int k = 0 ; k < classList.size() ; k++) {
+								Class classToCheck = (Class)classList.get(k);
+								if (classCode.equals(classToCheck.getClassCode())) {
 									classCodeExists = true;
 									break;
 								}
 							}
 						
 						}
-						*/
-						
+												
 						System.out.print("Please enter Tutorial Class Size for " + classCode + ": ");
 						classSize = sc.nextInt(); 
 						
 						courseTotalSlot = classSize; 
 						courseTotalSlot += classSize; 
+						//courseFreeSlot = courseTotalSlot; 
 														
 						Class case2NewClass = new Class(courseID, "Tutorial", classCode, classSize); 
 						
@@ -279,6 +277,29 @@ public class SchoolSystem {
 						{
 							System.out.print("Please enter Class Code for: "  + courseName + "(" + courseID + "): ");
 							classCode = sc.next(); 
+							
+							for (int j = 0 ; j < classList.size() ; j++) {
+								Class classToCheck = (Class)classList.get(j);
+								if (classCode.equals(classToCheck.getClassCode())) {
+									classCodeExists = true;
+									break;
+								}
+							}
+													
+							while(classCodeExists == true) {
+								System.out.print("Class Code already exist! Please enter a new Class Code: ");
+								classCodeExists = false;
+								classCode = sc.next();
+								
+								for (int k = 0 ; k < classList.size() ; k++) {
+									Class classToCheck = (Class)classList.get(k);
+									if (classCode.equals(classToCheck.getClassCode())) {
+										classCodeExists = true;
+										break;
+									}
+								}
+							
+							}
 														
 							System.out.print("Please enter the Class Size for: " + classCode + ": ");
 							classSize = sc.nextInt(); 
@@ -299,31 +320,30 @@ public class SchoolSystem {
 					System.out.println("Please enter the Lecture Group Code for " + courseName + "(" + courseID + "): ");
 					classCode = sc.next(); 
 								
-					for (int i = 0 ; i < courseList.size() ; i++) {
-						Course courseToCheck = (Course)courseList.get(i);
-						if (courseID == courseToCheck.getCourseID()) {
-							courseIDExists = true;
+					for (int j = 0 ; j < classList.size() ; j++) {
+						Class classToCheck = (Class)classList.get(j);
+						if (classCode.equals(classToCheck.getClassCode())) {
+							classCodeExists = true;
 							break;
 						}
 					}
-					
-					
-					while(courseIDExists == true) {
-						System.out.print("Course ID already exist! Please enter a new Course ID: ");
-						courseIDExists = false;
-						courseID = sc.nextInt();
+											
+					while(classCodeExists == true) {
+						System.out.print("Class Code already exist! Please enter a new Class Code: ");
+						classCodeExists = false;
+						classCode = sc.next();
 						
-						for (int i = 0 ; i < courseList.size() ; i++) {
-							Course courseToCheck = (Course)courseList.get(i);
-							if (courseID == courseToCheck.getCourseID()) {
-								courseIDExists = true;
+						for (int k = 0 ; k < classList.size() ; k++) {
+							Class classToCheck = (Class)classList.get(k);
+							if (classCode.equals(classToCheck.getClassCode())) {
+								classCodeExists = true;
 								break;
 							}
 						}
 					
 					}
 					
-					courseTotalSlot = 0; 
+					courseTotalSlot = 0;  
 					courseFreeSlot = courseTotalSlot; 
 					
 					Class case2NewClass = new Class(courseID, "Lecture", classCode, courseTotalSlot); 
@@ -739,6 +759,8 @@ public class SchoolSystem {
 				System.out.println("IOException > " + e.getMessage());
 			}
 		}			
+			
+			
 			
 		
 		

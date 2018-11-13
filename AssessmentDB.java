@@ -39,9 +39,11 @@ import java.util.StringTokenizer;
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-			
+	       
+	        System.out.println(stringArray.size());
 	        for (int i = 0 ; i < stringArray.size() ; i++) {
 					String st = (String)stringArray.get(i);
+					
 					// get individual 'fields' of the string separated by SEPARATOR
 					StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
 					int courseID = Integer.parseInt(star.nextToken().trim()); //first token
@@ -53,24 +55,28 @@ import java.util.StringTokenizer;
 					
 					
 					ArrayList scoreList = new ArrayList(); // to store list of scores
-					scoreList = ScoreDB.readScores("/Users/trifenacaroline/Downloads/Score.txt");
+					scoreList = ScoreDB.readScores("C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Score.txt");
 					//finding a matching score object from scoreList to be added to the newly made Assessment object
-					for (i=0;i<scoreList.size(); i++) {
-							Score scoreToTest = (Score) scoreList.get(i);
+					for (int j=0;j<scoreList.size(); j++) {
+							Score scoreToTest = (Score) scoreList.get(j);
 							if (scoreToTest.getAssessmentName() == assessmentName) {
 								assessment.addScoretoAssessment(scoreToTest);
 								//Debugging : print matching Score obj is found!
 							}
 						}
 						assessments.add(assessment); //add to assessmentList
+						System.out.println("in assessment end of for loop");
 	        }
+	        System.out.println("in assessments end of assessments");
+	      
 				return assessments;
 		}
 	        
 		
-		// an example of saving
+		// For saving(writing) assessments back to the text file
 		public static void saveAssessments(String filename, List inputList) throws IOException {
 				List assessments = new ArrayList() ;
+				
 
 		        for (int i = 0 ; i < inputList.size() ; i++) {
 						Assessment assessment = (Assessment)inputList.get(i);

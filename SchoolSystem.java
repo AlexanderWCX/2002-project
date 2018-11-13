@@ -657,6 +657,7 @@ public class SchoolSystem {
 			
 			
 		
+		
 		public void addAssessment () {
 			int courseID;
 			String assessmentName;
@@ -673,9 +674,9 @@ public class SchoolSystem {
 			sc.nextLine();
 			
 			try {
-			ArrayList courseList = new ArrayList(); // to store list of courses
+			ArrayList<Course> courseList = new ArrayList(); // to store list of courses
 			courseList = CourseDB.readCourses("C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Course.txt");
-		
+			
 			while (courseExist == false ) {
 				for (int j = 0; j < courseList.size(); j++) {
 					Course courseToTest = (Course)courseList.get(j);
@@ -694,10 +695,10 @@ public class SchoolSystem {
 				if(courseExist == false) {
 				falsebefore=true;
 				System.out.println("Course does not exist!");
-				System.out.println("Enter the courseID of the course: ");
+				System.out.println("Enter the courseID of course to add assessment to: ");
 				courseID = sc.nextInt();
 				}
-				
+			
 			}
 			
 			/*
@@ -719,7 +720,11 @@ public class SchoolSystem {
 			
 			*/
 			targetCourse = (Course)courseList.get(targetCourseIndex);
-			System.out.println(targetCourse.getAssessmentName(0));
+			System.out.println(targetCourse.getCourseID());
+			System.out.println(targetCourse.getAssessmentListSize());
+			for (int p = 0; p < targetCourse.getAssessmentListSize() ; p++) {
+				System.out.println(targetCourse.getAssessmentName(p));
+			}
 			if(falsebefore) {
 			String empty =sc.nextLine();
 			}
@@ -734,17 +739,20 @@ public class SchoolSystem {
 				System.out.println(assessmentList.get(i).getAssessmentName());
 			}
 			
+			
 			while (madeBefore) {
+				
+				System.out.println("assessment list size is " + targetCourse.getAssessmentListSize());
 				for (int i=0; i< targetCourse.getAssessmentListSize(); i++) {
 				
 				Assessment assessmentToTest = targetCourse.getAssessment(i);
-				if (assessmentName == assessmentToTest.getAssessmentName()) {
-					
+				if (assessmentName.equals(assessmentToTest.getAssessmentName())) {
+						
 					madeBefore = true;
 							
 				}
 				else {
-				
+					
 					madeBefore = false;
 				}
 			}
@@ -779,9 +787,14 @@ public class SchoolSystem {
 			System.out.println("Enter the weightage of the assessment(out of 100): ");
 			weightage = sc.nextInt();
 			
+			for(int i =0; i<assessmentList.size(); i++) {
+				System.out.println(assessmentList.get(i).getAssessmentName());
+			}
+			
 			Assessment newAssessment = new Assessment(courseID, assessmentName, weightage, courseworkInput);
 			assessmentList.add(newAssessment);
-			
+			targetCourse.addAssessment(newAssessment);
+			CourseDB.saveCourses("C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Course.txt", courseList);
 			AssessmentDB.saveAssessments("C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Assessment.txt", assessmentList);
 			
 			System.out.println("Assessment succesfully added!");

@@ -12,7 +12,7 @@ import java.util.*;
 public class SchoolSystem {
 	
 	public static final String SEPARATOR = "|";	
-		Scanner sc = new Scanner(System.in);
+	static Scanner sc = new Scanner(System.in);
 		
 		public void addStudent () {
 			boolean studentIDExists = true;
@@ -143,7 +143,7 @@ public class SchoolSystem {
 					Course case2NewCCourse = new Course(courseID, courseName, courseType, courseProfName, courseFreeSlot, courseTotalSlot);  
 					
 					courseList.add(case2NewCCourse); 
-					CourseDB.saveCourse(courseFile, courseList); 
+					CourseDB.saveCourses(courseFile, courseList); 
 					
 					System.out.print("Course " + courseName + "(" + courseID + ") " + " taught by " + courseProfName + " is created " );
 					
@@ -154,7 +154,7 @@ public class SchoolSystem {
 						System.out.println("List of Courses:");
 						System.out.println("Course ID: " + courseToPrint.getCourseID());
 						System.out.println("Course Name: " + courseToPrint.getCourseName());
-						System.out.println("Course Coordinator: " + courseToPrint.getCourseProfName());
+						System.out.println("Course Coordinator: " + courseToPrint.getCourseCoordinator());
 						
 						
 						if(typeCourse == 1)
@@ -350,7 +350,7 @@ public class SchoolSystem {
 				//prompt if student ID does not exist
 				if(case3studentIDExists == false ) {
 					System.out.println("Student ID does not exist!");
-					break;
+					
 				}
 				
 				//get student ID's index in studentList
@@ -372,7 +372,7 @@ public class SchoolSystem {
 				
 				//import list of courses into an arraylist
 				ArrayList courseList = new ArrayList(); // to store list of courses
-				courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
+				courseList = CourseDB.readCourses("/Users/trifenacaroline/Downloads/Course.txt");
 				
 				//checking if courseID exists in courseList
 				for (int j = 0; j < courseList.size(); j++) {
@@ -388,7 +388,7 @@ public class SchoolSystem {
 				
 				if(case3studentIDExists == false ) {
 					System.out.println("Course ID does not exist!");
-					break;
+					
 				}
 				
 				
@@ -408,7 +408,7 @@ public class SchoolSystem {
 				System.out.println("IOException > " + e.getMessage());
 			}
 			
-			break;
+			
 			
 		}	
 		
@@ -424,8 +424,6 @@ public class SchoolSystem {
 			case4ClassCode = sc.nextInt();
 			
 			
-			
-			break;
 		}
 		
 		
@@ -438,7 +436,7 @@ public class SchoolSystem {
     		String courseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
     		String studentFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt";
     		
-    		ArrayList arrayReadCourse = CourseDB.readCourse(courseFile);
+    		ArrayList arrayReadCourse = CourseDB.readCourses(courseFile);
     		
     		ArrayList arrayReadStudent = StudentDB.readStudents(studentFile); 
     		
@@ -481,14 +479,14 @@ public class SchoolSystem {
 		
 		choose = sc.nextInt();
 		*/
-			break; 
+			 
 		}
 			
 			
 		public void enterAssessmentWeightage() {
 			
-			Assessment.addAssessment();
-			break;	
+			//Assessment.addAssessments();
+			
 			
 		}
 		
@@ -498,19 +496,17 @@ public class SchoolSystem {
 			System.out.println("Enter the Students ID: ");
 			System.out.println("Enter the course ID: ");
 			
-			break;
 		}
 		
 			
 		public void	printCourseStats() {
-			break;
+			
 		}
 		
 		
 		public void printStudentTranscript() {
 			
 			
-			break;
 		
 		
 		}	

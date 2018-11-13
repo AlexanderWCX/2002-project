@@ -10,10 +10,9 @@ import java.util.*;
 
 public class SystemInterface {
 	
-	public static final String SEPARATOR = "|";
 	
 	public static void main(String args[]) {
-		
+		SchoolSystem schoolsystem = new SchoolSystem();
 		int choice = 0;
 		
 		System.out.println("Choose an option: ");
@@ -34,16 +33,15 @@ public class SystemInterface {
 		switch(choice) {
 		
 		case 1: 
-				Student.addStudent();
+			schoolsystem.addStudent();
 						
 			break;
 			
 			
 		case 2:
-			Course.addCourse();
-				
-					
-		break;
+			schoolsystem.addCourse();
+							
+			break;
 			
 		case 3:
 			
@@ -92,7 +90,7 @@ public class SystemInterface {
 				
 				//import list of courses into an arraylist
 				ArrayList courseList = new ArrayList(); // to store list of courses
-				courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
+				courseList = CourseDB.readCourses("/Users/trifenacaroline/Downloads/Course.txt");
 				
 				//checking if courseID exists in courseList
 				for (int j = 0; j < courseList.size(); j++) {
@@ -152,7 +150,7 @@ case 5:
     		String courseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
     		String studentFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt";
     		
-    		ArrayList arrayReadCourse = CourseDB.readCourse(courseFile);
+    		ArrayList arrayReadCourse = CourseDB.readCourses(courseFile);
     		
     		ArrayList arrayReadStudent = StudentDB.readStudents(studentFile); 
     		
@@ -199,7 +197,7 @@ case 5:
 			
 		case 6:
 			
-			Assessment.addAssessment();
+			//Assessment.addAssessment();
 			break;	
 			
 		case 7:

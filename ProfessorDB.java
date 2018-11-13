@@ -23,7 +23,7 @@ public class ProfessorDB {
 	public static ArrayList readProfessors(String directory) throws IOException {
 		
 		ArrayList courseList = new ArrayList(); // to store list of courses
-		courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
+		courseList = CourseDB.readCourses("/Users/trifenacaroline/Downloads/Course.txt");
 		
 		
 		ArrayList stringArray = new ArrayList();// read String from text file

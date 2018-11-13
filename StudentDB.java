@@ -18,7 +18,7 @@ public class StudentDB {
 		
 	public static ArrayList readStudents(String directory) throws IOException {
 		ArrayList courseList = new ArrayList(); //To store list of courses
-		courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
+		courseList = CourseDB.readCourses("/Users/trifenacaroline/Downloads/Course.txt");
 		
 		
 		ArrayList stringArray = new ArrayList();//To read String from text file

@@ -61,18 +61,19 @@ public static final String SEPARATOR = "|";
 				int courseFreeSlot = Integer.parseInt(star.nextToken().trim());
 				//Sixth Token 
 				int courseTotalSlot = Integer.parseInt(star.nextToken().trim()); 
+				
 						
 				//Create Course object from file data
-				 Course course = new Course (courseID, courseName, courseType, courseProfName, courseFreeSlot, courseTotalSlot);
+				 Course course = new Course (courseID, courseName, courseType, courseProfName, courseFreeSlot, courseTotalSlot, 0,0 ,0);
 				 
 				ArrayList studentList = new ArrayList(); 
-				studentList = StudentDB.readStudentIDs("/Users/trifenacaroline/Downloads/student.txt"); 
+				studentList = StudentDB.readStudentIDs("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt"); 
 				
 				ArrayList assessmentList = new ArrayList(); 
-				assessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt"); 
+				assessmentList = AssessmentDB.readAssessments("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Assessment.txt"); 
 				
 				ArrayList classList = new ArrayList(); 
-				classList = ClassDB.readClasses("/Users/trifenacaroline/Downloads/Class.txt"); 
+				classList = ClassDB.readClasses("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Class.txt"); 
 				
 				
 				
@@ -185,8 +186,11 @@ public static final String SEPARATOR = "|";
 					st.append(SEPARATOR);
 					st.append(course.getCourseTotalSlot());
 					st.append(SEPARATOR);
-					
-					st.append(course.getCourseTotalSlot());
+					st.append(course.getNoOfStudents());
+					st.append(SEPARATOR);
+					st.append(course.getNoOfAssessments());
+					st.append(SEPARATOR);
+					st.append(course.getNoOfClasses());
 					st.append(SEPARATOR);
 					
 					for(int j=0; j<course.getStudentListSize(); j++)

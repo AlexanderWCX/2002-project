@@ -51,6 +51,8 @@ public class Student {
 		return courseList.get(index).getCourseID();
 	}
 	
-	
+	public ArrayList<Course> getCourseList(){
+		return courseList;
+	}
 	
 }

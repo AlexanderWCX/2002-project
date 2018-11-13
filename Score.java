@@ -64,19 +64,5 @@ public class Score {
 		return studentList.get(index).getStudentID();
 	}
 	
-	public Student getStudent (int index) {
-		return studentList.get(index);
-	}
-	
-	public ArrayList<Integer> getMarksList() {
-		return marksList;
-	}
-	
-	public ArrayList<Student> getStudentList(){
-		return studentList;
-	}
-	
-	
-	
 	
 }

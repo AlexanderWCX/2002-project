@@ -3,36 +3,34 @@ package schoolsystem;
 import java.util.*;
 
 public class Score {
-	private Course course;
-	//marks out of 100
-	// repeat studentID and marks
-	private Assessment assessment;
+	private int courseID;
+	private String assessmentName;
 	private ArrayList<Student> studentList = new ArrayList<Student>();
-	private ArrayList<Integer> marksList	= new ArrayList<Integer>();
+	private ArrayList<Integer> marksList	= new ArrayList<Integer>();//marks out of 100
 	
 	
 	
 	
 	
-	public Score (Course course, Assessment assessment) {
-		this.course = course;
-		this.assessment = assessment;
+	public Score (int courseID, String assessmentName) {
+		this.courseID = courseID;
+		this.assessmentName = assessmentName;
 	}
 
 	public int getCourseID() {
-		return course.getCourseID();
+		return courseID;
 	}
 	
 	public void setCourseID(int courseID) {
-		this.course.setCourseID(courseID);
+		this.courseID = courseID;
 	}
 	
 	public String getAssessmentName() {
-		return assessment.assessmentName;
+		return assessmentName;
 	}
 	
 	public void setAssessmentName(String assessmentName) {
-		this.assessment.assessmentName = assessmentName;
+		this.assessmentName = assessmentName;
 	}
 	
 	public int getMarks(int i) {

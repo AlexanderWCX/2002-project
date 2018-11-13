@@ -39,12 +39,8 @@ import java.util.StringTokenizer;
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-<<<<<<< Updated upstream
 	        
-=======
->>>>>>> Stashed changes
 	       
-	        System.out.println(stringArray.size());
 	        for (int i = 0 ; i < stringArray.size() ; i++) {
 					String st = (String)stringArray.get(i);
 					
@@ -63,13 +59,18 @@ import java.util.StringTokenizer;
 					//finding a matching score object from scoreList to be added to the newly made Assessment object
 					for (int j=0;j<scoreList.size(); j++) {
 							Score scoreToTest = (Score) scoreList.get(j);
-							if (scoreToTest.getAssessmentName() == assessmentName) {
-								assessment.addScoretoAssessment(scoreToTest);
+							if (scoreToTest.getAssessmentName().equals(assessmentName)) {
+								for(int k=0; k<scoreToTest.getMarksListSize(); k++) {
+									assessment.getScore().addMarks(scoreToTest.getMarks(k));
+								}
+								for(int k=0; k<scoreToTest.getStudentListSize(); k++) {
+									assessment.getScore().addStudent(scoreToTest.getStudent(k));
+								}
 								//Debugging : print matching Score obj is found!
 							}
 						}
 						assessments.add(assessment); //add to assessmentList
-						System.out.println("in assessment end of for loop");
+					
 	        }
 	        
 	      
@@ -77,10 +78,10 @@ import java.util.StringTokenizer;
 		}
 	        
 		
-		// For saving(writing) assessments back to the text file
+		// an example of saving
 		public static void saveAssessments(String filename, List inputList) throws IOException {
 				List assessments = new ArrayList() ;
-				
+				System.out.println(inputList.size());
 
 		        for (int i = 0 ; i < inputList.size() ; i++) {
 						Assessment assessment = (Assessment)inputList.get(i);

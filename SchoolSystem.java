@@ -1145,11 +1145,12 @@ public class SchoolSystem {
 		public void printStudentTranscript() {
 			
 			boolean studentIDExist = false; 
+			int targetStudentIndex = 999;
 			
-			String studentFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt";
-	    	String classFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Class.txt";
-	    	String courseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
-	    	String assessmentFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Assessment.txt";
+			String studentFile = "/Users/trifenacaroline/Downloads/student.txt";
+	    	String classFile = "/Users/trifenacaroline/Downloads/Class.txt";
+	    	String courseFile = "/Users/trifenacaroline/Downloads/Course.txt";
+	    	String assessmentFile = "/Users/trifenacaroline/Downloads/Assessment.txt";
 	    	
 			try {
 				
@@ -1162,29 +1163,70 @@ public class SchoolSystem {
 							
 				for (int i = 0 ; i < studentList.size() ; i++) {
 					Student studentToCheck = (Student)studentList.get(i);
-					if (studentID != studentToCheck.getStudentID()) {
+					if (studentID == studentToCheck.getStudentID()) {
 						studentIDExist = true;
+						targetStudentIndex = i;
 						break;
 					}
+					
 				}
-								
-				while(studentIDExist == true) {
-					System.out.print("Student ID not found! Please enter student ID: ");
-					studentIDExist = false;
+				
+				//prompt if studentID does not exist
+				while(studentIDExist == false) {
+					System.out.println("Student ID does not exist!");
+					System.out.println("Enter Student ID:");
 					studentID = sc.nextInt();
 					
-					for (int i = 0 ; i < courseList.size() ; i++) {
+					for (int i = 0 ; i < studentList.size() ; i++) {
 						Student studentToCheck = (Student)studentList.get(i);
-						if (studentID != studentToCheck.getStudentID()) {
+						if (studentID == studentToCheck.getStudentID()) {
 							studentIDExist = true;
+							targetStudentIndex = i;
 							break;
 						}
+						
 					}
 				
 				}
 				
+				Student targetStudent = (Student)studentList.get(targetStudentIndex);
 				System.out.print("Student " + studentID + "'s Transcript: ");
 				
+				for(int i = 0; i < targetStudent.getCourseListSize(); i++) {
+					Course courseToPrint = (Course)targetStudent.getCourseObject(i);
+					int courseID = courseToPrint.getCourseID();
+					String courseName = courseToPrint.getCourseName();
+					
+					System.out.print(courseID + " " + courseName);
+					
+					int overallGrade = 0;
+					for (int j = 0; j < courseToPrint.getAssessmentListSize(); j++) {
+						Assessment assessmentToPrint = (Assessment)courseToPrint.getAssessment(j);
+						String assessmentName = assessmentToPrint.getAssessmentName();
+						int weightage = assessmentToPrint.getWeightage();
+						int coursework = assessmentToPrint.getCoursework();
+						String assessmentType = "";
+							if (coursework == 1) {
+							assessmentType = "Coursework";
+							} else if (coursework == 0){
+							assessmentType = "Non-Coursework";
+							}
+						Score scoreObject = assessmentToPrint.getScore();
+						int targetScoreIndex = 999;
+						for (int k = 0; k<scoreObject.getStudentListSize(); k++) {
+							if (studentID == scoreObject.getStudentID(j)) {
+								targetScoreIndex = k;
+								break;
+							}
+						}
+						int marks = scoreObject.getMarks(targetScoreIndex);
+					System.out.print(assessmentType + " - " + assessmentName + "(" + weightage + "%) = " + marks);
+						overallGrade = overallGrade + (100* ((marks / 100) * (weightage / 100)));
+					}
+					System.out.print("Overall Score :" + overallGrade );
+					
+					
+				}
 				
 				
 				

@@ -10,42 +10,26 @@ import java.util.*;
 
 public class SchoolSystem {
 	
-	public static final String SEPARATOR = "|";
-	
-	public static void main(String args[]) {
-		
-		int choice = 0;
-		
-		System.out.println("Choose an option: ");
-		System.out.println("1: Add a student");
-		System.out.println("2: Add a course");
-		System.out.println("3: Register a student into a course");
-		System.out.println("4: Check slots for course or classes");
-		System.out.println("5: Print the student list by lecture, tutorial or laboratory session for a course");
-		System.out.println("6: Add an assessment for a course");
-		System.out.println("7: Enter a student's marks");
-		System.out.println("8: Print a course's performance");
-		System.out.println("9: Print a student's transcript");
-		
+	public static final String SEPARATOR = "|";	
 		Scanner sc = new Scanner(System.in);
 		
-		choice = sc.nextInt();
-		
-		switch(choice) {
-		
-		case 1: 
+		public void addStudent() {
 				Student.addStudent();
 						
 			break;
 			
+		}
+		
+		
+		public void addCourse() {
 			
-		case 2:
 			Course.addCourse();
 				
 					
 		break;
-			
-		case 3:
+		}
+		
+		public void registerStudent() {
 			
 			int case3studID;
 			int case3courseIDToAdd = 999;
@@ -130,7 +114,11 @@ public class SchoolSystem {
 			
 			break;
 			
-		case 4:
+		}	
+		
+			
+		public void checkClassAvailability() {
+			
 			int case4CourseCode;
 			int case4ClassCode; 
 						
@@ -142,8 +130,10 @@ public class SchoolSystem {
 			
 			
 			break;
-			
-case 5:
+		}
+		
+		
+		public void printCourseStudentList(){
 			
 			System.out.println("Please enter a course ID:");
     		int courseCode = sc.nextInt(); 
@@ -196,41 +186,41 @@ case 5:
 		choose = sc.nextInt();
 		*/
 			break; 
+		}
 			
-		case 6:
+			
+		public void enterAssessmentWeightage() {
 			
 			Assessment.addAssessment();
 			break;	
 			
-		case 7:
+		}
+		
+		
+		public void enterAssessmentMark(){
 			
 			System.out.println("Enter the Students ID: ");
 			System.out.println("Enter the course ID: ");
 			
 			break;
-		case 8:
+		}
+		
 			
-			
+		public void	printCourseStats() {
 			break;
-		case 9:
-			
-			break;
-		
-		
-		
-		
 		}
 		
 		
+		public void printStudentTranscript() {
+			
+			
+			break;
 		
 		
+		}	
 		
 		
-		
-		
-		
-	}
-	
-	
-	
 }
+	
+	
+	

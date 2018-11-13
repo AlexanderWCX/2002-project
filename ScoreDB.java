@@ -18,17 +18,11 @@ public class ScoreDB {
 
 	
 	
-    // an example of reading
+    // For reading the list of scores from the text file
 	public static ArrayList readScores(String directory) throws IOException {
 		
-		ArrayList studentList = new ArrayList(); // to store list of courses
+		ArrayList studentList = new ArrayList(); // to store list of Students
 		studentList = StudentDB.readStudents("/Users/trifenacaroline/Downloads/Student.txt");// Copying the student database into studentList
-		
-		ArrayList courseList = new ArrayList(); // to store list of courses
-		courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");// Copying the course database into courseList
-		
-		ArrayList assessmentList = new ArrayList();
-		assessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt");// Copying the assessment database into assessmentList
 		
 		
 		ArrayList stringArray = new ArrayList();// read String from text file
@@ -61,34 +55,9 @@ public class ScoreDB {
 				int courseID = Integer.parseInt(star.nextToken().trim()); // first token
 				String assessmentName = star.nextToken().trim();	// second token
 				
-				Assessment assessmentToAdd;
-				Course courseToAdd;
-				
-				for (int j = 0; j < courseList.size(); j++) {
-					Course courseToTest = (Course)courseList.get(j);
-					int courseToTestID = courseToTest.getCourseID();
-					if (courseToTestID == courseID) {
-						courseToAdd = (Course)courseList.get(j);
-						break;
-					}
-				}
-				
-				for (int k = 0; k < assessmentList.size(); k++) {
-					Assessment assessmentToTest = (Assessment)assessmentList.get(k);
-					String assessmentToTestName = assessmentToTest.assessmentName;
-					if (assessmentToTestName == assessmentName) {
-						assessmentToAdd = (Assessment)assessmentList.get(k);
-						break;
-					}
-				}
-				
-				
 					
-				/* use the name and id to compare to the course and and assessment list, if there are such courses and assessments then 
-				 * pass those into the score constructor and add it into the score list
-				 */
-				Score score = new Score(courseToAdd, assessmentToAdd); // create Score Object from file data
-				scores.add(score); //add to score List
+				Score score = new Score(courseID, assessmentName); // create Score Object from file data
+				scores.add(score); //add to Score List
 				
 				
 				
@@ -115,7 +84,7 @@ public class ScoreDB {
 	}
         
 	
-	// an example of saving
+	// For saving list of scores to the text file
 	public static void saveScores(String filename, List inputList) throws IOException {
 			List scores = new ArrayList() ;// to store Scores data
 
@@ -126,7 +95,7 @@ public class ScoreDB {
 					st.append(SEPARATOR);
 					st.append(score.getAssessmentName().trim());
 					st.append(SEPARATOR);
-					//add third token append here
+					
 					for (int j = 0; j < score.getStudentListSize(); j++) {
 						if (score.getStudentID(j)!= 0) {
 								st.append(score.getStudentID(j));

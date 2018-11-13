@@ -61,19 +61,18 @@ public static final String SEPARATOR = "|";
 				int courseFreeSlot = Integer.parseInt(star.nextToken().trim());
 				//Sixth Token 
 				int courseTotalSlot = Integer.parseInt(star.nextToken().trim()); 
-				
 						
 				//Create Course object from file data
-				 Course course = new Course (courseID, courseName, courseType, courseProfName, courseFreeSlot, courseTotalSlot, 0,0 ,0);
+				 Course course = new Course (courseID, courseName, courseType, courseProfName, courseFreeSlot, courseTotalSlot);
 				 
 				ArrayList studentList = new ArrayList(); 
-				studentList = StudentDB.readStudentIDs("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt"); 
+				studentList = StudentDB.readStudentIDs("/Users/trifenacaroline/Downloads/student.txt"); 
 				
 				ArrayList assessmentList = new ArrayList(); 
-				assessmentList = AssessmentDB.readAssessments("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Assessment.txt"); 
+				assessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt"); 
 				
 				ArrayList classList = new ArrayList(); 
-				classList = ClassDB.readClasses("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Class.txt"); 
+				classList = ClassDB.readClasses("/Users/trifenacaroline/Downloads/Class.txt"); 
 				
 				
 				
@@ -112,7 +111,7 @@ public static final String SEPARATOR = "|";
 				
 				
 					if (noOfAssessments > 0)
-				{	for (int k = 0; k<noOfStudents; k++) {
+				{	for (int k = 0; k<noOfAssessments; k++) {
 					String assessmentName = star.nextToken().trim();  
 					
 					for(int m = 0; m<assessmentList.size(); m++)
@@ -120,7 +119,7 @@ public static final String SEPARATOR = "|";
 						Assessment assessment = (Assessment)assessmentList.get(m); 
 						String checkAssessmentName = assessment.getAssessmentName(); 
 						
-						if(checkAssessmentName == assessmentName)
+						if(checkAssessmentName.equals(assessmentName))
 						{
 							Assessment assessmentToAdd = (Assessment)assessmentList.get(m); 
 							course.addAssessment(assessmentToAdd);
@@ -137,15 +136,15 @@ public static final String SEPARATOR = "|";
 				
 					if (noOfClasses > 0)
 				{
-					for (int m = 0; m<noOfStudents; m++) {
+					for (int m = 0; m<noOfClasses; m++) {
 					String classCode = star.nextToken().trim();  
 					
 					for(int j = 0; j<classList.size(); j++)
 					{
 						Class newClass = (Class)classList.get(j); 
 						String checkClassCode = newClass.getClassCode(); 
-						
-						if(checkClassCode == classCode)
+			
+						if(checkClassCode.equals(classCode))
 						{
 							Class classToAdd = (Class)classList.get(j); 
 							course.addClass(classToAdd);
@@ -223,7 +222,7 @@ public static final String SEPARATOR = "|";
 	        
 				write(filename,courses);
 		}
-	
+
 	/** Write fixed content to the given file. */
 	  public static void write(String fileName, List data) throws IOException  {
 	    PrintWriter out = new PrintWriter(new FileWriter(fileName));

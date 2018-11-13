@@ -64,18 +64,13 @@ import java.util.StringTokenizer;
 					//finding a matching score object from scoreList to be added to the newly made Assessment object
 					for (int j=0;j<scoreList.size(); j++) {
 							Score scoreToTest = (Score) scoreList.get(j);
-							if (scoreToTest.getAssessmentName().equals(assessmentName)) {
-								for(int k=0; k<scoreToTest.getMarksListSize(); k++) {
-									assessment.getScore().addMarks(scoreToTest.getMarks(k));
-								}
-								for(int k=0; k<scoreToTest.getStudentListSize(); k++) {
-									assessment.getScore().addStudent(scoreToTest.getStudent(k));
-								}
+							if (scoreToTest.getAssessmentName() == assessmentName) {
+								assessment.addScoretoAssessment(scoreToTest);
 								//Debugging : print matching Score obj is found!
 							}
 						}
 						assessments.add(assessment); //add to assessmentList
-					
+						System.out.println("in assessment end of for loop");
 	        }
 	        
 	      

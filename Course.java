@@ -128,6 +128,10 @@ public class Course {
 		this.noOfStudents = noOfStudents; 
 	}
 	
+	public Assessment getAssessment(int index) {
+		return assessmentList.get(index);
+	}
+	
 	public int getNoOfAssessments()
 	{
 		return noOfAssessments; 

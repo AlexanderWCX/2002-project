@@ -36,6 +36,7 @@ public class Course {
 		this.courseCoordinator = professorName; 
 		this.courseFreeSlot = courseFreeSlot;
 		this.courseFreeSlot = courseTotalSlot;
+	
 		
 	}
 	
@@ -159,10 +160,6 @@ public class Course {
 		courseFreeSlot--;
 	}
 	
-	public Assessment getAssessment(int index) {
-		return assessmentList.get(index);
-	}
-	
 	public int getAssessmentListSize()
 	{
 		return assessmentList.size(); 
@@ -186,18 +183,16 @@ public class Course {
 		return assessmentList.get(index);
 	}
 	
-	
 	public int getClassListSize()
 	{
 		return classList.size(); 
 	}
-
+	
 	public Class getClassObject(int index)
 	{
 		return classList.get(index);
 	}
 	
-
 	public String getClassCode(int index)
 	{		
 		return classList.get(index).getClassCode(); 
@@ -215,41 +210,6 @@ public class Course {
 		
 	}
 	
-	public static void checkClass(String classCode)
-	{
-		boolean classCodeExists = true;
-				
-			try {
-			String classFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Class.txt";
-			ArrayList classList = ClassDB.readClasses(classFile); 
-			
-			
-			while(classCodeExists == true) {
-				for (int i = 0 ; i < classList.size() ; i++) {
-					Class classToCheck = (Class)classList.get(i);
-					if (classCode == classToCheck.getClassCode())
-						classCodeExists = true;
-					else 
-						classCodeExists = false;
-				}
-				
-				//prompt if studentID does not exist
-				if(classCodeExists == true) {
-					System.out.println("Student ID already exists!");
-					System.out.println("Enter New Student ID:");
-					classCode = sc.next();
-					
-				}
-				}
-			
-						
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-		
-	}
 	
 }
 

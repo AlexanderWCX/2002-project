@@ -15,18 +15,15 @@ import java.util.StringTokenizer;
 
 public class StudentDB {
 	public static final String SEPARATOR = "|";
-
-	
-	
-    // an example of reading
-	public static ArrayList readStudents(String directory) throws IOException {
 		
-		ArrayList courseList = new ArrayList(); // to store list of courses
+	public static ArrayList readStudents(String directory) throws IOException {
+		ArrayList courseList = new ArrayList(); //To store list of courses
 		courseList = CourseDB.readCourse("/Users/trifenacaroline/Downloads/Course.txt");
 		
-		// read String from text file
-		ArrayList stringArray = new ArrayList();
-		ArrayList students = new ArrayList() ;// to store Students data
+		
+		ArrayList stringArray = new ArrayList();//To read String from text file
+		
+		ArrayList students = new ArrayList() ;//To store Students data
     	Scanner input;
     	
         try {
@@ -44,12 +41,9 @@ public class StudentDB {
         } catch (Exception e) {
             e.printStackTrace();
         }
-		//ArrayList stringArray = (ArrayList)read(filename);
-		//ArrayList students = new ArrayList() ;// to store Students data
-
+        
         for (int i = 0 ; i < stringArray.size() ; i++) {
-				String st = (String)stringArray.get(i);
-				// get individual 'fields' of the string separated by SEPARATOR
+				String st = (String)stringArray.get(i);// get individual 'fields' of the string separated by SEPARATOR
 				StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
 				if(!star.hasMoreTokens()) {
 					break;
@@ -81,9 +75,9 @@ public class StudentDB {
         
 public static ArrayList readStudentIDs(String directory) throws IOException {
 		
-		// read String from text file
-		ArrayList stringArray = new ArrayList();
-		ArrayList alr = new ArrayList() ;// to store Students data
+														
+		ArrayList stringArray = new ArrayList();// read String from text file
+		ArrayList students = new ArrayList() ;// to store Students data
     	Scanner input;
     	
         try {
@@ -112,40 +106,40 @@ public static ArrayList readStudentIDs(String directory) throws IOException {
 				int studentID = Integer.parseInt(star.nextToken().trim()); // first token
 				String studentName = star.nextToken().trim();	// second token
 				Student student = new Student(studentID, studentName); // create Student Object from file data
-				alr.add(student); //add to Student List
+				students.add(student); //add to Student List
         }
-			return alr;
+			return students;
 	}
 	
 	
-	// an example of saving
-	public static void saveStudents(String filename, List al) throws IOException {
-			List alw = new ArrayList() ;// to store Professors data
+	// For saving(writing) back to the text file
+	public static void saveStudents(String filename, List inputList) throws IOException {
+			List students = new ArrayList() ;// to store students data
 
-	        for (int i = 0 ; i < al.size() ; i++) {
-					Student student = (Student)al.get(i);
+	        for (int i = 0 ; i < inputList.size() ; i++) {
+					Student student = (Student)inputList.get(i);
 					StringBuilder st =  new StringBuilder() ;
 					st.append(student.getStudentID());
 					st.append(SEPARATOR);
 					st.append(student.getStudentName().trim());
 					st.append(SEPARATOR);
-					//add third token append here
+					
 					for (int j = 0; j < student.getCourseListSize(); j++) {
 						if (student.getCourseID(j)!= 0) {
 								st.append(student.getCourseID(j));
 								st.append(SEPARATOR);
 					    }
 					}
-					alw.add(st.toString()) ;
+					students.add(st.toString()) ;
 				}
-				write(filename,alw);
+				write(filename,students);
 		}
 	/** Write fixed content to the given file. */
 	  public static void write(String fileName, List data) throws IOException  {
 	    PrintWriter out = new PrintWriter(new FileWriter(fileName));
 
 	    try {
-			for (int i =0; i < data.size() ; i++) {
+			for (int i = 0; i < data.size() ; i++) {
 	      		out.println((String)data.get(i));
 			}
 	    }

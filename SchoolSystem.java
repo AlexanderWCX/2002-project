@@ -950,10 +950,145 @@ public class SchoolSystem {
 		}
 		
 		
-		public void enterAssessmentMark(){
+	public void enterAssessmentMark(){
 			
-			System.out.println("Enter the Students ID: ");
-			System.out.println("Enter the course ID: ");
+			
+			try {
+				
+				int studentID;
+				int courseID;
+				int marks;
+				String assessmentName;
+				int targetStudentIndex=0;
+				int targetAssessmentIndex=0;
+				boolean studentExist = false;
+				boolean courseExist = false;
+				boolean assessmentExist = false;
+				Assessment targetAssessment;
+				Score targetScore;
+				
+				ArrayList<Student> studentList = new ArrayList();
+				ArrayList<Course> courseList = new ArrayList();
+				ArrayList<Assessment> assessmentList = new ArrayList();
+				ArrayList<Score> scoreList = new ArrayList();
+				//reading in the student list, course list and assessment list from the text files
+				String studentFile = "C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Student.txt";
+				String courseFile = "C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Course.txt";
+				String assessmentFile = "C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Assessment.txt";
+				String scoreFile = "C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Score.txt";
+				studentList = StudentDB.readStudents(studentFile);
+				courseList = CourseDB.readCourses(courseFile);
+				assessmentList = AssessmentDB.readAssessments(assessmentFile);
+				scoreList = ScoreDB.readScores(scoreFile);
+				
+				System.out.println("Enter the Students ID: ");
+				studentID = sc.nextInt();
+				
+				
+				while(studentExist == false){
+					
+					for(int i=0; i < studentList.size(); i++) {
+						if(studentID == studentList.get(i).getStudentID()) {
+							studentExist = true;
+							targetStudentIndex = i;
+							break;
+						}
+					
+					}
+					
+					if(studentExist == false) {
+						System.out.println("StudentID not found please try again");
+						System.out.println("Enter the Students ID: ");
+						studentID = sc.nextInt();
+					}
+				};
+				
+				//the chosen student
+				Student targetStudent = studentList.get(targetStudentIndex);
+				System.out.println(targetStudent.getCourseListSize());
+				for(int j=0;j<targetStudent.getCourseListSize();j++){
+					System.out.println(targetStudent.getCourseID(j));
+				}
+				//the courses the chosen student takes
+				ArrayList<Course> studentcourseList = targetStudent.getCourseList(); 
+				
+				System.out.println("Enter the courseID: ");
+				courseID = sc.nextInt();
+				
+				while(courseExist == false){
+					
+					for(int k=0; k < studentcourseList.size(); k++) {
+						if(courseID == studentcourseList.get(k).getCourseID()) {
+							courseExist = true;
+							break;
+						}
+					
+					}
+					
+					if(courseExist == false){
+						System.out.println("courseID not found in students list of courses, please try again");
+						System.out.println("Enter the courseID: ");
+						studentID = sc.nextInt();
+					}
+				};
+				
+				String empty = sc.nextLine();
+				System.out.println("Enter the assessment name: ");
+				assessmentName = sc.nextLine();
+				
+				while(assessmentExist == false){
+					
+					for(int p=0; p < assessmentList.size(); p++) {
+						if(assessmentName.equals(assessmentList.get(p).getAssessmentName()) 
+								&& courseID==assessmentList.get(p).getCourseID()) {
+							assessmentExist = true;
+							targetAssessmentIndex = p;
+							break;
+						}
+					
+					}
+					
+					if(assessmentExist == false){
+						System.out.println("assessment name not found in the list of assessments, please try again");
+						System.out.println("Enter the assessment name: ");
+						studentID = sc.nextInt();
+					}
+				};
+				
+				//chosen assessment
+				targetAssessment = assessmentList.get(targetAssessmentIndex);
+				
+				
+				//chosen score
+				targetScore = targetAssessment.getScore();
+				for(int u=0; u<scoreList.size();u++) {
+				if(targetScore.getCourseID()==scoreList.get(u).getCourseID()
+						&& targetScore.getAssessmentName().equals(scoreList.get(u).getAssessmentName())) {
+					targetScore=scoreList.get(u);
+					
+				};
+				};
+				
+				System.out.println("Enter the marks(out of 100): ");
+				marks = sc.nextInt();
+				
+				while(marks>100 || marks<0) {
+					System.out.println("marks does not fall within range of 0 to 100 ");
+					System.out.println("Enter the marks(out of 100): ");
+					marks = sc.nextInt();
+				}
+				
+				targetScore.addMarks(marks);
+				targetScore.addStudent(targetStudent);
+				ScoreDB.saveScores(scoreFile, scoreList);
+				
+				System.out.println("marks added!");
+				
+				
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 			
 		}
 		

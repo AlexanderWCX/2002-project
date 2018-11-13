@@ -77,9 +77,12 @@ public class SchoolSystem {
 		
 		public static void addCourse()
 		{
+			
+			
 			ClassDB ClassDB = new ClassDB();
 	    	String classFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Class.txt";
 	    	String courseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
+	    	String profFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Professor.txt";
 			
 	    	int courseID;
 			String courseName;
@@ -90,21 +93,75 @@ public class SchoolSystem {
 			String classCode;  
 			int classSize; 
 			int numOfClass; 
-			boolean classCodeExists = true;
+			boolean classCodeExists = false;
+			boolean courseIDExists = false;
+			boolean profNameExists = false;
 			
 	   	
 			try {
 				
 				ArrayList courseList = CourseDB.readCourses(courseFile);
 				ArrayList classList = ClassDB.readClasses(classFile); 
+				ArrayList profList = ProfessorDB.readProfessors(profFile); 
 					
 				System.out.print("Please enter Course Code: "); 
 				courseID = sc.nextInt(); 
+				
+				for (int i = 0 ; i < courseList.size() ; i++) {
+					Course courseToCheck = (Course)courseList.get(i);
+					if (courseID == courseToCheck.getCourseID()) {
+						courseIDExists = true;
+						break;
+					}
+				}
+				
+				
+				while(courseIDExists == true) {
+					System.out.print("Course ID already exist! Please enter a new Course ID: ");
+					courseIDExists = false;
+					courseID = sc.nextInt();
+					
+					for (int i = 0 ; i < courseList.size() ; i++) {
+						Course courseToCheck = (Course)courseList.get(i);
+						if (courseID == courseToCheck.getCourseID()) {
+							courseIDExists = true;
+							break;
+						}
+					}
+				
+				}
+				
 				String empty = sc.nextLine(); 
 			    System.out.print("Please enter Course Name: ");
 				courseName = sc.nextLine();
 				System.out.print("Please enter Course Professor Name: ");
 				courseProfName = sc.nextLine();
+				
+				for (int i = 0 ; i < profList.size() ; i++) {
+					Professor profToCheck = (Professor)profList.get(i);
+					if (courseProfName.equals(profToCheck.getProfessorName())) {
+						profNameExists = true;
+						break;
+					}
+				}
+				
+				
+				while(profNameExists == false) {
+					System.out.print("Invalid Professor Name! Please try again!: ");
+					profNameExists = false;
+					courseProfName = sc.next();
+					
+					for (int i = 0 ; i < profList.size() ; i++) {
+						Professor profToCheck = (Professor)profList.get(i);
+						if (courseProfName.equals(profToCheck.getProfessorName())) {
+							profNameExists = true;
+							break;
+						}
+					}
+				
+				}
+				
+				
 			    System.out.print("Please enter Course Type: (1 - Lecture only, 2 - Lecture/Tutorial only, 3 - Lecture/Tutorial/Lab): ");
 				courseType = sc.nextInt();
 				 
@@ -112,30 +169,31 @@ public class SchoolSystem {
 				{
 					System.out.print("Please enter Lecture Group Code:");
 					classCode = sc.next(); 
-					//checkClass(classCode); 	
 					
-					while(classCodeExists == true) {
-						for(int i=0; i<classList.size(); i++ )
-						{
-							Class classToCheck = (Class) classList.get(i); 
-							if(classToCheck.getClassCode() == classCode)
-							{
-								classCodeExists = true; 
-							}
-							
-							else 
-							{
-								classCodeExists = false;
-							}
+					for (int i = 0 ; i < courseList.size() ; i++) {
+						Course courseToCheck = (Course)courseList.get(i);
+						if (courseID == courseToCheck.getCourseID()) {
+							courseIDExists = true;
+							break;
 						}
+					}
+					
+					
+					while(courseIDExists == true) {
+						System.out.print("Course ID already exist! Please enter a new Course ID: ");
+						courseIDExists = false;
+						courseID = sc.nextInt();
 						
-						if(classCodeExists = true)
-						{
-						System.out.print("Course Code existed! Please enter a new Class Code: "); 
-						classCode = sc.next(); 
-						}
+						for (int i = 0 ; i < courseList.size() ; i++) {
+							Course courseToCheck = (Course)courseList.get(i);
+							if (courseID == courseToCheck.getCourseID()) {
+								courseIDExists = true;
+								break;
+							}
 						}
 					
+					}
+												
 					System.out.print("Please enter Lecture Size Group:");
 					classSize = sc.nextInt(); 
 					
@@ -154,42 +212,15 @@ public class SchoolSystem {
 					courseList.add(case2NewCCourse); 
 					CourseDB.saveCourses(courseFile, courseList); 
 					
-					System.out.print("Course " + courseName + "(" + courseID + ") " + " taught by " + courseProfName + " is created " );
-					
-					for (int i = 0 ; i < courseList.size() ; i++) {
-						
-						Course courseToPrint = (Course)courseList.get(i);
-						int typeCourse = courseToPrint.getCourseType(); 
-						System.out.println("List of Courses:");
-						System.out.println("Course ID: " + courseToPrint.getCourseID());
-						System.out.println("Course Name: " + courseToPrint.getCourseName());
-						System.out.println("Course Coordinator: " + courseToPrint.getCourseCoordinator());
-						
-						
-						if(typeCourse == 1)
-						{
-							System.out.println("Course Type: Lecture");
-						}
-						
-						else if(typeCourse == 2)
-						{
-							System.out.println("Course Type: Lecture/Tutorial");
-						}
-						
-						else if(typeCourse == 3)
-						{
-							System.out.println("Course Type: Lecture/Tutorial/Lab");
-						}
-						
-						System.out.println("---------------------------------");
-						
+					System.out.println("Course " + courseName + "(" + courseID + ") " + " taught by " + courseProfName + " is created " );
+					printCourses(); 
+				
 				}
-				}
-				/*
+				
 				else if(courseType == 2 || courseType == 3)
 				{
 					//Prompt user to enter the number of Tutorial classes (E.g 4 Tutorial Classes for 2002)
-					System.out.print("Please enter the number of Tutorial Classes for " + courseName + "(" + courseID + "): ");
+					System.out.print("Please enter the number of Tutorial Classes for: " + courseName + "(" + courseID + "): ");
 					numOfClass = sc.nextInt(); 
 					
 					for(int i = 0; i<numOfClass; i++) //For each of the classes, enter the class codes and number of slots 
@@ -197,29 +228,33 @@ public class SchoolSystem {
 						System.out.print("Please enter Tutorial Class Code for: " + courseName + "(" + courseID + "): ");
 						classCode = sc.next(); 
 						
+						/*
+						for (int j = 0 ; j < classList.size() ; i++) {
+							Class classToCheck = (Class)classList.get(i);
+							if (classCode == classToCheck.getClassCode()) {
+								classCodeExists = true;
+								break;
+							}
+						}
+						
+						
 						while(classCodeExists == true) {
-							for(int j=0; i<classList.size(); i++ )
-							{
-								Class classToCheck = (Class) classList.get(i); 
-								if(classCode == classToCheck.getClassCode())
-								{
-									classCodeExists = true; 
-								}
-								
-								else 
-								{
-									classCodeExists = false;
-								}
-							}
+							System.out.print("Class Code already exist! Please enter a new Class Code: ");
+							classCodeExists = false;
+							classCode = sc.next();
 							
-							if(classCodeExists = true)
-							{
-							System.out.print("Course Code existed! Please enter a new Class Code: "); 
-							classCode = sc.next(); 
-							}
+							for (int k = 0 ; k < classList.size() ; i++) {
+								Class classToCheck = (Class)classList.get(i);
+								if (classCode == classToCheck.getClassCode()) {
+									classCodeExists = true;
+									break;
+								}
 							}
 						
-						System.out.print("Please enter Tutorial Class Size for: " + classCode);
+						}
+						*/
+						
+						System.out.print("Please enter Tutorial Class Size for " + classCode + ": ");
 						classSize = sc.nextInt(); 
 						
 						courseTotalSlot = classSize; 
@@ -230,44 +265,22 @@ public class SchoolSystem {
 						classList.add(case2NewClass); 
 						ClassDB.saveClasses(classFile, classList);
 						
-						System.out.println("Tutorial Class Code " + classCode + " for " + courseName + "(" + courseID + ") is created" );
+						System.out.println("Tutorial Class " + classCode + " for " + courseName + "(" + courseID + ") is created" );
 												
 					}
 					
 					if(courseType == 3)
 					{
 						//Prompt user to enter the number Lab classes (E.g 4 Lab Classes for 2002)
-						System.out.print("Please enter the number of Lab Classes for " + courseName + "(" + courseID + "): ");
+						System.out.print("Please enter the number of Lab Classes for: " + courseName + "(" + courseID + "): ");
 						numOfClass = sc.nextInt(); 
 						
 						for(int i = 0; i<numOfClass; i++) //For each of the classes, enter the class codes and number of slots 
 						{
 							System.out.print("Please enter Class Code for: "  + courseName + "(" + courseID + "): ");
 							classCode = sc.next(); 
-							
-							while(classCodeExists == true) {
-								for(int j=0; i<classList.size(); i++ )
-								{
-									Class classToCheck = (Class) classList.get(i); 
-									if(classCode == classToCheck.getClassCode())
-									{
-										classCodeExists = true; 
-									}
-									
-									else 
-									{
-										classCodeExists = false;
-									}
-								}
-								
-								if(classCodeExists = true)
-								{
-								System.out.print("Course Code existed! Please enter a new Class Code: "); 
-								classCode = sc.next(); 
-								}
-								}
-							
-							System.out.print("Please enter the Class Size for: " + classCode);
+														
+							System.out.print("Please enter the Class Size for: " + classCode + ": ");
 							classSize = sc.nextInt(); 
 							
 							courseTotalSlot = classSize; 
@@ -283,32 +296,34 @@ public class SchoolSystem {
 					
 					}
 					
-					System.out.println("Please enter the Lecture Group Code for" + courseName + "( " + courseID + "):  ");
+					System.out.println("Please enter the Lecture Group Code for " + courseName + "(" + courseID + "): ");
 					classCode = sc.next(); 
-					
-					while(classCodeExists == true) {
-						for(int i=0; i<classList.size(); i++ )
-						{
-							Class classToCheck = (Class) classList.get(i); 
-							if(classCode == classToCheck.getClassCode())
-							{
-								classCodeExists = true; 
-							}
-							
-							else 
-							{
-								classCodeExists = false;
-							}
+								
+					for (int i = 0 ; i < courseList.size() ; i++) {
+						Course courseToCheck = (Course)courseList.get(i);
+						if (courseID == courseToCheck.getCourseID()) {
+							courseIDExists = true;
+							break;
 						}
+					}
+					
+					
+					while(courseIDExists == true) {
+						System.out.print("Course ID already exist! Please enter a new Course ID: ");
+						courseIDExists = false;
+						courseID = sc.nextInt();
 						
-						if(classCodeExists = true)
-						{
-						System.out.print("Course Code existed! Please enter a new Class Code: "); 
-						classCode = sc.next(); 
-						}
+						for (int i = 0 ; i < courseList.size() ; i++) {
+							Course courseToCheck = (Course)courseList.get(i);
+							if (courseID == courseToCheck.getCourseID()) {
+								courseIDExists = true;
+								break;
+							}
 						}
 					
-					courseTotalSlot = classSize; 
+					}
+					
+					courseTotalSlot = 0; 
 					courseFreeSlot = courseTotalSlot; 
 					
 					Class case2NewClass = new Class(courseID, "Lecture", classCode, courseTotalSlot); 
@@ -319,20 +334,19 @@ public class SchoolSystem {
 					Course case2NewCCourse = new Course(courseID, courseName, courseType, courseProfName, courseFreeSlot, courseTotalSlot);  
 					
 					courseList.add(case2NewCCourse); 
-					CourseDB.saveCourse(courseFile, courseList); 
+					CourseDB.saveCourses(courseFile, courseList);
 					
 					System.out.print("Course " + courseName + "(" + courseID + ") " + " taught by " + courseProfName + " is created " );
-								
+					printCourses(); 			
 				}
 				
-	*/
+	
 				
 				
 			} catch (IOException e) {
 				System.out.println("IOException > " + e.getMessage());
 			}
 		}
-		
 		
 		public void registerStudent() {
 			
@@ -877,6 +891,54 @@ public class SchoolSystem {
 		
 		
 		}	
+		
+		public static void printCourses()
+		{
+			String courseFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt";
+			
+			try {
+				ArrayList courseList = CourseDB.readCourses(courseFile);
+				
+				System.out.println("---------------------------------");
+				System.out.println("List of Courses:");
+				
+				for (int i = 0 ; i < courseList.size() ; i++) {
+					
+					Course courseToPrint = (Course)courseList.get(i);
+					int typeCourse = courseToPrint.getCourseType(); 
+					System.out.println("Course ID: " + courseToPrint.getCourseID());
+					System.out.println("Course Name: " + courseToPrint.getCourseName());
+					System.out.println("Course Coordinator: " + courseToPrint.getCourseCoordinator());
+					
+					
+					if(typeCourse == 1)
+					{
+						System.out.println("Course Type: Lecture");
+					}
+					
+					else if(typeCourse == 2)
+					{
+						System.out.println("Course Type: Lecture/Tutorial");
+					}
+					
+					else if(typeCourse == 3)
+					{
+						System.out.println("Course Type: Lecture/Tutorial/Lab");
+					}
+					
+					System.out.println("---------------------------------");
+					
+			}
+				
+				
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 		
 		
 }

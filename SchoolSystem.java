@@ -582,18 +582,74 @@ public class SchoolSystem {
 		}			
 			
 		public void checkClassAvailability() {
+			try {
+			ArrayList<Course> courseList = new ArrayList<Course>(); // to store list of courses
+			courseList = CourseDB.readCourses("/Users/trifenacaroline/Downloads/Course.txt");
 			
-			int case4CourseCode;
-			int case4ClassCode; 
-						
-			System.out.println("Please enter Course Code:");
-			case4CourseCode = sc.nextInt();
-			System.out.println("Please enter Class Code for " + case4CourseCode);
-			case4ClassCode = sc.nextInt();
+			int courseID;
+			boolean courseAdded = false;
+			int targetCourseIndex = 999;
+			
+			System.out.println("Please enter Course ID:");
+			courseID = sc.nextInt();
+			
+			//checking if courseID exists in courseList
+			for (int j = 0; j < courseList.size(); j++) {
+				Course courseToTest = (Course)courseList.get(j);
+				int courseToTestID = courseToTest.getCourseID();
+				if (courseToTestID == courseID) {
+					courseAdded = true;
+					targetCourseIndex = j;
+					break;
+				} 
+			}
+			
+			while (courseAdded == false) {
+				System.out.println("Course ID does not exist!");
+				System.out.println("Enter Course to Register:");
+				courseID = sc.nextInt();
+				
+				for (int j = 0; j < courseList.size(); j++) {
+					Course courseToTest = (Course)courseList.get(j);
+					int courseToTestID = courseToTest.getCourseID();
+					if (courseToTestID == courseID) {
+						courseAdded = true;
+						targetCourseIndex = j;
+						break;
+					} 
+				}
+				
+			}
+			
+			Course targetCourse = courseList.get(targetCourseIndex);
+			
+			System.out.println("List of slots for " + courseID + " :");
+			System.out.println("Class Type | Class Code | Free Slots / Total Slots");
+			
+			for(int i=0; i<targetCourse.getClassListSize(); i++) {
+				Class classToPrint = (Class)targetCourse.getClassObject(i);
+				String classType = classToPrint.getClassType();
+				String classCode = classToPrint.getClassCode();
+				int freeSlots = classToPrint.getFreeSlots();
+				int totalSlots = classToPrint.getClassSize();
+				if (classType.equals("Lecture")) {
+				System.out.println(classType+ "    | " + classCode + "       | " + freeSlots +" / " + totalSlots);
+				} else if (classType.equals("Tutorial")) {
+					System.out.println(classType+ "   | " + classCode + "       | " + freeSlots +" / " + totalSlots);
+				} else if (classType.equals("Lab")) {
+					System.out.println(classType+ "        | " + classCode + "       | " + freeSlots +" / " + totalSlots);
+				}
+				
+			}
+			
+			System.out.println("All slot information printed!");
 			
 			
-		}
-		
+			} catch (IOException e) {
+				System.out.println("IOException > " + e.getMessage());
+			}
+			
+		}		
 		
 		public void printCourseStudentList(){
 			

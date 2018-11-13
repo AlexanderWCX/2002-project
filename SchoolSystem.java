@@ -380,7 +380,7 @@ public class SchoolSystem {
 			boolean validClassCode = false;
 			int targetClassIndex = 999;
 			boolean studentAlreadyInCourse = true;
-			
+			Class targetClass;
 			
 			try {
 				String studentFile = "/Users/trifenacaroline/Downloads/student.txt";
@@ -417,6 +417,9 @@ public class SchoolSystem {
 					
 				
 				}
+				
+				ArrayList classList = new ArrayList(); // to store list of courses
+				classList = ClassDB.readClasses("/Users/trifenacaroline/Downloads/Class.txt");
 				
 				//create student object for target student
 				Student studenttoRegisterCourse = (Student)studentList.get(targetStudentIndex);
@@ -492,12 +495,29 @@ public class SchoolSystem {
 				Course targetCourse = (Course)courseList.get(targetCourseIndex);
 				studenttoRegisterCourse.addCourse(targetCourse);
 				
+				int courseType = targetCourse.getCourseType();
+				int targetClassIndexInClassList =999;
+				int targetLectIndexInClassList = 999;
+				if (courseType == 0) {
+					targetClass = targetCourse.getClassObject(0);
+					String targetclassCode = targetClass.getClassCode();
+					for (int i = 0; i < classList.size(); i++) {
+						Class checkClass = (Class)classList.get(i);
+						
+						if (checkClass.getClassCode().equals(targetclassCode))
+							targetClassIndexInClassList = i;
+					}
+				}
+				else {
 				System.out.println("Enter which class code to register in:");
 				System.out.println("List of available class codes");
 				System.out.println("Class Code | Available Slots");
 				for (int i = 0; i < targetCourse.getClassListSize(); i++) {
 					Class printClass = (Class)targetCourse.getClassObject(i);
+					String classType = printClass.getClassType();
+					if (!classType.equals("Lecture")) {
 					System.out.println(printClass.getClassCode() + "       | " + printClass.getFreeSlots());
+					}
 				}
 				
 				classCode = sc.next();
@@ -527,14 +547,11 @@ public class SchoolSystem {
 					System.out.println("Class Code | Available Slots");
 					for (int i = 0; i < targetCourse.getClassListSize(); i++) {
 						Class printClass = (Class)targetCourse.getClassObject(i);
+						String classType = printClass.getClassType();
+						if (!classType.equals("Lecture")) {
 						System.out.println(printClass.getClassCode() + "       | " + printClass.getFreeSlots());
+						}
 					}
-					
-					for (int i = 0; i < targetCourse.getClassListSize(); i++) {
-						Class printClass = (Class)targetCourse.getClassObject(i);
-						//String printout = "%s | %d", printClass.getClassCode(), printClass.getFreeSlots());
-					}
-					
 					classCode = sc.next();
 					
 					for (int i = 0; i <targetCourse.getClassListSize(); i++) {
@@ -557,14 +574,10 @@ public class SchoolSystem {
 					}
 				}
 					
-				Class targetClass = (Class)targetCourse.getClassObject(targetClassIndex);
+				targetClass = (Class)targetCourse.getClassObject(targetClassIndex);
 				String targetClassClassCode = targetClass.getClassCode();
 				
-				
-				ArrayList classList = new ArrayList(); // to store list of courses
-				classList = ClassDB.readClasses("/Users/trifenacaroline/Downloads/Class.txt");
-				
-				int targetClassIndexInClassList = 999;
+		
 				for(int i=0; i<classList.size(); i++) {
 					Class testClass = (Class)classList.get(i);
 					String testClassClassCode = testClass.getClassCode();
@@ -574,6 +587,26 @@ public class SchoolSystem {
 					}
 				}
 				
+				String lectClassCode = "";
+				for(int i=0; i<targetCourse.getClassListSize();i++) {
+					Class testClass = targetCourse.getClassObject(i);
+					if (testClass.getClassType().equals("Lecture")) {
+						lectClassCode = testClass.getClassCode();
+						break;
+					}
+				}
+				
+				for(int i=0; i<classList.size(); i++) {
+					Class testClass = (Class)classList.get(i);
+					String testClassClassCode = testClass.getClassCode();
+					if (testClassClassCode.equals(lectClassCode)) {
+						targetLectIndexInClassList = i;
+						break;
+					}
+				}
+				
+				}//end of else
+				
 				int newCourseFreeSlot = 0;
 				for(int i = 0; i < targetCourse.getClassListSize(); i++) {
 					Class testClass = (Class)targetCourse.getClassObject(i);
@@ -582,6 +615,10 @@ public class SchoolSystem {
 				}
 				targetCourse.setCourseFreeSlot(newCourseFreeSlot);
 				
+				if (courseType != 0) {
+					Class targetLectInClassList = (Class)classList.get(targetLectIndexInClassList);
+					targetLectInClassList.addStudent(studenttoRegisterCourse);
+				}
 				
 				Class targetClassInClassList = (Class)classList.get(targetClassIndexInClassList);
 				
@@ -613,8 +650,7 @@ public class SchoolSystem {
 			
 			
 			
-		}			
-			
+		}				
 		public void checkClassAvailability() {
 			try {
 			ArrayList<Course> courseList = new ArrayList<Course>(); // to store list of courses

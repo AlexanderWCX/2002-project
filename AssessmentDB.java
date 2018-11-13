@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
 			
 			// read String from text file
 			ArrayList stringArray = new ArrayList();
-			ArrayList alr = new ArrayList() ;
+			ArrayList assessments = new ArrayList() ;
 	    	Scanner input;
 	    	
 	        try {
@@ -44,35 +44,36 @@ import java.util.StringTokenizer;
 					String st = (String)stringArray.get(i);
 					// get individual 'fields' of the string separated by SEPARATOR
 					StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
-					int courseID = Integer.parseInt(star.nextToken().trim());
-					String assessmentName = star.nextToken().trim();
-					int weightage = Integer.parseInt(star.nextToken().trim());	
-					int coursework = Integer.parseInt(star.nextToken().trim());  
+					int courseID = Integer.parseInt(star.nextToken().trim()); //first token
+					String assessmentName = star.nextToken().trim(); //second token
+					int weightage = Integer.parseInt(star.nextToken().trim());	//third token
+					int coursework = Integer.parseInt(star.nextToken().trim()); //fourth token 
 			 		
 					Assessment assessment = new Assessment(courseID, assessmentName, weightage,coursework); // create Assessment Object from file data
 					
 					
-					ArrayList scoreList = new ArrayList(); // to store list of courses
+					ArrayList scoreList = new ArrayList(); // to store list of scores
 					scoreList = ScoreDB.readScores("/Users/trifenacaroline/Downloads/Score.txt");
-						for (i=0;i<scoreList.size(); i++) {
+					//finding a matching score object from scoreList to be added to the newly made Assessment object
+					for (i=0;i<scoreList.size(); i++) {
 							Score scoreToTest = (Score) scoreList.get(i);
 							if (scoreToTest.getAssessmentName() == assessmentName) {
 								assessment.addScoretoAssessment(scoreToTest);
 								//Debugging : print matching Score obj is found!
 							}
 						}
-						alr.add(assessment); //add to Assessment
+						assessments.add(assessment); //add to assessmentList
 	        }
-				return alr;
+				return assessments;
 		}
 	        
 		
 		// an example of saving
-		public static void saveAssessments(String filename, List al) throws IOException {
-				List alw = new ArrayList() ;// to store Professors data
+		public static void saveAssessments(String filename, List inputList) throws IOException {
+				List assessments = new ArrayList() ;
 
-		        for (int i = 0 ; i < al.size() ; i++) {
-						Assessment assessment = (Assessment)al.get(i);
+		        for (int i = 0 ; i < inputList.size() ; i++) {
+						Assessment assessment = (Assessment)inputList.get(i);
 						StringBuilder st =  new StringBuilder();
 						st.append(assessment.getCourseID());
 						st.append(SEPARATOR);
@@ -83,9 +84,9 @@ import java.util.StringTokenizer;
 						st.append(assessment.getCoursework());
 						st.append(SEPARATOR);
 						
-						alw.add(st.toString());
+						assessments.add(st.toString());
 					}
-					write(filename,alw);
+					write(filename,assessments);
 			}
 		/** Write fixed content to the given file. */
 		  public static void write(String fileName, List data) throws IOException  {

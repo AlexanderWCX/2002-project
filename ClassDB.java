@@ -15,7 +15,7 @@ public class ClassDB {
 	public static ArrayList readClasses(String directory) throws IOException {
 		
 		ArrayList studentList = new ArrayList(); // to store list of courses
-		studentList = StudentDB.readStudents("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\student.txt");
+		studentList = StudentDB.readStudents("/Users/trifenacaroline/Downloads/student.txt");
 		
 		// read String from text file
 		ArrayList stringArray = new ArrayList();
@@ -50,8 +50,9 @@ public class ClassDB {
 				String classCode = star.nextToken().trim();	// third token
 				int classSize = Integer.parseInt(star.nextToken().trim());	// fourth token
 				
-				Class class1 = new Class (courseID, classType, classCode, classSize); // create Class Object from file data
-				classes.add(class1); //add to Class List
+				Class newClass = new Class (courseID, classType, classCode, classSize); // create Class Object from file data
+				
+				
 				while(star.hasMoreTokens()) {
 				int studentID = Integer.parseInt(star.nextToken().trim());
 				for (int j = 0; j < studentList.size(); j++) {
@@ -59,12 +60,14 @@ public class ClassDB {
 					int studentToTestID = studentToTest.getStudentID();
 					if (studentToTestID == studentID) {
 						Student studentToAdd = (Student)studentList.get(j);
-						class1.addStudent(studentToAdd);
+						newClass.addStudent(studentToAdd);
 						break;
 					}
 				}
 				
 				}
+				
+				classes.add(newClass); //add to Class List
 			
         }
 			return classes;

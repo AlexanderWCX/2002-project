@@ -3,12 +3,12 @@ package schoolsystem;
 import java.util.*;
 
 public class Class {
-
-	private String classType;
-	private ArrayList<Student> studentList = new ArrayList<Student>();
 	private int courseID;
+	private String classType;
 	private String classCode;
-	private int classSize; 
+	private int classSize;
+	private ArrayList<Student> studentList = new ArrayList<Student>();
+	
 	
 	public Class (int courseID, String classType, String classCode, int classSize) {
 		this.courseID = courseID;

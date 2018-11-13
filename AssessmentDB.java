@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
 			
 			// read String from text file
 			ArrayList stringArray = new ArrayList();
-			ArrayList alr = new ArrayList() ;// to store Students data
+			ArrayList alr = new ArrayList() ;
 	    	Scanner input;
 	    	
 	        try {
@@ -49,24 +49,19 @@ import java.util.StringTokenizer;
 					int weightage = Integer.parseInt(star.nextToken().trim());	
 					int coursework = Integer.parseInt(star.nextToken().trim());  
 			 		
-					String courseFile = "/Users/trifenacaroline/Downloads/Course.txt";
-					ArrayList courseList = CourseDB.readCourse(courseFile);
+					Assessment assessment = new Assessment(courseID, assessmentName, weightage,coursework); // create Assessment Object from file data
 					
-					int targetCourseIndex = 999;
 					
-					for (int j = 0; i < courseList.size(); i++) {
-						Course courseToTest = (Course)courseList.get(j);
-						if ( courseID == courseToTest.getCourseID()) {
-							targetCourseIndex = j;
+					ArrayList scoreList = new ArrayList(); // to store list of courses
+					scoreList = ScoreDB.readScores("/Users/trifenacaroline/Downloads/Score.txt");
+						for (i=0;i<scoreList.size(); i++) {
+							Score scoreToTest = (Score) scoreList.get(i);
+							if (scoreToTest.getAssessmentName() == assessmentName) {
+								assessment.addScoretoAssessment(scoreToTest);
+								//Debugging : print matching Score obj is found!
+							}
 						}
-					}
-					
-					Course targetCourse = (Course)courseList.get(targetCourseIndex);
-					
-					Assessment assessment = new Assessment(targetCourse, assessmentName, weightage,coursework); // create Assessment Object from file data
-					alr.add(assessment); //add to Assessment
-					
-				
+						alr.add(assessment); //add to Assessment
 	        }
 				return alr;
 		}
@@ -81,11 +76,11 @@ import java.util.StringTokenizer;
 						StringBuilder st =  new StringBuilder();
 						st.append(assessment.getCourseID());
 						st.append(SEPARATOR);
-						st.append(assessment.assessmentName.trim());
+						st.append(assessment.getAssessmentName().trim());
 						st.append(SEPARATOR);
-						st.append(assessment.weightage);
+						st.append(assessment.getWeightage());
 						st.append(SEPARATOR);
-						st.append(assessment.coursework);
+						st.append(assessment.getCoursework());
 						st.append(SEPARATOR);
 						
 						alw.add(st.toString());

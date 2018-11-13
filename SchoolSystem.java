@@ -424,10 +424,6 @@ public class SchoolSystem {
 					
 				}
 				
-				
-				
-				System.out.println("courselistsize is:" + studenttoRegisterCourse.getCourseListSize());
-				
 				for (int i=0; i < studenttoRegisterCourse.getCourseListSize(); i++) {
 					if (studenttoRegisterCourse.getCourseID(i) == courseIDToAdd) {
 						System.out.println("this student has course :" + studenttoRegisterCourse.getCourseID(i));
@@ -583,8 +579,7 @@ public class SchoolSystem {
 			
 			
 			
-		}	
-		
+		}			
 			
 		public void checkClassAvailability() {
 			

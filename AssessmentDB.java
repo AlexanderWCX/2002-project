@@ -39,7 +39,7 @@ import java.util.StringTokenizer;
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-	        System.out.println("in read assessments");
+	        
 	       
 	        for (int i = 0 ; i < stringArray.size() ; i++) {
 					String st = (String)stringArray.get(i);
@@ -72,7 +72,7 @@ import java.util.StringTokenizer;
 						assessments.add(assessment); //add to assessmentList
 					
 	        }
-	        System.out.println("in assessments end of assessments");
+	        
 	      
 				return assessments;
 		}

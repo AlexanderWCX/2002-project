@@ -156,6 +156,7 @@ public class Course {
 	{
 		studentList.add(student); 
 		noOfStudents++;
+		courseFreeSlot--;
 	}
 	
 	public Assessment getAssessment(int index) {

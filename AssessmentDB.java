@@ -39,8 +39,13 @@ import java.util.StringTokenizer;
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
+<<<<<<<
 	        
+=======
+
+>>>>>>>
 	       
+	        System.out.println(stringArray.size());
 	        for (int i = 0 ; i < stringArray.size() ; i++) {
 					String st = (String)stringArray.get(i);
 					
@@ -78,10 +83,10 @@ import java.util.StringTokenizer;
 		}
 	        
 		
-		// an example of saving
+		// For saving(writing) assessments back to the text file
 		public static void saveAssessments(String filename, List inputList) throws IOException {
 				List assessments = new ArrayList() ;
-				System.out.println(inputList.size());
+				
 
 		        for (int i = 0 ; i < inputList.size() ; i++) {
 						Assessment assessment = (Assessment)inputList.get(i);

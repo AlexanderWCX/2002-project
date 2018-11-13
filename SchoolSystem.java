@@ -923,6 +923,185 @@ public class SchoolSystem {
 			
 		public void	printCourseStats() {
 			
+			System.out.println("Please enter a course ID:");
+    		int courseID = sc.nextInt(); 
+    		
+    		try {
+    		String courseFile = "/Users/trifenacaroline/Downloads/Course.txt";
+    		//String studentFile = "/Users/trifenacaroline/Downloads/student.txt";
+    		String scoreFile = "/Users/trifenacaroline/Downloads/Score.txt";
+    		
+    		ArrayList<Course> courseList = new ArrayList<Course>();
+    		//ArrayList<Student> studentList = new ArrayList<Student>();
+    		ArrayList<Score> scoreList = new ArrayList<Score>();
+    		
+    		courseList = CourseDB.readCourses(courseFile);
+    		//studentList = StudentDB.readStudents(studentFile); 
+    		boolean courseAdded = false;
+    		int targetCourseIndex = 999;
+    		
+    		//checking if courseID exists in courseList
+			for (int j = 0; j < courseList.size(); j++) {
+				Course courseToTest = (Course)courseList.get(j);
+				int courseToTestID = courseToTest.getCourseID();
+				if (courseToTestID == courseID) {
+					courseAdded = true;
+					targetCourseIndex = j;
+					break;
+				} 
+			}
+			
+			while (courseAdded == false) {
+				System.out.println("Course ID does not exist!");
+				System.out.println("Enter Course to Register:");
+				courseID = sc.nextInt();
+				
+				for (int j = 0; j < courseList.size(); j++) {
+					Course courseToTest = (Course)courseList.get(j);
+					int courseToTestID = courseToTest.getCourseID();
+					if (courseToTestID == courseID) {
+						courseAdded = true;
+						targetCourseIndex = j;
+						break;
+					} 
+				}
+				
+			}
+			
+			Course targetCourse = (Course)courseList.get(targetCourseIndex);
+			
+			System.out.println("Overall Performance (Exam + Coursework)");
+			int allStudentTotalGrade =0;
+			
+			for (int i = 0; i<targetCourse.getStudentListSize(); i++) {
+				int studentID = targetCourse.getStudentID(i);
+				int totalMarksForThisStudent = 0;
+				int targetStudentIndex = 999;
+				
+				for (int j = 0; j<targetCourse.getAssessmentListSize(); j++) {
+				Assessment assessmentToCalc = (Assessment) targetCourse.getAssessmentObject(j);
+				Score score = assessmentToCalc.getScore();
+				
+				
+					for (int k = 0; k<score.getStudentListSize(); k++) {
+					int testStudentID = score.getStudentID(k);
+					if (testStudentID == studentID) {
+						targetStudentIndex = k;
+					}
+				    }
+					
+				int studentScore = score.getMarks(targetStudentIndex);
+				int weightage = assessmentToCalc.getWeightage();
+				totalMarksForThisStudent = totalMarksForThisStudent + (100 *(studentScore / 100) *  (weightage / 100));
+				
+				}
+				
+				allStudentTotalGrade = allStudentTotalGrade + totalMarksForThisStudent;
+				
+			}
+			int noOfStudent = targetCourse.getStudentListSize();
+			int overallgrade = allStudentTotalGrade / noOfStudent;
+			System.out.println("Overall Grade:" + overallgrade);
+			
+			int examWeightage = 0;
+			System.out.println("Exam Performance");
+			int allStudentExamGrade = 0;
+			
+			for (int i = 0; i<targetCourse.getStudentListSize(); i++) {
+				int studentID = targetCourse.getStudentID(i);
+				int totalMarksForThisStudent = 0;
+				int targetStudentIndex = 999;
+				
+				for (int j = 0; j<targetCourse.getAssessmentListSize(); j++) {
+				
+				Assessment assessmentToCalc = (Assessment) targetCourse.getAssessmentObject(j);
+				int assessmentType = assessmentToCalc.getCoursework();
+				if (assessmentType == 0) {
+				Score score = assessmentToCalc.getScore();
+				examWeightage = assessmentToCalc.getWeightage();
+				
+					for (int k = 0; k<score.getStudentListSize(); k++) {
+					int testStudentID = score.getStudentID(k);
+					if (testStudentID == studentID) {
+						targetStudentIndex = k;
+					}else {
+						
+					}
+				    }
+					
+				int studentScore = score.getMarks(targetStudentIndex);
+				totalMarksForThisStudent = totalMarksForThisStudent + studentScore;
+				
+				} else {
+					break;
+				}
+				
+				}
+				
+				allStudentExamGrade = allStudentExamGrade + totalMarksForThisStudent;
+				
+			}
+			
+			
+			int overallExamGrade = allStudentExamGrade / noOfStudent;
+			System.out.println("Overall Exam Grade:" + overallExamGrade);
+			
+			System.out.println("Coursework Performance");
+			
+			int allStudentCourseworkGrade = 0;
+			int totalCourseWorkWeightage = 100 - examWeightage;
+					
+			for (int i = 0; i<targetCourse.getStudentListSize(); i++) {
+				int studentID = targetCourse.getStudentID(i);
+				int totalMarksForThisStudent = 0;
+				int targetStudentIndex = 999;
+				
+				for (int j = 0; j<targetCourse.getAssessmentListSize(); j++) {
+				
+				Assessment assessmentToCalc = (Assessment) targetCourse.getAssessmentObject(j);
+				int assessmentType = assessmentToCalc.getCoursework();
+				int weightage = assessmentToCalc.getWeightage();
+				if (assessmentType == 1) {
+					
+				Score score = assessmentToCalc.getScore();
+				
+				
+					for (int k = 0; k<score.getStudentListSize(); k++) {
+					int testStudentID = score.getStudentID(k);
+					if (testStudentID == studentID) {
+						targetStudentIndex = k;
+					}else {
+						
+					}
+				    }
+				
+				int studentScore = score.getMarks(targetStudentIndex);
+				totalMarksForThisStudent = totalMarksForThisStudent + (100 *(studentScore / 100) *  (weightage / totalCourseWorkWeightage));
+				
+				
+				} else {
+					break;
+				}
+				
+				}
+				
+				allStudentCourseworkGrade = allStudentCourseworkGrade + totalMarksForThisStudent;
+				
+			}
+			
+			
+			int overallCourseworkGrade = allStudentExamGrade / noOfStudent;
+			System.out.println("Overall Coursework Grade:" + overallCourseworkGrade);
+			
+			
+			
+			
+			
+    		} 
+    		catch (IOException e) {
+				System.out.println("IOException > " + e.getMessage());
+			}
+		
 		}
 		
 		

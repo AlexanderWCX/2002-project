@@ -15,7 +15,7 @@ public class SchoolSystem {
 	static Scanner sc = new Scanner(System.in);
 		
 		public void addStudent () {
-			boolean studentIDExists = true;
+			boolean studentIDExists = false;
 			
 	    	String studentFile = "/Users/trifenacaroline/Downloads/student.txt";
 	    	try {
@@ -25,22 +25,31 @@ public class SchoolSystem {
 				System.out.println("Enter New Student ID:");
 				int studentID = sc.nextInt();
 				
-				while(studentIDExists == true) {
+				
 				for (int i = 0 ; i < studentList.size() ; i++) {
 					Student studentToCheck = (Student)studentList.get(i);
-					if (studentID == studentToCheck.getStudentID())
+					if (studentID == studentToCheck.getStudentID()) {
 						studentIDExists = true;
-					else 
-						studentIDExists = false;
+						break;
+					}
 				}
 				
 				//prompt if studentID does not exist
-				if(studentIDExists == true) {
+				while(studentIDExists == true) {
 					System.out.println("Student ID already exists!");
+					studentIDExists = false;
 					System.out.println("Enter New Student ID:");
 					studentID = sc.nextInt();
 					
-				}
+					for (int i = 0 ; i < studentList.size() ; i++) {
+						Student studentToCheck = (Student)studentList.get(i);
+						if (studentID == studentToCheck.getStudentID()) {
+							studentIDExists = true;
+							break;
+						}
+					}
+					
+				
 				}
 				
 				System.out.println("Enter New Student Name:");

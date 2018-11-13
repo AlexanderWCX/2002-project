@@ -20,9 +20,8 @@ public class ScoreDB {
 	
     // For reading the list of scores from the text file
 	public static ArrayList readScores(String directory) throws IOException {
-		System.out.println("in score before readstudentIds");
 		ArrayList studentList = new ArrayList(); // to store list of Students
-		studentList = StudentDB.readStudentIDs("C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Student.txt");// Copying the student database into studentList
+		studentList = StudentDB.readStudentIDs("/Users/trifenacaroline/Downloads/student.txt");// Copying the student database into studentList
 		
 		
 		ArrayList stringArray = new ArrayList();// read String from text file
@@ -46,7 +45,7 @@ public class ScoreDB {
         }
 		//ArrayList stringArray = (ArrayList)read(filename);
 		//ArrayList scores = new ArrayList() ;// to store Scores data
-        System.out.println("in score");
+        
         for (int i = 0 ; i < stringArray.size() ; i++) {
 				String st = (String)stringArray.get(i);
 				// get individual 'fields' of the string separated by SEPARATOR
@@ -79,7 +78,7 @@ public class ScoreDB {
 				}
 			
         }
-        System.out.println("in score end of score");
+        
 			return scores;
 		
 	}

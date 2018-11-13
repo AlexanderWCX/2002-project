@@ -817,7 +817,7 @@ public class SchoolSystem {
 			
 			try {
 			ArrayList<Course> courseList = new ArrayList(); // to store list of courses
-			courseList = CourseDB.readCourses("C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Course.txt");
+			courseList = CourseDB.readCourses("/Users/trifenacaroline/Downloads/Course.txt");
 			
 			while (courseExist == false ) {
 				for (int j = 0; j < courseList.size(); j++) {
@@ -875,7 +875,7 @@ public class SchoolSystem {
 			assessmentName = sc.nextLine();
 			
 			ArrayList<Assessment> assessmentList = new ArrayList(); // to store list of courses
-			assessmentList = AssessmentDB.readAssessments("C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Assessment.txt");
+			assessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt");
 			
 			for(int i =0; i<assessmentList.size(); i++) {
 				System.out.println(assessmentList.get(i).getAssessmentName());
@@ -884,7 +884,10 @@ public class SchoolSystem {
 			
 			while (madeBefore) {
 				
-				System.out.println("assessment list size is " + targetCourse.getAssessmentListSize());
+				
+				if (targetCourse.getAssessmentListSize()==0) {
+					madeBefore = false;
+				}
 				for (int i=0; i< targetCourse.getAssessmentListSize(); i++) {
 				
 				Assessment assessmentToTest = targetCourse.getAssessment(i);
@@ -936,8 +939,8 @@ public class SchoolSystem {
 			Assessment newAssessment = new Assessment(courseID, assessmentName, weightage, courseworkInput);
 			assessmentList.add(newAssessment);
 			targetCourse.addAssessment(newAssessment);
-			CourseDB.saveCourses("C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Course.txt", courseList);
-			AssessmentDB.saveAssessments("C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Assessment.txt", assessmentList);
+			CourseDB.saveCourses("/Users/trifenacaroline/Downloads/Course.txt", courseList);
+			AssessmentDB.saveAssessments("/Users/trifenacaroline/Downloads/Assessment.txt", assessmentList);
 			
 			System.out.println("Assessment succesfully added!");
 			
@@ -945,8 +948,6 @@ public class SchoolSystem {
 	            e.printStackTrace();
 	        }
 		}
-		
-		
 		
 		
 		public void enterAssessmentMark(){

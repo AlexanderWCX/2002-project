@@ -176,7 +176,13 @@ public class Course {
 	{
 		return classList.size(); 
 	}
+
+	public int getClassObject(int index)
+	{
+		return classList.get(index);
+	}
 	
+
 	public String getClassCode(int index)
 	{		
 		return classList.get(index).getClassCode(); 

@@ -22,6 +22,10 @@ public class Course {
 	private ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
 	private ArrayList<Class> classList = new ArrayList<Class>(); 
 	
+	private int noOfStudents = 0;
+	private int noOfAssessments = 0;
+	private int noOfClasses = 0;
+	
 	static Scanner sc = new Scanner(System.in);
 	
 	public Course (int courseID, String courseName, int courseType, String professorName, int courseFreeSlot, int courseTotalSlot)
@@ -104,6 +108,35 @@ public class Course {
 		this.courseTotalSlot = courseTotalSlot; 
 	}
 	
+	public int getNoOfClasses()
+	{
+		return noOfClasses; 
+	}
+	
+	public void setNoOfClasses(int noOfClasses)
+	{
+		this.noOfClasses = noOfClasses; 
+	}
+	
+	public int getNoOfStudents()
+	{
+		return noOfStudents; 
+	}
+	
+	public void setNoOfStudents(int noOfStudents)
+	{
+		this.noOfStudents = noOfStudents; 
+	}
+	
+	public int getNoOfAssessments()
+	{
+		return noOfAssessments; 
+	}
+	
+	public void setNoOfAssessments(int noOfAssessments)
+	{
+		this.noOfAssessments = noOfAssessments; 
+	}
 	
 	public int getStudentListSize()
 	{
@@ -118,6 +151,7 @@ public class Course {
 	public void addStudent(Student student)
 	{
 		studentList.add(student); 
+		noOfStudents++;
 	}
 	
 	public int getAssessmentListSize()
@@ -133,6 +167,8 @@ public class Course {
 	public void addAssessment(Assessment assessment) {
 		
 		assessmentList.add(assessment); 
+		noOfAssessments++;
+		
 	
 	}
 	
@@ -149,6 +185,7 @@ public class Course {
 	public void addClass(Class newClass) {
 		
 		classList.add(newClass); 
+		noOfClasses++;
 	
 	}
 	

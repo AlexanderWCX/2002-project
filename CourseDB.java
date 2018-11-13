@@ -14,9 +14,7 @@ import java.util.StringTokenizer;
 public class CourseDB {
 	
 public static final String SEPARATOR = "|";
-public static final String STUDENTSEPARATOR = "/";
-public static final String ASSESSMENTSEPARATOR = ",";
-public static final String CLASSSEPARATOR = "!";
+
 
 	public static ArrayList readCourses(String courseFile) throws IOException {
 				
@@ -66,60 +64,80 @@ public static final String CLASSSEPARATOR = "!";
 						
 				//Create Course object from file data
 				 Course course = new Course (courseID, courseName, courseType, courseProfName, courseFreeSlot, courseTotalSlot);
-				
+				 
 				ArrayList studentList = new ArrayList(); 
-				studentList = StudentDB.readStudentIDs("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Course.txt"); 
+				studentList = StudentDB.readStudentIDs("/Users/trifenacaroline/Downloads/student.txt"); 
 				
-				StringTokenizer studentStar = new StringTokenizer(st , STUDENTSEPARATOR);	
-				while(studentStar.hasMoreTokens())
+				ArrayList assessmentList = new ArrayList(); 
+				assessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt"); 
+				
+				ArrayList classList = new ArrayList(); 
+				classList = ClassDB.readClasses("/Users/trifenacaroline/Downloads/Class.txt"); 
+				
+				
+				
+				int noOfStudents = 0;
+				noOfStudents = Integer.parseInt(star.nextToken());
+				
+				int noOfAssessments = 0;
+				noOfAssessments = Integer.parseInt(star.nextToken().trim());
+				
+				int noOfClasses = 0;
+				noOfClasses = Integer.parseInt(star.nextToken().trim());
+				
+				
+				while(star.hasMoreTokens()) {
+				if (noOfStudents > 0)
 				{
-					int studentID = Integer.parseInt(studentStar.nextToken().trim()); 
+					for (int j = 0; j<noOfStudents; j++) {
+					int studentID = Integer.parseInt(star.nextToken().trim()); 
 					
-					for(int j = 0; j<studentList.size(); j++)
+					for(int k = 0; k<studentList.size(); k++)
 					{
-						Student student = (Student)studentList.get(j); 
+						Student student = (Student)studentList.get(k); 
 						int checkStudentID = student.getStudentID(); 
 						
 						if(checkStudentID == studentID)
 						{
-							Student studentToAdd = (Student)studentList.get(j); 
+							Student studentToAdd = (Student)studentList.get(k); 
 							course.addStudent(studentToAdd);
 							break; 
 							
 						}
 					}
+					
+					}
 				}
 				
-				ArrayList assessmentList = new ArrayList(); 
-				assessmentList = AssessmentDB.readAssessments("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Assessment.txt"); 
 				
-				StringTokenizer assessmentStar = new StringTokenizer(st , ASSESSMENTSEPARATOR);	
-				while(assessmentStar.hasMoreTokens())
-				{
-					String assessmentName = assessmentStar.nextToken().trim();  
+					if (noOfAssessments > 0)
+				{	for (int k = 0; k<noOfStudents; k++) {
+					String assessmentName = star.nextToken().trim();  
 					
-					for(int j = 0; j<assessmentList.size(); j++)
+					for(int m = 0; m<assessmentList.size(); m++)
 					{
-						Assessment assessment = (Assessment)assessmentList.get(j); 
+						Assessment assessment = (Assessment)assessmentList.get(m); 
 						String checkAssessmentName = assessment.getAssessmentName(); 
 						
 						if(checkAssessmentName == assessmentName)
 						{
-							Assessment assessmentToAdd = (Assessment)assessmentList.get(j); 
+							Assessment assessmentToAdd = (Assessment)assessmentList.get(m); 
 							course.addAssessment(assessmentToAdd);
 							break; 
 							
 						}
 					}
+					
+				}
 				}
 				
-				ArrayList classList = new ArrayList(); 
-				classList = StudentDB.readStudentIDs("C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Assessment.txt"); 
 				
-				StringTokenizer classStar = new StringTokenizer(st , CLASSSEPARATOR);	
-				while(classStar.hasMoreTokens())
+				
+				
+					if (noOfClasses > 0)
 				{
-					String classCode = classStar.nextToken().trim();  
+					for (int m = 0; m<noOfStudents; m++) {
+					String classCode = star.nextToken().trim();  
 					
 					for(int j = 0; j<classList.size(); j++)
 					{
@@ -134,6 +152,8 @@ public static final String CLASSSEPARATOR = "!";
 							
 						}
 					}
+					}
+				}
 				}
 				
 				//Add to Course list
@@ -166,12 +186,15 @@ public static final String CLASSSEPARATOR = "!";
 					st.append(course.getCourseTotalSlot());
 					st.append(SEPARATOR);
 					
+					st.append(course.getCourseTotalSlot());
+					st.append(SEPARATOR);
+					
 					for(int j=0; j<course.getStudentListSize(); j++)
 					{
 						if(course.getStudentID(j) !=0)
 						{
 							st.append(course.getStudentID(j)); 
-							st.append(STUDENTSEPARATOR); 
+							st.append(SEPARATOR); 
 						}
 					}
 					
@@ -179,7 +202,7 @@ public static final String CLASSSEPARATOR = "!";
 					{
 						
 							st.append(course.getAssessmentName(k).trim()); 
-							st.append(ASSESSMENTSEPARATOR); 
+							st.append(SEPARATOR); 
 						
 					}
 					
@@ -187,7 +210,7 @@ public static final String CLASSSEPARATOR = "!";
 					{
 						
 							st.append(course.getClassCode(l).trim()); 
-							st.append(CLASSSEPARATOR); 
+							st.append(SEPARATOR); 
 						
 					}
 					

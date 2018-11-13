@@ -55,4 +55,8 @@ public class Student {
 		return courseList;
 	}
 	
+	public Course getCourseObject (int index) {
+		return courseList.get(index);
+	}
+	
 }

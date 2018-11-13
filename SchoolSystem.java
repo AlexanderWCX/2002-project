@@ -336,47 +336,60 @@ public class SchoolSystem {
 		
 		public void registerStudent() {
 			
-			int case3studID;
-			int case3courseIDToAdd = 999;
-			int case3targetIndex = 999;
-			boolean case3studentIDExists = false;
-			boolean case3courseAdded = false;
+			int studentID;
+			int courseIDToAdd = 999;
+			int targetStudentIndex = 999;
+			boolean studentIDExists = false;
+			boolean courseAdded = false;
+			String classCode;
+			int targetCourseIndex = 999;
+			boolean validClassCode = false;
+			int targetClassIndex = 999;
+			boolean studentAlreadyInCourse = true;
+			
 			
 			try {
-				String case3studentFile = "/Users/trifenacaroline/Downloads/student.txt";
-				ArrayList case3studentList = StudentDB.readStudents(case3studentFile); 
+				String studentFile = "/Users/trifenacaroline/Downloads/student.txt";
+				ArrayList studentList = StudentDB.readStudents(studentFile); 
 				
 				System.out.println("Enter Student ID:");
-				case3studID = sc.nextInt();
+				studentID = sc.nextInt();
 				
-				//checking if student ID exists
-				for (int i = 0 ; i < case3studentList.size() ; i++) {
-					Student case1studentToCheck = (Student)case3studentList.get(i);
-					if (case3studID == case1studentToCheck.getStudentID())
-						case3studentIDExists = true;
-				}
-				
-				//prompt if student ID does not exist
-				if(case3studentIDExists == false ) {
-					System.out.println("Student ID does not exist!");
+				for (int i = 0 ; i < studentList.size() ; i++) {
+					Student studentToCheck = (Student)studentList.get(i);
+					if (studentID == studentToCheck.getStudentID()) {
+						studentIDExists = true;
+						targetStudentIndex = i;
+						break;
+					}
 					
 				}
 				
-				//get student ID's index in studentList
-				for (int j = 0; j<case3studentList.size(); j++) {
-					Student studenttocheckID = (Student)case3studentList.get(j);
-					if (case3studID == studenttocheckID.getStudentID()) {
-						case3targetIndex = j;
-						break;
+				//prompt if studentID does not exist
+				while(studentIDExists == false) {
+					System.out.println("Student ID does not exist!");
+					System.out.println("Enter Student ID:");
+					studentID = sc.nextInt();
+					
+					for (int i = 0 ; i < studentList.size() ; i++) {
+						Student studentToCheck = (Student)studentList.get(i);
+						if (studentID == studentToCheck.getStudentID()) {
+							studentIDExists = true;
+							targetStudentIndex = i;
+							break;
+						}
+						
 					}
+					
+				
 				}
 				
 				//create student object for target student
-				Student studenttoRegisterCourse = (Student)case3studentList.get(case3targetIndex);
+				Student studenttoRegisterCourse = (Student)studentList.get(targetStudentIndex);
 				
 				
 				System.out.println("Enter Course to Register:");
-				case3courseIDToAdd = sc.nextInt();
+				courseIDToAdd = sc.nextInt();
 				
 				
 				//import list of courses into an arraylist
@@ -387,25 +400,176 @@ public class SchoolSystem {
 				for (int j = 0; j < courseList.size(); j++) {
 					Course courseToTest = (Course)courseList.get(j);
 					int courseToTestID = courseToTest.getCourseID();
-					if (courseToTestID == case3courseIDToAdd) {
-						studenttoRegisterCourse.addCourse(courseToTest);
-						case3courseAdded = true;
+					if (courseToTestID == courseIDToAdd) {
+						courseAdded = true;
+						targetCourseIndex = j;
 						break;
 					} 
 				}
 				
-				
-				if(case3studentIDExists == false ) {
+				while (courseAdded == false) {
 					System.out.println("Course ID does not exist!");
+					System.out.println("Enter Course to Register:");
+					courseIDToAdd = sc.nextInt();
+					
+					for (int j = 0; j < courseList.size(); j++) {
+						Course courseToTest = (Course)courseList.get(j);
+						int courseToTestID = courseToTest.getCourseID();
+						if (courseToTestID == courseIDToAdd) {
+							courseAdded = true;
+							targetCourseIndex = j;
+							break;
+						} 
+					}
 					
 				}
 				
 				
-				//write student record(s) to file
-				StudentDB.saveStudents(case3studentFile, case3studentList); 
 				
-				for (int i = 0 ; i < case3studentList.size() ; i++) {
-						Student studenttoprint = (Student)case3studentList.get(i);
+				System.out.println("courselistsize is:" + studenttoRegisterCourse.getCourseListSize());
+				
+				for (int i=0; i < studenttoRegisterCourse.getCourseListSize(); i++) {
+					if (studenttoRegisterCourse.getCourseID(i) == courseIDToAdd) {
+						System.out.println("this student has course :" + studenttoRegisterCourse.getCourseID(i));
+						System.out.println("Student already in this course!");
+						break;
+					}
+					else if ((i == (studenttoRegisterCourse.getCourseListSize()-1)) && studenttoRegisterCourse.getCourseID(i) != courseIDToAdd )  {
+						studentAlreadyInCourse = false;
+					}
+				}
+				
+				if (studenttoRegisterCourse.getCourseListSize()==0) {
+					studentAlreadyInCourse = false;
+				}
+				
+				while(studentAlreadyInCourse) {
+					System.out.println("Enter Course to Register:");
+					courseIDToAdd = sc.nextInt();
+					
+					for (int i=0; i < studenttoRegisterCourse.getCourseListSize(); i++) {
+						if (studenttoRegisterCourse.getCourseID(i) == courseIDToAdd) {
+							System.out.println("Student already in this course!");
+							break;
+						}
+						if ((i == (studenttoRegisterCourse.getCourseListSize()-1)) && studenttoRegisterCourse.getCourseID(i) != courseIDToAdd ) {
+							studentAlreadyInCourse = false;
+						}
+					}
+				}
+				
+				
+				Course targetCourse = (Course)courseList.get(targetCourseIndex);
+				studenttoRegisterCourse.addCourse(targetCourse);
+				
+				System.out.println("Enter which class code to register in:");
+				System.out.println("List of available class codes");
+				System.out.println("Class Code | Available Slots");
+				for (int i = 0; i < targetCourse.getClassListSize(); i++) {
+					Class printClass = (Class)targetCourse.getClassObject(i);
+					System.out.println(printClass.getClassCode() + "       | " + printClass.getFreeSlots());
+				}
+				
+				classCode = sc.next();
+				
+				for (int i = 0; i <targetCourse.getClassListSize(); i++) {
+					Class testClass = (Class)targetCourse.getClassObject(i);
+					if (testClass.getClassCode().equals(classCode)) {
+						if (testClass.getFreeSlots() != 0) {
+							validClassCode = true;
+							targetClassIndex = i;
+							break;
+						}
+						else {
+							System.out.println("This class code has no vacancy. Please pick a class code with vacancy.");
+							break;
+						}
+					}
+					if (i == (targetCourse.getClassListSize()-1)) {
+						System.out.println("Class code not found. Please enter a valid class code.");
+						break;
+					}
+				}
+		
+				while (validClassCode == false) {
+					System.out.println("Enter which class code to register in:");
+					System.out.println("List of available class codes");
+					System.out.println("Class Code | Available Slots");
+					for (int i = 0; i < targetCourse.getClassListSize(); i++) {
+						Class printClass = (Class)targetCourse.getClassObject(i);
+						System.out.println(printClass.getClassCode() + "       | " + printClass.getFreeSlots());
+					}
+					
+					for (int i = 0; i < targetCourse.getClassListSize(); i++) {
+						Class printClass = (Class)targetCourse.getClassObject(i);
+						//String printout = "%s | %d", printClass.getClassCode(), printClass.getFreeSlots());
+					}
+					
+					classCode = sc.next();
+					
+					for (int i = 0; i <targetCourse.getClassListSize(); i++) {
+						Class testClass = (Class)targetCourse.getClassObject(i);
+						if (testClass.getClassCode().equals(classCode)) {
+							if (testClass.getFreeSlots() != 0) {
+								validClassCode = true;
+								targetClassIndex = i;
+								break;
+							}
+							else {
+								System.out.println("This class code has no vacancy. Please pick a class code with vacancy.");
+								break;
+							}
+						}
+						if (i == targetCourse.getClassListSize()-1) {
+							System.out.println("Class code not found. Please enter a valid class code.");
+							break;
+						}
+					}
+				}
+					
+				Class targetClass = (Class)targetCourse.getClassObject(targetClassIndex);
+				String targetClassClassCode = targetClass.getClassCode();
+				
+				
+				ArrayList classList = new ArrayList(); // to store list of courses
+				classList = ClassDB.readClasses("/Users/trifenacaroline/Downloads/Class.txt");
+				
+				int targetClassIndexInClassList = 999;
+				for(int i=0; i<classList.size(); i++) {
+					Class testClass = (Class)classList.get(i);
+					String testClassClassCode = testClass.getClassCode();
+					if (testClassClassCode.equals(targetClassClassCode)) {
+						targetClassIndexInClassList = i;
+						break;
+					}
+				}
+				
+				int newCourseFreeSlot = 0;
+				for(int i = 0; i < targetCourse.getClassListSize(); i++) {
+					Class testClass = (Class)targetCourse.getClassObject(i);
+					newCourseFreeSlot = newCourseFreeSlot + testClass.getFreeSlots();
+					
+				}
+				targetCourse.setCourseFreeSlot(newCourseFreeSlot);
+				
+				
+				Class targetClassInClassList = (Class)classList.get(targetClassIndexInClassList);
+				
+				
+				targetClassInClassList.addStudent(studenttoRegisterCourse);
+				targetClass.addStudent(studenttoRegisterCourse);
+				targetCourse.addStudent(studenttoRegisterCourse);
+				
+				
+				//write new student added to Class.txt and Course.txt
+				CourseDB.saveCourses("/Users/trifenacaroline/Downloads/Course.txt", courseList);
+				ClassDB.saveClasses("/Users/trifenacaroline/Downloads/Class.txt", classList);
+				
+				//write student record(s) to file after addition of course
+				StudentDB.saveStudents(studentFile, studentList); 
+				
+				for (int i = 0 ; i < studentList.size() ; i++) {
+						Student studenttoprint = (Student)studentList.get(i);
 						System.out.println("Student ID: " + studenttoprint.getStudentID());
 						System.out.println("Student Name: " + studenttoprint.getStudentName() );
 						System.out.println("Courses Registered are: ");

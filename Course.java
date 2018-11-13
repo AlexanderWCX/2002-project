@@ -154,6 +154,10 @@ public class Course {
 		noOfStudents++;
 	}
 	
+	public Assessment getAssessment(int index) {
+		return assessmentList.get(index);
+	}
+	
 	public int getAssessmentListSize()
 	{
 		return assessmentList.size(); 

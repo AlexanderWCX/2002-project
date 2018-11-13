@@ -181,7 +181,7 @@ public class Course {
 		return classList.size(); 
 	}
 
-	public int getClassObject(int index)
+	public Class getClassObject(int index)
 	{
 		return classList.get(index);
 	}

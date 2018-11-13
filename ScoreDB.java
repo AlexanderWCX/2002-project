@@ -22,7 +22,7 @@ public class ScoreDB {
 	public static ArrayList readScores(String directory) throws IOException {
 		
 		ArrayList studentList = new ArrayList(); // to store list of Students
-		studentList = StudentDB.readStudents("/Users/trifenacaroline/Downloads/Student.txt");// Copying the student database into studentList
+		studentList = StudentDB.readStudentIDs("/Users/trifenacaroline/Downloads/Student.txt");// Copying the student database into studentList
 		
 		
 		ArrayList stringArray = new ArrayList();// read String from text file

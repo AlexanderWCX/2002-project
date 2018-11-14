@@ -1,36 +1,64 @@
 package schoolsystem;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Assessment {
-	public int weightage;
-	public String assessmentName;
-	private boolean coursework;
-	private ArrayList<Score> scoreList = new ArrayList<Score>();
+	private int courseID;
+	private String assessmentName;
+	private int weightage;
+	private int coursework;
+	private Score score;
 	
 	
-	public Assessment (int weightage, String assessmentName, boolean coursework) {
+	public Assessment (int courseID, String assessmentName, int weightage, int coursework) {
+		this.courseID = courseID;
 		this.weightage = weightage;
 		this.assessmentName = assessmentName;
 		this.coursework = coursework;
+		this.score = new Score(courseID, assessmentName);
 	}
 	
-
+	static Scanner sc = new Scanner(System.in);
 	
-	public void addScoretoAssessment (int studentID, int score) {
-		ArrayList studentList = new ArrayList(); // to store list of courses
-		studentList = StudentDB.readStudents("/Users/trifenacaroline/Downloads/student.txt");
-		int targetindex;
-		for (int i = 0; i<studentList.size(); i++) {
-			Student studenttocheckID = (Student)studentList.get(i);
-			if (studentID == studenttocheckID.getStudentID()) {
-				targetindex = i;
-				break;
-			}
-		}
-		Student targetStudent = (Student)studentList.get(targetindex);
-		
-		Score newScoreToAdd = new Score(targetStudent, score);
-		scoreList.add(newScoreToAdd);
+	
+	public int getCourseID() {
+		return courseID;
 	}
+	
+	public void setCourseID(int courseID) {
+		this.courseID = courseID;
+	}
+	
+	public int getWeightage() {
+		return weightage;
+	}
+	
+	public void setWeightage(int weightage) {
+		this.weightage = weightage;
+	}
+	
+	public String getAssessmentName() {
+		return assessmentName;
+	}
+	
+	public void setAssessmentName(String assessmentName) {
+		this.assessmentName = assessmentName;
+	}
+	
+	public int getCoursework() {
+		return coursework;
+	}
+	
+	public void setCoursework(int coursework) {
+		this.coursework = coursework;
+	}
+	
+	public Score getScore() {
+		return score;
+	}
+	
+	
+	
+	
 }

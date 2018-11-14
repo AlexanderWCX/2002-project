@@ -1,0 +1,9 @@
+2001|Examination|60|0|
+2001|Project|40|1|
+2004|Examination|60|0|
+2004|Oral Presentation|20|1|
+2004|Quiz|20|1|
+2005|Examination|70|0|
+2005|Quiz|30|1|
+2007|Examination|60|0|
+2007|Project|40|1|

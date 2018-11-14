@@ -1,25 +1,31 @@
 package schoolsystem;
 
-import schoolsystem.Class;
 import schoolsystem.Student;
+import schoolsystem.Score;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class ClassDB {
+public class ScoreDB {
 	public static final String SEPARATOR = "|";
 
 	
 	
-    // an example of reading
-	public static ArrayList readClasses(String directory) throws IOException {
+    // For reading the list of scores from the text file
+	public static ArrayList readScores(String directory) throws IOException {
+		ArrayList studentList = new ArrayList(); // to store list of Students
+		studentList = StudentDB.readStudentIDs("/Users/trifenacaroline/Downloads/student.txt");// Copying the student database into studentList
 		
-		ArrayList studentList = new ArrayList(); // to store list of courses
-		studentList = StudentDB.readStudentIDs("/Users/trifenacaroline/Downloads/student.txt");
 		
-		// read String from text file
-		ArrayList stringArray = new ArrayList();
-		ArrayList classes = new ArrayList() ;// to store Class data
+		ArrayList stringArray = new ArrayList();// read String from text file
+		ArrayList scores = new ArrayList();// to store Score data
     	Scanner input;
     	
         try {
@@ -38,68 +44,69 @@ public class ClassDB {
             e.printStackTrace();
         }
 		//ArrayList stringArray = (ArrayList)read(filename);
-		//ArrayList alr = new ArrayList() ;// to store Professors data
-
+		//ArrayList scores = new ArrayList() ;// to store Scores data
+        
         for (int i = 0 ; i < stringArray.size() ; i++) {
 				String st = (String)stringArray.get(i);
 				// get individual 'fields' of the string separated by SEPARATOR
 				StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
 
 				int courseID = Integer.parseInt(star.nextToken().trim()); // first token
-				String classType = star.nextToken().trim();	// second token
-				String classCode = star.nextToken().trim();	// third token
-				int classSize = Integer.parseInt(star.nextToken().trim());	// fourth token
+				String assessmentName = star.nextToken().trim();	// second token
 				
-				Class newClass = new Class (courseID, classType, classCode, classSize); // create Class Object from file data
+					
+				Score score = new Score(courseID, assessmentName); // create Score Object from file data
+				scores.add(score); //add to Score List
+				
 				
 				
 				while(star.hasMoreTokens()) {
 				int studentID = Integer.parseInt(star.nextToken().trim());
-				for (int j = 0; j < studentList.size(); j++) {
-					Student studentToTest = (Student)studentList.get(j);
+				for (int l = 0; l < studentList.size(); l++) {
+					Student studentToTest = (Student)studentList.get(l);
 					int studentToTestID = studentToTest.getStudentID();
 					if (studentToTestID == studentID) {
-						Student studentToAdd = (Student)studentList.get(j);
-						newClass.addStudent(studentToAdd);
+						Student studentToAdd = (Student)studentList.get(l);
+						score.addStudent(studentToAdd);
 						break;
 					}
-				}
 				
 				}
+				int markToAdd = Integer.parseInt(star.nextToken().trim());
+				score.addMarks(markToAdd);
 				
-				classes.add(newClass); //add to Class List
+				}
 			
         }
-			return classes;
+        
+			return scores;
+		
 	}
         
 	
-	// an example of saving
-	public static void saveClasses(String filename, List inputList) throws IOException {
-			List classes = new ArrayList() ;// to store Professors data
+	// For saving list of scores to the text file
+	public static void saveScores(String filename, List inputList) throws IOException {
+			List scores = new ArrayList() ;// to store Scores data
 
 	        for (int i = 0 ; i < inputList.size() ; i++) {
-					Class class1 = (Class)inputList.get(i);
+					Score score = (Score)inputList.get(i);
 					StringBuilder st =  new StringBuilder() ;
-					st.append(class1.getCourseID());
+					st.append(score.getCourseID());
 					st.append(SEPARATOR);
-					st.append(class1.getClassType().trim());
-					st.append(SEPARATOR);
-					st.append(class1.getClassCode().trim());
-					st.append(SEPARATOR);
-					st.append(class1.getClassSize());
+					st.append(score.getAssessmentName().trim());
 					st.append(SEPARATOR);
 					
-					//add third token append here
-					for (int j = 0; j < class1.getStudentListSize(); j++) {
-						if (class1.getStudentID(j)!= 0) {
-								st.append(class1.getStudentID(j));
+					for (int j = 0; j < score.getStudentListSize(); j++) {
+						if (score.getStudentID(j)!= 0) {
+								st.append(score.getStudentID(j));
+								st.append(SEPARATOR);
+								st.append(score.getMarks(j));
 								st.append(SEPARATOR);
 					    }
 					}
-					classes.add(st.toString()) ;
+					scores.add(st.toString()) ;
 				}
-				write(filename,classes);
+				write(filename,scores);
 		}
 	/** Write fixed content to the given file. */
 	  public static void write(String fileName, List data) throws IOException  {

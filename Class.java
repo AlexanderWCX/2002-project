@@ -3,16 +3,18 @@ package schoolsystem;
 import java.util.*;
 
 public class Class {
-
-	private String classType;
-	private ArrayList<Student> studentList = new ArrayList<Student>();
 	private int courseID;
+	private String classType;
 	private String classCode;
+	private int classSize;
+	private ArrayList<Student> studentList = new ArrayList<Student>();
 	
-	public Class (int courseID, String classType, String classCode) {
+	
+	public Class (int courseID, String classType, String classCode, int classSize) {
 		this.courseID = courseID;
 		this.classType = classType;
 		this.classCode = classCode;
+		this.classSize = classSize; 
 	}
 	
 	public int getCourseID() {
@@ -39,6 +41,15 @@ public class Class {
 		this.classType = classType;
 	}
 	
+	public int getClassSize () {
+		return classSize;
+	}
+	
+	public void setClassSize (int classSize) {
+		this.classSize = classSize;
+	}
+	
+	
 	public void printStudents() {
 		for (int i = 0; i < studentList.size(); i++) {
 			System.out.print(studentList.get(i).getStudentID());
@@ -46,6 +57,7 @@ public class Class {
 			System.out.println(studentList.get(i).getStudentName());
 		}
 	}
+	
 	
 	public void addStudent(Student student) {
 		studentList.add(student);
@@ -57,6 +69,15 @@ public class Class {
 	
 	public int getStudentID (int index) {
 		return studentList.get(index).getStudentID();
+	}
+
+	public Student getStudentObject (int index) {
+		return studentList.get(index);
+	}
+
+	public int getFreeSlots () {
+		int usedSlots = studentList.size();
+		return classSize - usedSlots;
 	}
 	
 }

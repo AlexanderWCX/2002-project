@@ -7,30 +7,36 @@ import java.util.List;
 import java.util.StringTokenizer; 
 import schoolsystem.Student;
 import schoolsystem.Assessment;
+import schoolsystem.Class;
 
 public class Course {
 	
-	int courseID; 
-	int courseFreeSlot;
-	int courseTotalSlot; 
-	String courseName;
-	String courseType; 
-	String courseProfName; 
-	
+	private int courseID; 
+	private String courseName;
+	private int courseType; 
+	private String courseCoordinator; 
+	private int courseFreeSlot;
+	private int courseTotalSlot; 
 	
 	private ArrayList<Student> studentList = new ArrayList<Student>();
-	public ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
-	 
+	private ArrayList<Assessment> assessmentList = new ArrayList<Assessment>();
+	private ArrayList<Class> classList = new ArrayList<Class>(); 
 	
+	private int noOfStudents = 0;
+	private int noOfAssessments = 0;
+	private int noOfClasses = 0;
 	
-	public Course (int courseID, String courseName, String courseType, String courseProfName, int courseFreeSlot, int courseTotalSlot)
+	static Scanner sc = new Scanner(System.in);
+	
+	public Course (int courseID, String courseName, int courseType, String professorName, int courseFreeSlot, int courseTotalSlot)
 	{
 		this.courseID = courseID; 
 		this.courseName = courseName; 
 		this.courseType = courseType; 
-		this.courseProfName = courseProfName; 
+		this.courseCoordinator = professorName; 
 		this.courseFreeSlot = courseFreeSlot;
-		this.courseTotalSlot = courseTotalSlot; 
+		this.courseTotalSlot = courseTotalSlot;
+		
 	}
 	
 	//For Course ID 
@@ -58,26 +64,26 @@ public class Course {
 	
 	
 	//For Course Type 
-	public String getCourseType()
+	public int getCourseType()
 	{
 		return courseType; 
 	}
 	
-	public void setCourseType(String courseType)
+	public void setCourseType(int courseType)
 	{
 		this.courseType = courseType; 
 	}
 	
 	
 	//For Course Coordinator 
-	public String getCourseProfName()
+	public String getCourseCoordinator()
 	{
-		return courseProfName; 
+		return courseCoordinator; 
 	}
 	
-	public void setCourseProfName(String courseProfName)
+	public void setCourseCoodinator (String professorName)
 	{
-		this.courseProfName = courseProfName; 
+		this.courseCoordinator = professorName; 
 	}
 	
 		 
@@ -102,8 +108,41 @@ public class Course {
 		this.courseTotalSlot = courseTotalSlot; 
 	}
 	
+	public int getNoOfClasses()
+	{
+		return noOfClasses; 
+	}
 	
-	public int getStudentList()
+	public void setNoOfClasses(int noOfClasses)
+	{
+		this.noOfClasses = noOfClasses; 
+	}
+	
+	public int getNoOfStudents()
+	{
+		return noOfStudents; 
+	}
+	
+	public void setNoOfStudents(int noOfStudents)
+	{
+		this.noOfStudents = noOfStudents; 
+	}
+	
+	public Assessment getAssessment(int index) {
+		return assessmentList.get(index);
+	}
+	
+	public int getNoOfAssessments()
+	{
+		return noOfAssessments; 
+	}
+	
+	public void setNoOfAssessments(int noOfAssessments)
+	{
+		this.noOfAssessments = noOfAssessments; 
+	}
+	
+	public int getStudentListSize()
 	{
 		return studentList.size(); 
 	}
@@ -113,18 +152,91 @@ public class Course {
 		return studentList.get(index).getStudentID(); 
 	}
 	
-	public void addStudents(Student student)
+	public void addStudent(Student student)
 	{
 		studentList.add(student); 
+		noOfStudents++;
+		courseFreeSlot--;
 	}
 	
 	
-	public void addAssessment (int weightage, String name, boolean coursework)
+	public int getAssessmentListSize()
 	{
-
-		Assessment assessment = new Assessment(weightage, name, coursework); 
+		return assessmentList.size(); 
 	}
 	
+	public String getAssessmentName(int index)
+	{		
+		return assessmentList.get(index).getAssessmentName(); 
+	}
+	
+	public void addAssessment(Assessment assessment) {
+		
+		assessmentList.add(assessment); 
+		noOfAssessments++;
+		
+	
+	}
+	
+	public int getClassListSize()
+	{
+		return classList.size(); 
+	}
+
+	public Class getClassObject(int index)
+	{
+		return classList.get(index);
+	}
+	
+
+	public String getClassCode(int index)
+	{		
+		return classList.get(index).getClassCode(); 
+	}
+	
+	public void addClass(Class newClass) {
+		
+		classList.add(newClass); 
+		noOfClasses++;
+	
+	}
+	
+	
+	public static void checkClass(String classCode)
+	{
+		boolean classCodeExists = true;
+				
+			try {
+			String classFile = "C:\\Users\\mock_\\Desktop\\OODP Software Codes\\Class.txt";
+			ArrayList classList = ClassDB.readClasses(classFile); 
+			
+			
+			while(classCodeExists == true) {
+				for (int i = 0 ; i < classList.size() ; i++) {
+					Class classToCheck = (Class)classList.get(i);
+					if (classCode == classToCheck.getClassCode())
+						classCodeExists = true;
+					else 
+						classCodeExists = false;
+				}
+				
+				//prompt if studentID does not exist
+				if(classCodeExists == true) {
+					System.out.println("Student ID already exists!");
+					System.out.println("Enter New Student ID:");
+					classCode = sc.next();
+					
+				}
+				}
+			
+						
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		
+	}
 	
 }
 

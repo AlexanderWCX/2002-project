@@ -1,6 +1,7 @@
 package schoolsystem;
 
 
+import java.io.IOException;
 import java.util.*;
 import schoolsystem.Course;
 
@@ -9,6 +10,7 @@ public class Student {
 	private String studentName;
 	private ArrayList<Course> courseList = new ArrayList<Course>();
 	
+	static Scanner sc = new Scanner(System.in);
 	
 	public Student (int studentID, String studentName) {
 		this.studentID = studentID;
@@ -49,4 +51,11 @@ public class Student {
 		return courseList.get(index).getCourseID();
 	}
 	
+	public ArrayList<Course> getCourseList(){
+		return courseList;
+	}
+	
+	public Course getCourseObject (int index) {
+		return courseList.get(index);
+	}
 }

@@ -2,6 +2,7 @@ package schoolsystem;
 
 import schoolsystem.CourseDB;
 import schoolsystem.Course;
+import schoolsystem.Professor;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,17 +14,20 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class StudentDB {
+public class ProfessorDB {
 	public static final String SEPARATOR = "|";
+
+	
+	
+    //For reading in list of professors from the textfile
+	public static ArrayList readProfessors(String directory) throws IOException {
 		
-	public static ArrayList readStudents(String directory) throws IOException {
-		ArrayList courseList = new ArrayList(); //To store list of courses
+		ArrayList courseList = new ArrayList(); // to store list of courses
 		courseList = CourseDB.readCourses("/Users/trifenacaroline/Downloads/Course.txt");
 		
 		
-		ArrayList stringArray = new ArrayList();//To read String from text file
-		
-		ArrayList students = new ArrayList() ;//To store Students data
+		ArrayList stringArray = new ArrayList();// read String from text file
+		ArrayList professors = new ArrayList() ;// to store Professors data
     	Scanner input;
     	
         try {
@@ -41,19 +45,22 @@ public class StudentDB {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+		//ArrayList stringArray = (ArrayList)read(filename);
+		//ArrayList students = new ArrayList() ;// to store Students data
+
         for (int i = 0 ; i < stringArray.size() ; i++) {
-				String st = (String)stringArray.get(i);// get individual 'fields' of the string separated by SEPARATOR
+				String st = (String)stringArray.get(i);
+				// get individual 'fields' of the string separated by SEPARATOR
 				StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
 				if(!star.hasMoreTokens()) {
 					break;
 				}
-				int studentID = Integer.parseInt(star.nextToken().trim()); // first token
-				String studentName = star.nextToken().trim();	// second token
+				int staffID = Integer.parseInt(star.nextToken().trim()); // first token
+				String professorName = star.nextToken().trim();	// second token
 
 				
-				Student student = new Student(studentID, studentName); // create Student Object from file data
-				students.add(student); //add to Student List
+				Professor professor = new Professor(staffID, professorName); // create Student Object from file data
+				professors.add(professor); //add to Student List
 				while(star.hasMoreTokens()) {
 				int courseID = Integer.parseInt(star.nextToken().trim());
 				for (int j = 0; j < courseList.size(); j++) {
@@ -62,7 +69,7 @@ public class StudentDB {
 					int courseToTestID = courseToTest.getCourseID();
 					if (courseToTestID == courseID) {
 						Course courseToAdd = (Course)courseList.get(j);
-						student.addCourse(courseToAdd);
+						professor.addCourse(courseToAdd);
 						break;
 					}
 				}
@@ -70,14 +77,16 @@ public class StudentDB {
 				}
 			
         }
-			return students;
+			return professors;
 	}
-        
-public static ArrayList readStudentIDs(String directory) throws IOException {
+     
+	
+	//To read the list of professors in the text file without the list of courses each professor has
+public static ArrayList readProffesorIDs(String directory) throws IOException {
 		
-														
+		
 		ArrayList stringArray = new ArrayList();// read String from text file
-		ArrayList students = new ArrayList() ;// to store Students data
+		ArrayList professors = new ArrayList() ;// to store Professors data
     	Scanner input;
     	
         try {
@@ -103,43 +112,43 @@ public static ArrayList readStudentIDs(String directory) throws IOException {
 				if (!star.hasMoreTokens()) {
 					break;
 				}
-				int studentID = Integer.parseInt(star.nextToken().trim()); // first token
-				String studentName = star.nextToken().trim();	// second token
-				Student student = new Student(studentID, studentName); // create Student Object from file data
-				students.add(student); //add to Student List
+				int staffID = Integer.parseInt(star.nextToken().trim()); // first token
+				String professorName = star.nextToken().trim();	// second token
+				Student professor = new Student(staffID, professorName); // create Professor Object from file data
+				professors.add(professor); //add to Professor List
         }
-			return students;
+			return professors;
 	}
 	
 	
-	// For saving(writing) back to the text file
-	public static void saveStudents(String filename, List inputList) throws IOException {
-			List students = new ArrayList() ;// to store students data
+	// For saving(writing) the list of professors to the text file
+	public static void saveProfessors(String filename, List inputList) throws IOException {
+			List professors = new ArrayList() ;// to store Professors data
 
 	        for (int i = 0 ; i < inputList.size() ; i++) {
-					Student student = (Student)inputList.get(i);
+					Professor professor = (Professor)inputList.get(i);
 					StringBuilder st =  new StringBuilder() ;
-					st.append(student.getStudentID());
+					st.append(professor.getStaffID());
 					st.append(SEPARATOR);
-					st.append(student.getStudentName().trim());
+					st.append(professor.getProfessorName().trim());
 					st.append(SEPARATOR);
-					
-					for (int j = 0; j < student.getCourseListSize(); j++) {
-						if (student.getCourseID(j)!= 0) {
-								st.append(student.getCourseID(j));
+					//add third token append here
+					for (int j = 0; j < professor.getCourseListSize(); j++) {
+						if (professor.getCourseID(j)!= 0) {
+								st.append(professor.getCourseID(j));
 								st.append(SEPARATOR);
 					    }
 					}
-					students.add(st.toString()) ;
+					professors.add(st.toString()) ;
 				}
-				write(filename,students);
+				write(filename,professors);
 		}
 	/** Write fixed content to the given file. */
 	  public static void write(String fileName, List data) throws IOException  {
 	    PrintWriter out = new PrintWriter(new FileWriter(fileName));
 
 	    try {
-			for (int i = 0; i < data.size() ; i++) {
+			for (int i =0; i < data.size() ; i++) {
 	      		out.println((String)data.get(i));
 			}
 	    }

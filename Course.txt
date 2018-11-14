@@ -1,0 +1,4 @@
+2001|Intro to Algo|2|Dr Nick Ng|4|20|16|2|3|1|2|4|6|7|8|9|11|12|14|15|16|17|18|19|20|Examination|Project|ALG1|ALG2|LEC1|
+2004|Intro to Something|2|Dr Benny Frost|19|19|0|0|3|ITS1|ITS2|LEC2|
+2005|Intro to OS|1|Dr Benny Frost|19|19|0|0|2|LEC3|ITO1|
+2007|Intro to Databases|3|Prof Jasmine Lim|19|19|0|4|5|Examination|Project|Examination|Project|ITD1|ITD1|ITD2|ITD2|LEC4|

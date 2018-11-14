@@ -35,7 +35,7 @@ public class Course {
 		this.courseType = courseType; 
 		this.courseCoordinator = professorName; 
 		this.courseFreeSlot = courseFreeSlot;
-		this.courseFreeSlot = courseTotalSlot;
+		this.courseTotalSlot = courseTotalSlot;
 		
 	}
 	

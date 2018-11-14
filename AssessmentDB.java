@@ -55,7 +55,7 @@ import java.util.StringTokenizer;
 					
 					
 					ArrayList scoreList = new ArrayList(); // to store list of scores
-					scoreList = ScoreDB.readScores("C:\\Users\\xanwo\\eclipse-workspace\\java2002project\\src\\schoolsystem\\Score.txt");
+					scoreList = ScoreDB.readScores("/Users/trifenacaroline/Downloads/Score.txt");
 					//finding a matching score object from scoreList to be added to the newly made Assessment object
 					for (int j=0;j<scoreList.size(); j++) {
 							Score scoreToTest = (Score) scoreList.get(j);
@@ -81,7 +81,6 @@ import java.util.StringTokenizer;
 		// an example of saving
 		public static void saveAssessments(String filename, List inputList) throws IOException {
 				List assessments = new ArrayList() ;
-				System.out.println(inputList.size());
 
 		        for (int i = 0 ; i < inputList.size() ; i++) {
 						Assessment assessment = (Assessment)inputList.get(i);

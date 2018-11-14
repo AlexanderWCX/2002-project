@@ -58,5 +58,4 @@ public class Student {
 	public Course getCourseObject (int index) {
 		return courseList.get(index);
 	}
-	
 }

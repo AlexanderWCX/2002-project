@@ -62,21 +62,19 @@ public class SystemInterface {
 			
 		case 6:
 			
-			//Assessment.addAssessment();
+			schoolsystem.addAssessment();
 			break;	
 			
 		case 7:
 			
-			System.out.println("Enter the Students ID: ");
-			System.out.println("Enter the course ID: ");
-			
+			schoolsystem.enterAssessmentMark();
 			break;
 		case 8:
-			
+			schoolsystem.printCourseStats();
 			
 			break;
 		case 9:
-			
+			schoolsystem.printStudentTranscript();
 			break;
 		
 		

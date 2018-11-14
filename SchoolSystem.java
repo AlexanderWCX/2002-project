@@ -904,11 +904,7 @@ public void registerStudent() {
 			
 			*/
 			targetCourse = (Course)courseList.get(targetCourseIndex);
-			System.out.println(targetCourse.getCourseID());
-			System.out.println(targetCourse.getAssessmentListSize());
-			for (int p = 0; p < targetCourse.getAssessmentListSize() ; p++) {
-				System.out.println(targetCourse.getAssessmentName(p));
-			}
+		
 			if(falsebefore) {
 			String empty =sc.nextLine();
 			}
@@ -918,10 +914,6 @@ public void registerStudent() {
 			
 			ArrayList<Assessment> assessmentList = new ArrayList(); // to store list of courses
 			assessmentList = AssessmentDB.readAssessments("/Users/trifenacaroline/Downloads/Assessment.txt");
-			
-			for(int i =0; i<assessmentList.size(); i++) {
-				System.out.println(assessmentList.get(i).getAssessmentName());
-			}
 			
 			
 			while (madeBefore) {
@@ -974,9 +966,6 @@ public void registerStudent() {
 			System.out.println("Enter the weightage of the assessment(out of 100): ");
 			weightage = sc.nextInt();
 			
-			for(int i =0; i<assessmentList.size(); i++) {
-				System.out.println(assessmentList.get(i).getAssessmentName());
-			}
 			
 			Assessment newAssessment = new Assessment(courseID, assessmentName, weightage, courseworkInput);
 			assessmentList.add(newAssessment);
@@ -1334,9 +1323,9 @@ public void enterAssessmentMark(){
 			}
 		
 		}
-				
 		
-		public void printStudentTranscript() {
+		
+public void printStudentTranscript() {
 			
 			boolean studentIDExist = false; 
 			int targetStudentIndex = 999;
@@ -1437,6 +1426,13 @@ public void enterAssessmentMark(){
 		
 		
 		}			
+		
+			
+		
+			
+		
+		
+		
 		public static void printCourses()
 		{
 			String courseFile = "/Users/trifenacaroline/Downloads/Course.txt";

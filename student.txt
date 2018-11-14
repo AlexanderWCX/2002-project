@@ -1,7 +1,21 @@
-1|James|2001|2001|2001|
-2|Astrid|2001|
-3|Miko|2001|
-4|Tiffany|2001|
-5|Andrew|
-6|Jeannie|
-7|Joan|2001|
+1|James Tan|2001|
+2|Katherine Ng|2001|
+3|Bob Lim|
+4|Ben Soh|2001|
+5|Clarissa Ho|
+6|Eddie Lim|2001|
+7|Joshua Lee|2001|
+8|Liza Li|2001|
+9|Scott Ho|2001|
+10|Tricia Lim|
+11|Jessica Ng|2001|
+12|Miko Tan|2001|
+13|Samantha Ng|
+14|Sarah Lim|2001|
+15|Joshua Ng|2001|
+16|Blake Ho|2001|
+17|Jimmy Sim|2001|
+18|Janet Yeo|2001|
+19|Royston Ang|2001|
+20|Isabella Woo|2001|
+27|Lisa Foo|

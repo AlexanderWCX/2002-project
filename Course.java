@@ -201,10 +201,6 @@ public class Course {
 	
 	}
 	
-	public static void checkCourse(int courseID)
-	{
-		
-	}
 	
 	public static void checkClass(String classCode)
 	{

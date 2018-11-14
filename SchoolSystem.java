@@ -1193,11 +1193,11 @@ public void enterAssessmentMark(){
 			Course targetCourse = (Course)courseList.get(targetCourseIndex);
 			
 			System.out.println("Overall Performance (Exam + Coursework)");
-			int allStudentTotalGrade =0;
+			float allStudentTotalGrade =0;
 			
 			for (int i = 0; i<targetCourse.getStudentListSize(); i++) {
 				int studentID = targetCourse.getStudentID(i);
-				int totalMarksForThisStudent = 0;
+				float totalMarksForThisStudent = 0;
 				int targetStudentIndex = 999;
 				
 				for (int j = 0; j<targetCourse.getAssessmentListSize(); j++) {
@@ -1213,8 +1213,10 @@ public void enterAssessmentMark(){
 				    }
 					
 				int studentScore = score.getMarks(targetStudentIndex);
+				float calcScore = (float) studentScore;
 				int weightage = assessmentToCalc.getWeightage();
-				totalMarksForThisStudent = totalMarksForThisStudent + (100 *(studentScore / 100) *  (weightage / 100));
+				float calcWeightage = (float) weightage;
+				totalMarksForThisStudent = totalMarksForThisStudent + ((100 *(calcScore / 100) *  (calcWeightage / 100)));
 				
 				}
 				
@@ -1222,16 +1224,17 @@ public void enterAssessmentMark(){
 				
 			}
 			int noOfStudent = targetCourse.getStudentListSize();
-			int overallgrade = allStudentTotalGrade / noOfStudent;
+			float overallgrade = allStudentTotalGrade / noOfStudent;
 			System.out.println("Overall Grade:" + overallgrade);
+			System.out.println("--------------------------------------");
 			
 			int examWeightage = 0;
 			System.out.println("Exam Performance");
-			int allStudentExamGrade = 0;
+			float allStudentExamGrade = 0;
 			
 			for (int i = 0; i<targetCourse.getStudentListSize(); i++) {
 				int studentID = targetCourse.getStudentID(i);
-				int totalMarksForThisStudent = 0;
+				float totalMarksForThisStudent = 0;
 				int targetStudentIndex = 999;
 				
 				for (int j = 0; j<targetCourse.getAssessmentListSize(); j++) {
@@ -1252,30 +1255,33 @@ public void enterAssessmentMark(){
 				    }
 					
 				int studentScore = score.getMarks(targetStudentIndex);
-				totalMarksForThisStudent = totalMarksForThisStudent + studentScore;
+				float calcScore = (float)studentScore;
+				totalMarksForThisStudent = totalMarksForThisStudent + calcScore;
 				
 				} else {
 					break;
 				}
 				
 				}
-				
+				System.out.println("allstudentexamgrade here is "+ allStudentExamGrade);
 				allStudentExamGrade = allStudentExamGrade + totalMarksForThisStudent;
 				
 			}
 			
 			
-			int overallExamGrade = allStudentExamGrade / noOfStudent;
+			float overallExamGrade = allStudentExamGrade / noOfStudent;
 			System.out.println("Overall Exam Grade:" + overallExamGrade);
+			System.out.println("--------------------------------------");
+			
 			
 			System.out.println("Coursework Performance");
 			
-			int allStudentCourseworkGrade = 0;
+			float allStudentCourseworkGrade = 0;
 			int totalCourseWorkWeightage = 100 - examWeightage;
 					
 			for (int i = 0; i<targetCourse.getStudentListSize(); i++) {
 				int studentID = targetCourse.getStudentID(i);
-				int totalMarksForThisStudent = 0;
+				float totalMarksForThisStudent = 0;
 				int targetStudentIndex = 999;
 				
 				for (int j = 0; j<targetCourse.getAssessmentListSize(); j++) {
@@ -1298,7 +1304,10 @@ public void enterAssessmentMark(){
 				    }
 				
 				int studentScore = score.getMarks(targetStudentIndex);
-				totalMarksForThisStudent = totalMarksForThisStudent + (100 *(studentScore / 100) *  (weightage / totalCourseWorkWeightage));
+				float calcScore = (float)studentScore;
+				float calcWeightage = (float)weightage;
+				float calcTotalCourseWeightage = (float) totalCourseWorkWeightage;
+				totalMarksForThisStudent = totalMarksForThisStudent + (100 *(calcScore / 100) *  (calcWeightage / calcTotalCourseWeightage));
 				
 				
 				} else {
@@ -1312,7 +1321,7 @@ public void enterAssessmentMark(){
 			}
 			
 			
-			int overallCourseworkGrade = allStudentExamGrade / noOfStudent;
+			float overallCourseworkGrade = allStudentExamGrade / noOfStudent;
 			System.out.println("Overall Coursework Grade:" + overallCourseworkGrade);
 			
 			
@@ -1325,7 +1334,7 @@ public void enterAssessmentMark(){
 			}
 		
 		}
-		
+				
 		
 		public void printStudentTranscript() {
 			

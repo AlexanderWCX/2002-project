@@ -1331,7 +1331,7 @@ public void enterAssessmentMark(){
 			
 			boolean studentIDExist = false; 
 			int targetStudentIndex = 999;
-			
+			float overallGrade = 0;
 			String studentFile = "/Users/trifenacaroline/Downloads/student.txt";
 	    	String classFile = "/Users/trifenacaroline/Downloads/Class.txt";
 	    	String courseFile = "/Users/trifenacaroline/Downloads/Course.txt";
@@ -1375,16 +1375,16 @@ public void enterAssessmentMark(){
 				}
 				
 				Student targetStudent = (Student)studentList.get(targetStudentIndex);
-				System.out.print("Student " + studentID + "'s Transcript: ");
-				
+				System.out.println("Student " + studentID + "'s Transcript: ");
+				int targetScoreIndex = 999;
 				for(int i = 0; i < targetStudent.getCourseListSize(); i++) {
 					Course courseToPrint = (Course)targetStudent.getCourseObject(i);
 					int courseID = courseToPrint.getCourseID();
 					String courseName = courseToPrint.getCourseName();
 					
-					System.out.print(courseID + " " + courseName);
+					System.out.println(courseID + " " + courseName + " ");
 					
-					int overallGrade = 0;
+					
 					for (int j = 0; j < courseToPrint.getAssessmentListSize(); j++) {
 						Assessment assessmentToPrint = (Assessment)courseToPrint.getAssessment(j);
 						String assessmentName = assessmentToPrint.getAssessmentName();
@@ -1392,12 +1392,12 @@ public void enterAssessmentMark(){
 						int coursework = assessmentToPrint.getCoursework();
 						String assessmentType = "";
 							if (coursework == 1) {
-							assessmentType = "Coursework";
+							assessmentType = "Coursework ";
 							} else if (coursework == 0){
-							assessmentType = "Non-Coursework";
+							assessmentType = "Non-Coursework ";
 							}
 						Score scoreObject = assessmentToPrint.getScore();
-						int targetScoreIndex = 999;
+						
 						for (int k = 0; k<scoreObject.getStudentListSize(); k++) {
 							if (studentID == scoreObject.getStudentID(j)) {
 								targetScoreIndex = k;
@@ -1405,10 +1405,12 @@ public void enterAssessmentMark(){
 							}
 						}
 						int marks = scoreObject.getMarks(targetScoreIndex);
-					System.out.print(assessmentType + " - " + assessmentName + "(" + weightage + "%) = " + marks);
-						overallGrade = overallGrade + (100* ((marks / 100) * (weightage / 100)));
+						float calcmarks =(float)marks;
+						float calcweightage = (float)weightage;
+					System.out.println(assessmentType + " - " + assessmentName + "(" + weightage + "%) = " + marks);
+						overallGrade = overallGrade + 100*((calcmarks / 100) * (calcweightage / 100));
 					}
-					System.out.print("Overall Score :" + overallGrade );
+					System.out.println("Overall Score : " + overallGrade );
 					
 					
 				}
@@ -1425,8 +1427,7 @@ public void enterAssessmentMark(){
 			
 		
 		
-		}	
-		
+		}			
 		public static void printCourses()
 		{
 			String courseFile = "/Users/trifenacaroline/Downloads/Course.txt";

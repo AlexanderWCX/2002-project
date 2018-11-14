@@ -59,7 +59,8 @@ import java.util.StringTokenizer;
 					//finding a matching score object from scoreList to be added to the newly made Assessment object
 					for (int j=0;j<scoreList.size(); j++) {
 							Score scoreToTest = (Score) scoreList.get(j);
-							if (scoreToTest.getAssessmentName().equals(assessmentName)) {
+							if (scoreToTest.getAssessmentName().equals(assessmentName)&&
+									scoreToTest.getCourseID().equals(courseID)) {
 								for(int k=0; k<scoreToTest.getMarksListSize(); k++) {
 									assessment.getScore().addMarks(scoreToTest.getMarks(k));
 								}
